@@ -3,28 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#173f49">
-  <meta name="description" content="TeachTech - Öğretmenler için Yapay Zeka Destekli Eğitim Patikası.">
+  <meta name="theme-color" content="#153e47">
+  <meta name="description" content="TeachTech - Öğretmenler için Yapay Zeka Patikası.">
   <title>TeachTech · Eğitimde Yapay Zeka Patikası</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #0f1f24;
-      --muted: #5e747d;
+      --ink: #0f2329;
+      --muted: #5d757e;
       --line: #d8e5e2;
-      --bg: #edf4f2;
-      --brand: #176b5b;
-      --brand-dark: #11453b;
-      --navy: #153943;
-      --mint: #dff3eb;
-      --cyan: #e2f4f7;
-      --amber: #fff1d2;
-      --violet: #ede8fa;
-      --rose: #fce8e6;
-      --shadow: 0 12px 36px rgba(17, 57, 53, 0.08);
-      --card-shadow: 0 4px 18px rgba(18, 55, 50, 0.045);
+      --bg: #eef4f3;
+      --brand: #156c5c;
+      --brand-dark: #0f4b40;
+      --navy: #153e47;
+      --mint: #dff4ec;
+      --shadow: 0 14px 40px rgba(15, 47, 51, 0.08);
+      --card-shadow: 0 6px 20px rgba(18, 55, 50, 0.05);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -33,418 +29,362 @@
       overflow: hidden;
       font-family: 'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif;
       color: var(--ink);
-      background: radial-gradient(circle at 10% 8%, rgba(23, 107, 91, 0.12), transparent 32%),
-                  radial-gradient(circle at 92% 92%, rgba(21, 57, 67, 0.12), transparent 30%),
+      background: radial-gradient(circle at 12% 10%, rgba(21, 108, 92, 0.14), transparent 35%),
+                  radial-gradient(circle at 88% 90%, rgba(21, 62, 71, 0.12), transparent 32%),
                   var(--bg);
       display: flex;
       flex-direction: column;
       justify-content: center;
-    }
-    a { color: inherit; text-decoration: none; }
-    
-    .hub-container {
-      width: min(1280px, 96vw);
-      height: min(94vh, 880px);
-      margin: auto;
-      display: grid;
-      grid-template-rows: auto auto 1fr auto;
-      gap: 11px;
-      padding: 6px 0;
-    }
-
-    /* TOP HERO CARD */
-    .hero-banner {
-      display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 14px;
       align-items: center;
     }
-    .hero-main {
-      padding: 18px 24px;
-      border-radius: 20px;
-      background: linear-gradient(125deg, #153943 0%, #176b5b 70%, #1f8a75 100%);
-      color: #fff;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
+    a { color: inherit; text-decoration: none; }
+
+    .hub {
+      width: min(1320px, 95vw);
+      height: min(94vh, 880px);
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 14px;
     }
-    .hero-main::after {
-      content: '';
-      position: absolute;
-      right: -30px;
-      bottom: -30px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(169, 239, 217, 0.22), transparent 70%);
-      pointer-events: none;
+
+    /* TOP HEADER */
+    .hub-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 24px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #133942 0%, #166b5b 75%, #1d826f 100%);
+      color: #fff;
+      box-shadow: var(--shadow);
     }
-    .hero-badge {
+    .header-title-area {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .header-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: #a7f3d0;
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 5px;
+      color: #a7f3d0;
     }
-    .hero-title {
-      font-size: clamp(20px, 2.2vw, 27px);
+    .header-title {
+      font-size: clamp(20px, 2.3vw, 26px);
       font-weight: 900;
-      letter-spacing: -0.035em;
+      letter-spacing: -0.03em;
       line-height: 1.15;
-      margin-bottom: 5px;
     }
-    .hero-desc {
-      color: rgba(255, 255, 255, 0.84);
-      font-size: clamp(11.5px, 1vw, 13px);
-      line-height: 1.35;
-      max-width: 650px;
+    .header-sub {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12.5px;
+      font-weight: 500;
     }
-
-    .hero-workflow {
-      height: 100%;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 14px 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: var(--card-shadow);
-    }
-    .workflow-head {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--brand);
-    }
-    .workflow-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 7px;
-    }
-    .wf-step {
-      background: var(--bg);
-      border: 1px solid #ddecfa;
-      border-radius: 12px;
-      padding: 8px 6px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      transition: transform 0.18s ease;
-    }
-    .wf-step:hover { transform: translateY(-1px); }
-    .wf-step b { font-size: 16px; }
-    .wf-step span { font-size: 10.5px; font-weight: 800; color: var(--ink); }
-
-    /* DERS 0 INTRO CARD */
-    .intro-banner {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 14px;
-      padding: 10px 18px;
-      border-radius: 16px;
-      background: linear-gradient(95deg, #ffffff 0%, #edf8f4 100%);
-      border: 1.5px solid #a3d9cb;
-      box-shadow: var(--card-shadow);
-      transition: all 0.2s ease;
-    }
-    .intro-banner:hover {
-      border-color: var(--brand);
-      box-shadow: 0 8px 24px rgba(23, 107, 91, 0.12);
-      transform: translateY(-1.5px);
-    }
-    .intro-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 11px;
-      background: linear-gradient(135deg, var(--navy), var(--brand));
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: 14px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-    .intro-text h3 {
-      font-size: 13.5px;
-      font-weight: 850;
-      color: var(--ink);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .intro-text p {
-      font-size: 11.5px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
-    .intro-chip {
-      font-size: 10px;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 99px;
-      background: var(--mint);
-      color: var(--brand);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .intro-action {
+    .intro-btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 14px;
-      border-radius: 10px;
-      background: var(--brand);
+      gap: 10px;
+      padding: 11px 20px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       color: #fff;
-      font-size: 11.5px;
+      font-size: 13px;
       font-weight: 800;
-      transition: background 0.15s;
-    }
-    .intro-action:hover { background: var(--brand-dark); }
-
-    /* LESSONS GRID */
-    .lessons-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px;
-      min-height: 0;
-    }
-    .lesson-card {
-      display: grid;
-      grid-template-columns: 36px 1fr auto;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 15px;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      box-shadow: var(--card-shadow);
-      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-    }
-    .lesson-card:hover {
-      transform: translateY(-2px);
-      border-color: #92c4b8;
-      box-shadow: 0 10px 24px rgba(23, 107, 91, 0.1);
-    }
-    .lesson-num {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 13.5px;
-      font-weight: 900;
-      color: #fff;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+      white-space: nowrap;
       flex-shrink: 0;
     }
-    .lesson-info { min-width: 0; }
-    .lesson-info h4 {
-      font-size: 12.5px;
-      font-weight: 800;
-      color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      line-height: 1.25;
+    .intro-btn:hover {
+      background: #ffffff;
+      color: var(--brand-dark);
+      transform: translateY(-1.5px);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
     }
-    .lesson-info p {
-      font-size: 10.5px;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      margin-top: 1px;
+    .intro-btn-play {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      background: #fff;
+      color: var(--brand);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      transition: all 0.2s ease;
     }
-    .lesson-arrow {
+    .intro-btn:hover .intro-btn-play {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    /* SQUARE CARDS GRID (5 COLUMNS x 2 ROWS) */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 14px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .square-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .square-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .square-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(21, 62, 71, 0.11);
+      border-color: #8bbcb0;
+    }
+    .square-card:hover::before {
+      opacity: 1;
+    }
+
+    /* CARD HEADER ROW */
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .card-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .card-arrow {
       width: 26px;
       height: 26px;
       border-radius: 8px;
       background: #f1f6f4;
-      color: var(--brand);
+      color: var(--muted);
       display: grid;
       place-items: center;
       font-size: 12px;
       font-weight: 900;
-      transition: all 0.18s;
-      flex-shrink: 0;
+      transition: all 0.2s ease;
     }
-    .lesson-card:hover .lesson-arrow {
+    .square-card:hover .card-arrow {
       background: var(--brand);
       color: #fff;
       transform: translateX(2px);
     }
 
-    /* CARD COLOR THEMES */
-    .c-1 .lesson-num { background: linear-gradient(135deg, #105347, #176b5b); }
-    .c-2 .lesson-num { background: linear-gradient(135deg, #0e5b72, #178e9b); }
-    .c-3 .lesson-num { background: linear-gradient(135deg, #4338ca, #6366f1); }
-    .c-4 .lesson-num { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
-    .c-5 .lesson-num { background: linear-gradient(135deg, #6d28d9, #8b5cf6); }
-    .c-6 .lesson-num { background: linear-gradient(135deg, #047857, #10b981); }
-    .c-7 .lesson-num { background: linear-gradient(135deg, #b45309, #f59e0b); }
-    .c-8 .lesson-num { background: linear-gradient(135deg, #be185d, #ec4899); }
-    .c-9 .lesson-num { background: linear-gradient(135deg, #c2410c, #f97316); }
-    .c-10 .lesson-num { background: linear-gradient(135deg, #153943, #0f766e); }
+    /* CARD BODY */
+    .card-title {
+      font-size: 14px;
+      font-weight: 850;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .card-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: #f4f8f7;
+      width: fit-content;
+    }
 
-    /* FOOTER BAR */
+    /* COLOR THEMES FOR 10 CARDS */
+    .c1 .card-badge, .c1::before { background: linear-gradient(135deg, #059669, #10b981); }
+    .c2 .card-badge, .c2::before { background: linear-gradient(135deg, #0284c7, #06b6d4); }
+    .c3 .card-badge, .c3::before { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+    .c4 .card-badge, .c4::before { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+    .c5 .card-badge, .c5::before { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .c6 .card-badge, .c6::before { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+    .c7 .card-badge, .c7::before { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .c8 .card-badge, .c8::before { background: linear-gradient(135deg, #e11d48, #f43f5e); }
+    .c9 .card-badge, .c9::before { background: linear-gradient(135deg, #ea580c, #fb923c); }
+    .c10 .card-badge, .c10::before { background: linear-gradient(135deg, #0f766e, #134e4a); }
+
+    /* FOOTER */
     .hub-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 4px;
+      padding: 0 6px;
       color: var(--muted);
       font-size: 11px;
       font-weight: 600;
     }
     .hub-footer strong { color: var(--ink); }
 
-    @media (max-width: 900px) {
-      body { height: auto; overflow: auto; }
-      .hub-container { height: auto; padding: 20px 0; }
-      .hero-banner { grid-template-columns: 1fr; }
-      .lessons-grid { grid-template-columns: 1fr; }
+    @media (max-width: 960px) {
+      body { height: auto; overflow: auto; padding: 16px 0; }
+      .hub { height: auto; }
+      .hub-header { flex-direction: column; align-items: flex-start; }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
     }
   </style>
 </head>
 <body>
-  <main class="hub-container">
-    <!-- TOP HERO BANNER -->
-    <section class="hero-banner">
-      <div class="hero-main">
-        <div class="hero-badge">✦ AI-GALAXY SUNAR</div>
-        <h1 class="hero-title">TeachTech · Eğitimde Yapay Zeka Patikası</h1>
-        <p class="hero-desc">İhtiyacı belirleyin, doğru istemi yazın, materyali üretin ve öğretmen süzgecinden geçirin. Her branşa uygun 10 adımlık uygulamalı patika.</p>
+  <main class="hub">
+    <!-- HEADER -->
+    <header class="hub-header">
+      <div class="header-title-area">
+        <span class="header-tag">✦ AI-GALAXY · TEACHTECH</span>
+        <h1 class="header-title">Eğitimde Yapay Zeka Patikası</h1>
+        <p class="header-sub">Öğretmenler için 10 adımlı uygulamalı içerik ve ders tasarım rehberi</p>
       </div>
-      <div class="hero-workflow">
-        <div class="workflow-head">3 Aşamalı Çalışma Mantığı</div>
-        <div class="workflow-steps">
-          <div class="wf-step"><b>🎯</b><span>İhtiyacı Seç</span></div>
-          <div class="wf-step"><b>🛠️</b><span>Taslak Üret</span></div>
-          <div class="wf-step"><b>✓</b><span>Denetle</span></div>
+      <a class="intro-btn" href="ders0.html">
+        <span class="intro-btn-play">▶</span>
+        <span>Rehber ve Tanıtım (Ders 0)</span>
+      </a>
+    </header>
+
+    <!-- 10 SQUARED CARDS (5 x 2 GRID) -->
+    <section class="cards-grid" aria-label="TeachTech Ders Kartları">
+      <a class="square-card c1" href="ders1.html">
+        <div class="card-top">
+          <div class="card-badge">01</div>
+          <div class="card-arrow">→</div>
         </div>
-      </div>
+        <div>
+          <h2 class="card-title">İhtiyacı Belirleme</h2>
+          <span class="card-tag">Gerçek Öğretmen İşi</span>
+        </div>
+      </a>
+
+      <a class="square-card c2" href="ders2.html">
+        <div class="card-top">
+          <div class="card-badge">02</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Kazanım & Ölçüt</h2>
+          <span class="card-tag">Öğrenme Kanıtı</span>
+        </div>
+      </a>
+
+      <a class="square-card c3" href="ders3.html">
+        <div class="card-top">
+          <div class="card-badge">03</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Etkili İstem Yazma</h2>
+          <span class="card-tag">Görev & Bağlam</span>
+        </div>
+      </a>
+
+      <a class="square-card c4" href="ders4.html">
+        <div class="card-top">
+          <div class="card-badge">04</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Ders Planı</h2>
+          <span class="card-tag">Hedef–Kanıt–Akış</span>
+        </div>
+      </a>
+
+      <a class="square-card c5" href="ders5.html">
+        <div class="card-top">
+          <div class="card-badge">05</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Düzeye Uyarlama</h2>
+          <span class="card-tag">Farklılaştırılmış Eğitim</span>
+        </div>
+      </a>
+
+      <a class="square-card c6" href="ders6.html">
+        <div class="card-top">
+          <div class="card-badge">06</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Materyal Tasarımı</h2>
+          <span class="card-tag">Çalışma Kâğıdı & Kart</span>
+        </div>
+      </a>
+
+      <a class="square-card c7" href="ders7.html">
+        <div class="card-top">
+          <div class="card-badge">07</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Etkinlik Geliştirme</h2>
+          <span class="card-tag">Aktif Katılım</span>
+        </div>
+      </a>
+
+      <a class="square-card c8" href="ders8.html">
+        <div class="card-top">
+          <div class="card-badge">08</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Ölçme & Geri Bildirim</h2>
+          <span class="card-tag">Öğretim Kararı</span>
+        </div>
+      </a>
+
+      <a class="square-card c9" href="ders9.html">
+        <div class="card-top">
+          <div class="card-badge">09</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">Doğruluk & Güvenlik</h2>
+          <span class="card-tag">Etik & Mahremiyet</span>
+        </div>
+      </a>
+
+      <a class="square-card c10" href="ders10.html">
+        <div class="card-top">
+          <div class="card-badge">10</div>
+          <div class="card-arrow">→</div>
+        </div>
+        <div>
+          <h2 class="card-title">İyileştirme & Paylaşım</h2>
+          <span class="card-tag">Zümre & İş Birliği</span>
+        </div>
+      </a>
     </section>
 
-    <!-- INTRO REHBER BANNER -->
-    <a class="intro-banner" href="ders0.html" aria-label="Kullanım Rehberi">
-      <div class="intro-icon">▶</div>
-      <div class="intro-text">
-        <h3>Önce Buradan Başlayın · Kullanım Rehberi <span class="intro-chip">Başlangıç</span></h3>
-        <p>Patika yöntemini, AI-GALAXY editörünü, istem çalışmalarını ve ders sonu şifre sistemini 1 dakikada tanıyın.</p>
-      </div>
-      <div class="intro-action">Rehberi Başlat →</div>
-    </a>
-
-    <!-- 10 LESSON CARDS (2 COLUMNS COMPACT GRID) -->
-    <section class="lessons-grid" aria-label="Ders Listesi">
-      <a class="lesson-card c-1" href="ders1.html">
-        <div class="lesson-num">1</div>
-        <div class="lesson-info">
-          <h4>Eğitim İhtiyacını Belirleme</h4>
-          <p>Önce gerçek öğretmen işini ve öğrenme ihtiyacını netleştirin.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-2" href="ders2.html">
-        <div class="lesson-num">2</div>
-        <div class="lesson-info">
-          <h4>Kazanım & Başarı Ölçütü</h4>
-          <p>Hedefi, kanıtı ve kabul edilebilir öğrenme sonucunu hizalayın.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-3" href="ders3.html">
-        <div class="lesson-num">3</div>
-        <div class="lesson-info">
-          <h4>Etkili İstem Yazma</h4>
-          <p>Görev, bağlam, çıktı ve sınır kurallarıyla istemi güçlendirin.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-4" href="ders4.html">
-        <div class="lesson-num">4</div>
-        <div class="lesson-info">
-          <h4>Ders Planı Geliştirme</h4>
-          <p>Hedef–kanıt–akış üçlüsünü uygulanabilir ders planına dönüştürün.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-5" href="ders5.html">
-        <div class="lesson-num">5</div>
-        <div class="lesson-info">
-          <h4>Öğrenci Düzeyine Uyarlama</h4>
-          <p>Hedefi düşürmeden dili, desteği ve ifade yollarını uyarlayın.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-6" href="ders6.html">
-        <div class="lesson-num">6</div>
-        <div class="lesson-info">
-          <h4>Öğretim Materyali Tasarlama</h4>
-          <p>Çalışma kâğıdı, kart, görsel şema ve sunu iskeleti oluşturun.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-7" href="ders7.html">
-        <div class="lesson-num">7</div>
-        <div class="lesson-info">
-          <h4>Etkinlik Geliştirme</h4>
-          <p>Günlük yaşam bağlantılı, aktif ve katılımcı etkinlikler tasarlayın.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-8" href="ders8.html">
-        <div class="lesson-num">8</div>
-        <div class="lesson-info">
-          <h4>Ölçme ve Geri Bildirim</h4>
-          <p>Öğrenme kanıtını toplayıp yapıcı öğretim kararına çevirin.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-9" href="ders9.html">
-        <div class="lesson-num">9</div>
-        <div class="lesson-info">
-          <h4>Doğruluk, Etik & Güvenlik</h4>
-          <p>Kaynak teyidi, veri gizliliği ve insan denetimini sağlayın.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card c-10" href="ders10.html">
-        <div class="lesson-num">10</div>
-        <div class="lesson-info">
-          <h4>İyileştirme ve Paylaşma</h4>
-          <p>Taslağı test edin, zümreyle paylaşın ve standartlaştırın.</p>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-    </section>
-
-    <!-- FOOTER SUMMARY BAR -->
+    <!-- FOOTER -->
     <footer class="hub-footer">
-      <span><strong>TeachTech</strong> · Öğretmen Tasarım Gücü Odaklı Yapay Zeka Patikası</span>
-      <span>Her çıktıyı sınıfta kullanmadan önce doğrulayın ve uyarlayın.</span>
+      <span><strong>TeachTech</strong> · Eğitimde Yapay Zeka Patikası</span>
+      <span>Her AI çıktısını sınıfta kullanmadan önce doğrulayın ve uyarlayın.</span>
     </footer>
   </main>
 </body>
