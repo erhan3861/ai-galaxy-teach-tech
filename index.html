@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +9,8 @@
   <title>TeachTech · Eğitimde Yapay Zeka Patikası</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --ink: #0f2329;
@@ -22,22 +24,33 @@
       --shadow: 0 14px 40px rgba(15, 47, 51, 0.08);
       --card-shadow: 0 6px 20px rgba(18, 55, 50, 0.045);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
       width: 100%;
       height: 100vh;
       overflow: hidden;
       font-family: 'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif;
       color: var(--ink);
       background: radial-gradient(circle at 10% 8%, rgba(21, 108, 92, 0.13), transparent 35%),
-                  radial-gradient(circle at 90% 92%, rgba(21, 62, 71, 0.12), transparent 32%),
-                  var(--bg);
+        radial-gradient(circle at 90% 92%, rgba(21, 62, 71, 0.12), transparent 32%),
+        var(--bg);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
-    a { color: inherit; text-decoration: none; }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .hub {
       width: min(1340px, 95vw);
@@ -60,11 +73,13 @@
       color: #fff;
       box-shadow: var(--shadow);
     }
+
     .header-title-area {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
+
     .header-tag {
       display: inline-flex;
       align-items: center;
@@ -75,17 +90,20 @@
       text-transform: uppercase;
       color: #a7f3d0;
     }
+
     .header-title {
       font-size: clamp(20px, 2.3vw, 25px);
       font-weight: 900;
       letter-spacing: -0.03em;
       line-height: 1.15;
     }
+
     .header-sub {
       color: rgba(255, 255, 255, 0.84);
       font-size: 12px;
       font-weight: 500;
     }
+
     .intro-btn {
       display: inline-flex;
       align-items: center;
@@ -102,12 +120,14 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
+
     .intro-btn:hover {
       background: #ffffff;
       color: var(--brand-dark);
       transform: translateY(-1.5px);
       box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
     }
+
     .intro-btn-play {
       width: 22px;
       height: 22px;
@@ -119,6 +139,7 @@
       font-size: 11px;
       transition: all 0.2s ease;
     }
+
     .intro-btn:hover .intro-btn-play {
       background: var(--brand);
       color: #fff;
@@ -147,6 +168,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .square-card::before {
       content: '';
       position: absolute;
@@ -157,11 +179,13 @@
       opacity: 0;
       transition: opacity 0.2s ease;
     }
+
     .square-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 14px 34px rgba(21, 62, 71, 0.12);
       border-color: #88c0b2;
     }
+
     .square-card:hover::before {
       opacity: 1;
     }
@@ -178,10 +202,12 @@
       filter: grayscale(0.2);
       transition: all 0.3s ease;
     }
+
     .square-card:hover .card-watermark {
       opacity: 0.16;
       transform: scale(1.1) rotate(6deg);
     }
+
     /* CARD HEADER ROW */
     .card-top {
       display: flex;
@@ -190,11 +216,13 @@
       position: relative;
       z-index: 2;
     }
+
     .card-top-left {
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
     .card-badge {
       width: 28px;
       height: 28px;
@@ -206,12 +234,14 @@
       color: #fff;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
+
     .card-pill {
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
+
     .card-arrow {
       width: 24px;
       height: 24px;
@@ -224,6 +254,7 @@
       font-weight: 900;
       transition: all 0.2s ease;
     }
+
     .square-card:hover .card-arrow {
       background: var(--brand);
       color: #fff;
@@ -243,6 +274,7 @@
       position: relative;
       z-index: 2;
     }
+
     .card-hero-img {
       width: 100%;
       height: 100%;
@@ -250,6 +282,7 @@
       display: block;
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .square-card:hover .card-hero-img {
       transform: scale(1.06);
     }
@@ -263,6 +296,7 @@
       gap: 1px;
       padding-top: 2px;
     }
+
     .card-title {
       font-size: 13.5px;
       font-weight: 850;
@@ -272,6 +306,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .card-focus-text {
       font-size: 11px;
       font-weight: 600;
@@ -282,35 +317,95 @@
     }
 
     /* COLOR THEMES FOR 10 CARDS */
-    .c1 .card-badge, .c1::before { background: linear-gradient(135deg, #059669, #10b981); }
-    .c1 .card-pill { color: #059669; }
+    .c1 .card-badge,
+    .c1::before {
+      background: linear-gradient(135deg, #059669, #10b981);
+    }
 
-    .c2 .card-badge, .c2::before { background: linear-gradient(135deg, #0284c7, #06b6d4); }
-    .c2 .card-pill { color: #0284c7; }
+    .c1 .card-pill {
+      color: #059669;
+    }
 
-    .c3 .card-badge, .c3::before { background: linear-gradient(135deg, #4f46e5, #6366f1); }
-    .c3 .card-pill { color: #4f46e5; }
+    .c2 .card-badge,
+    .c2::before {
+      background: linear-gradient(135deg, #0284c7, #06b6d4);
+    }
 
-    .c4 .card-badge, .c4::before { background: linear-gradient(135deg, #2563eb, #3b82f6); }
-    .c4 .card-pill { color: #2563eb; }
+    .c2 .card-pill {
+      color: #0284c7;
+    }
 
-    .c5 .card-badge, .c5::before { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-    .c5 .card-pill { color: #7c3aed; }
+    .c3 .card-badge,
+    .c3::before {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+    }
 
-    .c6 .card-badge, .c6::before { background: linear-gradient(135deg, #0d9488, #14b8a6); }
-    .c6 .card-pill { color: #0d9488; }
+    .c3 .card-pill {
+      color: #4f46e5;
+    }
 
-    .c7 .card-badge, .c7::before { background: linear-gradient(135deg, #d97706, #f59e0b); }
-    .c7 .card-pill { color: #d97706; }
+    .c4 .card-badge,
+    .c4::before {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+    }
 
-    .c8 .card-badge, .c8::before { background: linear-gradient(135deg, #e11d48, #f43f5e); }
-    .c8 .card-pill { color: #e11d48; }
+    .c4 .card-pill {
+      color: #2563eb;
+    }
 
-    .c9 .card-badge, .c9::before { background: linear-gradient(135deg, #ea580c, #fb923c); }
-    .c9 .card-pill { color: #ea580c; }
+    .c5 .card-badge,
+    .c5::before {
+      background: linear-gradient(135deg, #7c3aed, #a855f7);
+    }
 
-    .c10 .card-badge, .c10::before { background: linear-gradient(135deg, #0f766e, #134e4a); }
-    .c10 .card-pill { color: #0f766e; }
+    .c5 .card-pill {
+      color: #7c3aed;
+    }
+
+    .c6 .card-badge,
+    .c6::before {
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+    }
+
+    .c6 .card-pill {
+      color: #0d9488;
+    }
+
+    .c7 .card-badge,
+    .c7::before {
+      background: linear-gradient(135deg, #d97706, #f59e0b);
+    }
+
+    .c7 .card-pill {
+      color: #d97706;
+    }
+
+    .c8 .card-badge,
+    .c8::before {
+      background: linear-gradient(135deg, #e11d48, #f43f5e);
+    }
+
+    .c8 .card-pill {
+      color: #e11d48;
+    }
+
+    .c9 .card-badge,
+    .c9::before {
+      background: linear-gradient(135deg, #ea580c, #fb923c);
+    }
+
+    .c9 .card-pill {
+      color: #ea580c;
+    }
+
+    .c10 .card-badge,
+    .c10::before {
+      background: linear-gradient(135deg, #0f766e, #134e4a);
+    }
+
+    .c10 .card-pill {
+      color: #0f766e;
+    }
 
     /* FOOTER */
     .hub-footer {
@@ -322,16 +417,35 @@
       font-size: 11px;
       font-weight: 600;
     }
-    .hub-footer strong { color: var(--ink); }
+
+    .hub-footer strong {
+      color: var(--ink);
+    }
 
     @media (max-width: 960px) {
-      body { height: auto; overflow: auto; padding: 16px 0; }
-      .hub { height: auto; }
-      .hub-header { flex-direction: column; align-items: flex-start; }
-      .cards-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      body {
+        height: auto;
+        overflow: auto;
+        padding: 16px 0;
+      }
+
+      .hub {
+        height: auto;
+      }
+
+      .hub-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="hub">
     <!-- HEADER -->
@@ -342,7 +456,7 @@
         <p class="header-sub">Öğretmenler için 10 adımlı uygulamalı içerik ve ders tasarım rehberi</p>
       </div>
       <a class="intro-btn" href="ders0.html" target="_blank" rel="noopener">
-        <span>Rehber ve Tanıtım (Ders 0)</span>
+        <span>Rehber ve Tanıtım</span>
       </a>
     </header>
 
@@ -536,4 +650,5 @@
     </footer>
   </main>
 </body>
+
 </html>
