@@ -13,7 +13,41 @@
     .task-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:0}.task-main{display:grid;align-content:center;gap:12px;padding:24px}.task-main blockquote{margin:0;padding:16px;border-left:4px solid var(--brand);border-radius:0 14px 14px 0;background:#eef6f3;font-size:19px;font-weight:850;line-height:1.35}.task-list{display:grid;gap:9px;padding:20px}.task-item{display:grid;grid-template-columns:38px 1fr;align-items:center;gap:11px;padding:12px;border-radius:13px;background:#f2f6f5}.task-item span:first-child{font-size:23px}.task-item b{display:block;font-size:13px}.task-item small{color:var(--muted)}
     .nav-demo{display:grid;grid-template-rows:54px 1fr 62px;overflow:hidden}.nav-demo-top,.nav-demo-bottom{display:flex;align-items:center;justify-content:space-between;padding:0 18px}.nav-demo-top{color:#fff;background:linear-gradient(110deg,#173e48,var(--brand))}.nav-demo-top b{font-size:13px}.nav-demo-body{display:grid;place-items:center;padding:20px;background:#f8fbfa;text-align:center}.nav-demo-body strong{display:block;margin:7px 0;font-size:24px}.nav-demo-bottom{border-top:1px solid var(--line);background:#fff}.demo-dots{display:flex;gap:5px}.demo-dots i{width:7px;height:7px;border-radius:99px;background:#cbd6d4}.demo-dots i:nth-child(3){width:20px;background:var(--brand)}
     .example-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;min-height:0}.example-card{display:grid;grid-template-rows:auto 1fr auto;gap:11px;padding:17px}.example-preview{display:grid;align-content:center;gap:8px;padding:13px;border-radius:14px;background:#f0f6f4}.example-preview span{height:9px;border-radius:99px;background:#d2e3de}.example-preview span:nth-child(2){width:72%;background:#b6d8ce}.example-preview span:nth-child(3){width:88%}.example-card h3{margin:0}.example-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.4}.example-card .btn{text-decoration:none}
-    .password-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;min-height:0}.flow-list{display:grid;align-content:center;gap:10px;padding:22px}.flow-step{display:grid;grid-template-columns:39px 1fr;align-items:center;gap:11px;padding:11px;border-radius:14px;background:#f1f6f4}.flow-step b:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#fff;background:var(--brand)}.flow-step strong{display:block;font-size:14px}.flow-step span{color:var(--muted);font-size:11px}.password-mock{display:grid;place-items:center;padding:22px;text-align:center;background:linear-gradient(145deg,#173f48,#176b5b);color:#fff}.password-mock .sample{margin:12px 0;padding:12px 24px;border:1px dashed rgba(255,255,255,.5);border-radius:14px;font-size:28px;font-weight:950;letter-spacing:.08em}.password-mock p{max-width:250px;margin:0;color:rgba(255,255,255,.7);font-size:12px;line-height:1.4}
+    .password-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:14px;min-height:0;align-items:center}
+    .flow-list{display:grid;align-content:center;gap:10px;padding:20px}
+    .flow-step{display:grid;grid-template-columns:39px 1fr;align-items:center;gap:11px;padding:10px;border-radius:14px;background:#f1f6f4}
+    .flow-step b:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#fff;background:var(--brand)}
+    .flow-step strong{display:block;font-size:14px}
+    .flow-step span{color:var(--muted);font-size:11px}
+    .modal-mock-container{background:#fff;border:1px solid #dbe6e4;border-radius:20px;box-shadow:0 12px 36px rgba(18,55,57,.12);padding:15px 17px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden}
+    .modal-mock-container::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1 0%,#14b8a6 100%)}
+    .modal-mock-header{display:flex;align-items:flex-start;gap:10px}
+    .mock-flag-box{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#fff4d6,#ffe7b3);display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:0 2px 8px rgba(234,179,8,.15)}
+    .mock-head-text{flex:1;min-width:0}
+    .mock-title{color:#132d34;font-size:12.5px;font-weight:900;line-height:1.25}
+    .mock-subtitle{color:#627982;font-size:10.5px;line-height:1.3;margin-top:2px}
+    .mock-close-btn{width:22px;height:22px;border-radius:50%;background:#f1f5f9;border:none;color:#94a3b8;font-size:10px;display:grid;place-items:center;flex-shrink:0}
+    .mock-clues-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#1e3d45}
+    .mock-clue-pill{width:24px;height:24px;border-radius:7px;background:#ede9fe;color:#6366f1;font-size:11px;font-weight:900;display:grid;place-items:center}
+    .mock-solved-box{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:9px;background:#fefce8;border:1px solid #fef08a;color:#854d0e;font-size:11px;font-weight:700}
+    .mock-input-wrap{background:#f8fafc;border:1px solid #e2e8f0;border-radius:13px;padding:9px 11px;display:flex;flex-direction:column;gap:5px}
+    .mock-input-label{font-size:11px;font-weight:850;color:#172e35}
+    .mock-input-bar{background:#fff;border:1.5px solid #cbd5e1;border-radius:9px;padding:6px 10px;display:flex;align-items:center;position:relative;min-height:34px;transition:border-color .25s,box-shadow .25s}
+    .mock-input-bar.active{border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.15)}
+    .mock-input-bar.success{border-color:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+    .mock-input-placeholder{color:#94a3b8;font-size:11.5px;position:absolute;pointer-events:none;transition:opacity .15s}
+    .mock-typed{color:#0f2a31;font-size:12.5px;font-weight:800;letter-spacing:.04em;z-index:1}
+    .mock-caret{display:inline-block;width:2px;height:14px;background:#0ea5e9;margin-left:2px;vertical-align:middle;animation:mockBlink .7s infinite}
+    @keyframes mockBlink{0%,100%{opacity:1}50%{opacity:0}}
+    .mock-key{margin-left:auto;font-size:14px;color:#eab308}
+    .mock-btn-wrapper{position:relative}
+    .mock-submit{width:100%;min-height:36px;border:none;border-radius:10px;background:#14b8a6;color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 12px rgba(20,184,166,.28);transition:all .25s ease;position:relative;cursor:pointer}
+    .mock-submit.pressed{transform:scale(0.97);filter:brightness(.92)}
+    .mock-submit.checking{background:#0d9488}
+    .mock-submit.success{background:#10b981;box-shadow:0 4px 14px rgba(16,185,129,.35)}
+    .mock-hand-pointer{position:absolute;font-size:22px;pointer-events:none;opacity:0;right:25px;bottom:-18px;transform:translate(0,0);transition:all .5s cubic-bezier(.22,1,.36,1);z-index:15}
+    .mock-hand-pointer.show{opacity:1;transform:translate(-110px,-14px)}
+    .mock-hand-pointer.click{transform:translate(-110px,-14px) scale(0.85)}
     .ready-note{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:17px 0}.ready-note div{padding:12px 7px;border-radius:13px;background:#eef4f2;text-align:center}.ready-note b{display:block;color:var(--brand);font-size:17px}.ready-note span{color:var(--muted);font-size:10px}.finish-copy .btn{text-decoration:none}.password-card .password{font-size:34px}
   </style>
 </head>
@@ -36,14 +70,78 @@
 
         <article class="screen" data-title="Derslerden örnekler"><header class="head"><div><p class="eyebrow">Örnek sayfalar</p><h2>İhtiyacınıza yakın bir uygulamayı açın</h2><p class="lede">Örnekler yeni sekmede açılır; rehberde kaldığınız yer korunur.</p></div><span class="chip">Gör → uyarla → dene</span></header><div class="example-grid"><section class="panel example-card"><div><span class="chip">Planlama</span><h3>Ders planı iskeleti</h3></div><div class="example-preview"><span></span><span></span><span></span><p>Hedef, süre ve öğrenme kanıtını aynı akışta görün.</p></div><a class="btn primary" href="ders4.html?screen=3" target="_blank" rel="noopener">Örneği aç ↗</a></section><section class="panel example-card"><div><span class="chip blue">Etkinlik</span><h3>Günlük yaşam kancası</h3></div><div class="example-preview"><span></span><span></span><span></span><p>Tahmin, eşli konuşma ve gerekçeyi kısa bir etkinlikte birleştirin.</p></div><a class="btn primary" href="ders7.html?screen=3" target="_blank" rel="noopener">Örneği aç ↗</a></section><section class="panel example-card"><div><span class="chip amber">Ölçme</span><h3>Çıkış bileti</h3></div><div class="example-preview"><span></span><span></span><span></span><p>Toplanan kanıtı bir sonraki öğretim kararına bağlayın.</p></div><a class="btn primary" href="ders8.html?screen=3" target="_blank" rel="noopener">Örneği aç ↗</a></section></div></article>
 
-        <article class="screen" data-title="Şifreyi kullanma"><header class="head"><div><p class="eyebrow">Ders tamamlama</p><h2>Şifre son ekranda görünür</h2><p class="lede">Dersi tamamladığınızda kısa, küçük harfli anahtar kelimeyi ana sistemdeki şifre alanına girin.</p></div><span class="chip amber">Küçük harf</span></header><div class="password-layout"><section class="panel flow-list"><div class="flow-step"><b>1</b><span><strong>Dersin son ekranına ilerleyin</strong><span>Şifre yalnız final bölümünde görünür.</span></span></div><div class="flow-step"><b>2</b><span><strong>Şifreyi kopyalayın</strong><span>Türkçe karakterleri değiştirmeyin.</span></span></div><div class="flow-step"><b>3</b><span><strong>Ana sistemdeki alana girin</strong><span>Onaydan sonra sıradaki adıma geçin.</span></span></div></section><aside class="panel password-mock"><div><div style="font-size:34px">🔓</div><small>ÖRNEK GÖSTERİM</small><div class="sample">örnek</div><p>Bu yalnızca gösterimdir. Her dersin kendi şifresini kullanın.</p></div></aside></div></article>
+        <article class="screen" data-title="Şifreyi kullanma"><header class="head"><div><p class="eyebrow">Ders tamamlama</p><h2>Şifre son ekranda görünür</h2><p class="lede">Dersi tamamladığınızda kısa, küçük harfli anahtar kelimeyi ana sistemdeki şifre alanına girin.</p></div><span class="chip amber">Küçük harf</span></header><div class="password-layout"><section class="panel flow-list"><div class="flow-step"><b>1</b><span><strong>Dersin son ekranına ilerleyin</strong><span>Şifre yalnız final bölümünde görünür.</span></span></div><div class="flow-step"><b>2</b><span><strong>Şifreyi kopyalayın</strong><span>Türkçe karakterleri değiştirmeyin.</span></span></div><div class="flow-step"><b>3</b><span><strong>Ana sistemdeki alana girin</strong><span>Onaydan sonra sıradaki adıma geçin.</span></span></div></section><aside class="modal-mock-container" aria-label="Şifre Giriş Alanı Örnek Görseli"><div class="modal-mock-header"><div class="mock-flag-box">🚩</div><div class="mock-head-text"><div class="mock-title">AI-Galaxy Teach Tech Ders 1: Eğitim İhtiyacını Belirleme – Görsel Rehber</div><div class="mock-subtitle">İpuçlarını dikkatlice incele, doğru şifreyi (FLAG'i) bul ve görevi tamamla.</div></div><button class="mock-close-btn" type="button" aria-hidden="true">✕</button></div><div class="mock-clues-row"><span>💡 <b>İpuçları</b></span><div style="display:flex;gap:5px"><span class="mock-clue-pill">1</span><span class="mock-clue-pill">2</span></div></div><div class="mock-solved-box"><span>🏆</span><span><b>1 öğretmen</b> tarafından çözüldü</span></div><div class="mock-input-wrap"><div class="mock-input-label">Bulduğun şifreyi (FLAG'i) buraya yaz</div><div class="mock-input-bar active" id="mockInputBar"><span class="mock-input-placeholder" id="mockPlaceholder">Şifre (FLAG) değerini yaz...</span><span class="mock-typed" id="mockTypedText"></span><span class="mock-caret" id="mockCaret"></span><span class="mock-key">🔑</span></div></div><div class="mock-btn-wrapper"><button class="mock-submit" id="mockSubmitBtn" type="button"><span id="mockBtnText">Şifreyi (FLAG'i) Kontrol Et 🚀</span></button><span class="mock-hand-pointer" id="mockHand">👆</span></div></aside></div></article>
 
-        <article class="screen hero-screen" data-title="Başlamaya hazırsınız"><div class="finish"><section class="card finish-copy"><p class="eyebrow">Patikaya hazırsınız</p><h2>Küçük bir öğretmen işi seçin ve deneyerek ilerleyin.</h2><p class="lede" style="margin-top:8px">İhtiyacı tanımlayın, istemi uyarlayın, çıktıyı doğrulayın ve işe yarayan sürümü saklayın.</p><div class="ready-note"><div><b>1</b><span>gerçek iş</span></div><div><b>✎</b><span>düzenlenmiş istem</span></div><div><b>✓</b><span>öğretmen kontrolü</span></div><div><b>↻</b><span>iyileştirme</span></div></div><div class="finish-actions"><a class="btn primary" href="ders1.html">Patikaya başla →</a><button class="btn" data-copy-target="password-0">Şifreyi kopyala</button></div></section><section class="panel password-card"><div class="password-inner"><div class="lock">🔓</div><div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:900;letter-spacing:.12em">TANITIM ŞİFRESİ</div><div class="password" id="password-0">başla</div><p style="margin:0;color:rgba(255,255,255,.72);font-size:12px">Küçük harflerle yazın.</p></div></section></div></article>
+        <article class="screen hero-screen" data-title="Başlamaya hazırsınız"><div class="finish"><section class="card finish-copy"><p class="eyebrow">Patikaya hazırsınız</p><h2>Küçük bir öğretmen işi seçin ve deneyerek ilerleyin.</h2><p class="lede" style="margin-top:8px">İhtiyacı tanımlayın, istemi uyarlayın, çıktıyı doğrulayın ve işe yarayan sürümü saklayın.</p><div class="ready-note"><div><b>1</b><span>gerçek iş</span></div><div><b>✎</b><span>düzenlenmiş istem</span></div><div><b>✓</b><span>öğretmen kontrolü</span></div><div><b>↻</b><span>iyileştirme</span></div></div><div class="finish-actions"><button class="btn primary" data-copy-target="password-0">Şifreyi kopyala</button></div></section><section class="panel password-card"><div class="password-inner"><div class="lock">🔓</div><div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:900;letter-spacing:.12em">TANITIM ŞİFRESİ</div><div class="password" id="password-0">başla</div><p style="margin:0;color:rgba(255,255,255,.72);font-size:12px">Küçük harflerle yazın.</p></div></section></div></article>
       </section>
       <footer class="bottombar"><div class="nav-note"><strong id="navTitle">Patikaya hoş geldiniz</strong><br>← → tuşlarıyla ilerleyebilirsiniz.</div><div class="dots" id="dots"></div><div class="nav-actions"><button class="btn" id="prev" disabled>← Geri</button><button class="btn primary" id="next">İleri →</button></div></footer>
     </main><div class="toast" id="toast"></div>
   </div></div>
   <script src="assets/teach-tech-common.js"></script>
-  <script>const guideVideo=document.getElementById('guideVideo'),videoScreen=guideVideo.closest('.screen');new MutationObserver(()=>{if(!videoScreen.classList.contains('active'))guideVideo.pause()}).observe(videoScreen,{attributes:true,attributeFilter:['class']});</script>
+  <script>
+    const guideVideo=document.getElementById('guideVideo'),videoScreen=guideVideo.closest('.screen');
+    new MutationObserver(()=>{if(!videoScreen.classList.contains('active'))guideVideo.pause()}).observe(videoScreen,{attributes:true,attributeFilter:['class']});
+
+    // Password input animated showcase
+    (()=>{
+      const typedEl=document.getElementById('mockTypedText'),
+            phEl=document.getElementById('mockPlaceholder'),
+            caretEl=document.getElementById('mockCaret'),
+            inputBar=document.getElementById('mockInputBar'),
+            btn=document.getElementById('mockSubmitBtn'),
+            btnText=document.getElementById('mockBtnText'),
+            hand=document.getElementById('mockHand');
+      if(!typedEl||!btn)return;
+
+      const targetWord='ihtiyaç';
+      let timerId=null, charInterval=null;
+
+      function startCycle(){
+        if(charInterval) clearInterval(charInterval);
+        typedEl.textContent='';
+        phEl.style.opacity='1';
+        caretEl.style.display='inline-block';
+        inputBar.className='mock-input-bar active';
+        btn.className='mock-submit';
+        btnText.innerHTML='Şifreyi (FLAG\'i) Kontrol Et 🚀';
+        hand.className='mock-hand-pointer';
+
+        timerId=setTimeout(()=>{
+          phEl.style.opacity='0';
+          let i=0;
+          charInterval=setInterval(()=>{
+            if(i<targetWord.length){
+              typedEl.textContent+=targetWord[i];
+              i++;
+            }else{
+              clearInterval(charInterval);
+              timerId=setTimeout(()=>{
+                hand.className='mock-hand-pointer show';
+                timerId=setTimeout(()=>{
+                  hand.className='mock-hand-pointer show click';
+                  btn.classList.add('pressed');
+                  timerId=setTimeout(()=>{
+                    btn.classList.remove('pressed');
+                    btn.className='mock-submit checking';
+                    btnText.innerHTML='⏳ Kontrol Ediliyor...';
+                    hand.className='mock-hand-pointer';
+                    timerId=setTimeout(()=>{
+                      btn.className='mock-submit success';
+                      btnText.innerHTML='🎉 Şifre Doğru! Tebrikler ✨';
+                      inputBar.className='mock-input-bar success';
+                      timerId=setTimeout(startCycle,2800);
+                    },750);
+                  },280);
+                },500);
+              },350);
+            }
+          },140);
+        },750);
+      }
+
+      startCycle();
+      btn.addEventListener('click',startCycle);
+    })();
+  </script>
 </body>
 </html>

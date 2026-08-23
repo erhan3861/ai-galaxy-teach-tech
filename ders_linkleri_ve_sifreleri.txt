@@ -9,7 +9,7 @@ Ana sayfa: https://erhan3861.github.io/ai-galaxy-teach-tech/
 Kapsam: Yalnızca ai_galaxy_teach_tech klasörü
 
 ------------------------------------------------------------
-DERS 0 · TANITIM VE KULLANIM REHBERİ
+GİRİŞ DERSİ · TANITIM VE KULLANIM REHBERİ
 Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders0.html
 Yerel: ./ders0.html
 Şifre: başla
