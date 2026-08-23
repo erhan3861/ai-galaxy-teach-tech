@@ -1,3 +1,4 @@
+(() => {
   const lessons = {
     4: {
       title: 'Ders Planı Geliştirme',
