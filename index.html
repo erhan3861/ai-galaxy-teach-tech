@@ -12,15 +12,15 @@
   <style>
     :root {
       --ink: #0f2329;
-      --muted: #5d757e;
-      --line: #d8e5e2;
-      --bg: #eef4f3;
+      --muted: #577079;
+      --line: #d6e4e0;
+      --bg: #edf5f3;
       --brand: #156c5c;
       --brand-dark: #0f4b40;
       --navy: #153e47;
       --mint: #dff4ec;
       --shadow: 0 14px 40px rgba(15, 47, 51, 0.08);
-      --card-shadow: 0 6px 20px rgba(18, 55, 50, 0.05);
+      --card-shadow: 0 6px 20px rgba(18, 55, 50, 0.045);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -29,8 +29,8 @@
       overflow: hidden;
       font-family: 'Plus Jakarta Sans', Inter, ui-sans-serif, system-ui, sans-serif;
       color: var(--ink);
-      background: radial-gradient(circle at 12% 10%, rgba(21, 108, 92, 0.14), transparent 35%),
-                  radial-gradient(circle at 88% 90%, rgba(21, 62, 71, 0.12), transparent 32%),
+      background: radial-gradient(circle at 10% 8%, rgba(21, 108, 92, 0.13), transparent 35%),
+                  radial-gradient(circle at 90% 92%, rgba(21, 62, 71, 0.12), transparent 32%),
                   var(--bg);
       display: flex;
       flex-direction: column;
@@ -40,12 +40,12 @@
     a { color: inherit; text-decoration: none; }
 
     .hub {
-      width: min(1320px, 95vw);
-      height: min(94vh, 880px);
+      width: min(1340px, 95vw);
+      height: min(95vh, 900px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
+      gap: 13px;
     }
 
     /* TOP HEADER */
@@ -54,7 +54,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 16px 24px;
+      padding: 15px 24px;
       border-radius: 20px;
       background: linear-gradient(135deg, #133942 0%, #166b5b 75%, #1d826f 100%);
       color: #fff;
@@ -63,7 +63,7 @@
     .header-title-area {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
     .header-tag {
       display: inline-flex;
@@ -76,26 +76,26 @@
       color: #a7f3d0;
     }
     .header-title {
-      font-size: clamp(20px, 2.3vw, 26px);
+      font-size: clamp(20px, 2.3vw, 25px);
       font-weight: 900;
       letter-spacing: -0.03em;
       line-height: 1.15;
     }
     .header-sub {
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 12px;
       font-weight: 500;
     }
     .intro-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 11px 20px;
+      padding: 10px 18px;
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.28);
       color: #fff;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 800;
       backdrop-filter: blur(8px);
       transition: all 0.2s ease;
@@ -129,7 +129,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: repeat(2, 1fr);
-      gap: 14px;
+      gap: 13px;
       flex: 1;
       min-height: 0;
     }
@@ -138,7 +138,7 @@
       background: #ffffff;
       border: 1px solid var(--line);
       border-radius: 20px;
-      padding: 16px 14px;
+      padding: 14px 14px 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -159,11 +159,28 @@
     }
     .square-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 14px 32px rgba(21, 62, 71, 0.11);
-      border-color: #8bbcb0;
+      box-shadow: 0 14px 34px rgba(21, 62, 71, 0.12);
+      border-color: #88c0b2;
     }
     .square-card:hover::before {
       opacity: 1;
+    }
+
+    /* BACKGROUND WATERMARK ICON */
+    .card-watermark {
+      position: absolute;
+      right: 8px;
+      bottom: 6px;
+      font-size: 58px;
+      line-height: 1;
+      opacity: 0.08;
+      pointer-events: none;
+      filter: grayscale(0.2);
+      transition: all 0.3s ease;
+    }
+    .square-card:hover .card-watermark {
+      opacity: 0.16;
+      transform: scale(1.1) rotate(6deg);
     }
 
     /* CARD HEADER ROW */
@@ -171,15 +188,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
     }
     .card-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
       display: grid;
       place-items: center;
-      font-size: 16px;
+      font-size: 14.5px;
       font-weight: 900;
       color: #fff;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -202,36 +220,107 @@
       transform: translateX(2px);
     }
 
-    /* CARD BODY */
-    .card-title {
-      font-size: 14px;
-      font-weight: 850;
-      color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 4px;
+    /* CARD CENTER VISUAL ICON */
+    .card-center {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 0;
+      position: relative;
+      z-index: 2;
     }
-    .card-tag {
+    .card-visual-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      transition: transform 0.2s ease;
+    }
+    .square-card:hover .card-visual-icon {
+      transform: scale(1.08);
+    }
+    .card-meta-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .card-pill {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .card-focus-text {
       font-size: 11px;
       font-weight: 700;
       color: var(--muted);
-      display: inline-block;
-      padding: 3px 7px;
-      border-radius: 6px;
-      background: #f4f8f7;
-      width: fit-content;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* CARD BOTTOM TITLE */
+    .card-bottom {
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid #f0f4f3;
+      padding-top: 7px;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 850;
+      color: var(--ink);
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* COLOR THEMES FOR 10 CARDS */
     .c1 .card-badge, .c1::before { background: linear-gradient(135deg, #059669, #10b981); }
+    .c1 .card-visual-icon { background: #eaf8f3; }
+    .c1 .card-pill { color: #059669; }
+
     .c2 .card-badge, .c2::before { background: linear-gradient(135deg, #0284c7, #06b6d4); }
+    .c2 .card-visual-icon { background: #e8f7fb; }
+    .c2 .card-pill { color: #0284c7; }
+
     .c3 .card-badge, .c3::before { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+    .c3 .card-visual-icon { background: #eeeffc; }
+    .c3 .card-pill { color: #4f46e5; }
+
     .c4 .card-badge, .c4::before { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+    .c4 .card-visual-icon { background: #eaf2ff; }
+    .c4 .card-pill { color: #2563eb; }
+
     .c5 .card-badge, .c5::before { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .c5 .card-visual-icon { background: #f3ebfc; }
+    .c5 .card-pill { color: #7c3aed; }
+
     .c6 .card-badge, .c6::before { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+    .c6 .card-visual-icon { background: #e8f8f6; }
+    .c6 .card-pill { color: #0d9488; }
+
     .c7 .card-badge, .c7::before { background: linear-gradient(135deg, #d97706, #f59e0b); }
+    .c7 .card-visual-icon { background: #fdf5e6; }
+    .c7 .card-pill { color: #d97706; }
+
     .c8 .card-badge, .c8::before { background: linear-gradient(135deg, #e11d48, #f43f5e); }
+    .c8 .card-visual-icon { background: #fdeef2; }
+    .c8 .card-pill { color: #e11d48; }
+
     .c9 .card-badge, .c9::before { background: linear-gradient(135deg, #ea580c, #fb923c); }
+    .c9 .card-visual-icon { background: #fef2eb; }
+    .c9 .card-pill { color: #ea580c; }
+
     .c10 .card-badge, .c10::before { background: linear-gradient(135deg, #0f766e, #134e4a); }
+    .c10 .card-visual-icon { background: #e7f5f3; }
+    .c10 .card-pill { color: #0f766e; }
 
     /* FOOTER */
     .hub-footer {
@@ -270,113 +359,193 @@
 
     <!-- 10 SQUARED CARDS (5 x 2 GRID) -->
     <section class="cards-grid" aria-label="TeachTech Ders Kartları">
+      <!-- 01 -->
       <a class="square-card c1" href="ders1.html">
+        <div class="card-watermark">🎯</div>
         <div class="card-top">
           <div class="card-badge">01</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">🎯</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">İhtiyaç</span>
+            <span class="card-focus-text">Öğretmen İşi & Teşhis</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">İhtiyacı Belirleme</h2>
-          <span class="card-tag">Gerçek Öğretmen İşi</span>
         </div>
       </a>
 
+      <!-- 02 -->
       <a class="square-card c2" href="ders2.html">
+        <div class="card-watermark">📐</div>
         <div class="card-top">
           <div class="card-badge">02</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">📐</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Hedef</span>
+            <span class="card-focus-text">Öğrenme Kanıtı</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">Kazanım & Ölçüt</h2>
-          <span class="card-tag">Öğrenme Kanıtı</span>
         </div>
       </a>
 
+      <!-- 03 -->
       <a class="square-card c3" href="ders3.html">
+        <div class="card-watermark">✍️</div>
         <div class="card-top">
           <div class="card-badge">03</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">✍️</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">İstem</span>
+            <span class="card-focus-text">Görev, Bağlam & Çıktı</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">Etkili İstem Yazma</h2>
-          <span class="card-tag">Görev & Bağlam</span>
         </div>
       </a>
 
+      <!-- 04 -->
       <a class="square-card c4" href="ders4.html">
+        <div class="card-watermark">📅</div>
         <div class="card-top">
           <div class="card-badge">04</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
-          <h2 class="card-title">Ders Planı</h2>
-          <span class="card-tag">Hedef–Kanıt–Akış</span>
+        <div class="card-center">
+          <div class="card-visual-icon">📅</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Planlama</span>
+            <span class="card-focus-text">Hedef–Kanıt–Akış</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <h2 class="card-title">Ders Planı Geliştirme</h2>
         </div>
       </a>
 
+      <!-- 05 -->
       <a class="square-card c5" href="ders5.html">
+        <div class="card-watermark">🧩</div>
         <div class="card-top">
           <div class="card-badge">05</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">🧩</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Uyarlama</span>
+            <span class="card-focus-text">Farklılaştırılmış Eğitim</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">Düzeye Uyarlama</h2>
-          <span class="card-tag">Farklılaştırılmış Eğitim</span>
         </div>
       </a>
 
+      <!-- 06 -->
       <a class="square-card c6" href="ders6.html">
+        <div class="card-watermark">📄</div>
         <div class="card-top">
           <div class="card-badge">06</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
-          <h2 class="card-title">Materyal Tasarımı</h2>
-          <span class="card-tag">Çalışma Kâğıdı & Kart</span>
+        <div class="card-center">
+          <div class="card-visual-icon">📄</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Materyal</span>
+            <span class="card-focus-text">Çalışma Kâğıdı & Kart</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <h2 class="card-title">Materyal Tasarlama</h2>
         </div>
       </a>
 
+      <!-- 07 -->
       <a class="square-card c7" href="ders7.html">
+        <div class="card-watermark">💡</div>
         <div class="card-top">
           <div class="card-badge">07</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">💡</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Etkinlik</span>
+            <span class="card-focus-text">Aktif & Katılımcı</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">Etkinlik Geliştirme</h2>
-          <span class="card-tag">Aktif Katılım</span>
         </div>
       </a>
 
+      <!-- 08 -->
       <a class="square-card c8" href="ders8.html">
+        <div class="card-watermark">📊</div>
         <div class="card-top">
           <div class="card-badge">08</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">📊</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Ölçme</span>
+            <span class="card-focus-text">Rubrik & Geri Bildirim</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">Ölçme & Geri Bildirim</h2>
-          <span class="card-tag">Öğretim Kararı</span>
         </div>
       </a>
 
+      <!-- 09 -->
       <a class="square-card c9" href="ders9.html">
+        <div class="card-watermark">🛡️</div>
         <div class="card-top">
           <div class="card-badge">09</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
+        <div class="card-center">
+          <div class="card-visual-icon">🛡️</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Güvenlik</span>
+            <span class="card-focus-text">Etik & Mahremiyet</span>
+          </div>
+        </div>
+        <div class="card-bottom">
           <h2 class="card-title">Doğruluk & Güvenlik</h2>
-          <span class="card-tag">Etik & Mahremiyet</span>
         </div>
       </a>
 
+      <!-- 10 -->
       <a class="square-card c10" href="ders10.html">
+        <div class="card-watermark">🚀</div>
         <div class="card-top">
           <div class="card-badge">10</div>
           <div class="card-arrow">→</div>
         </div>
-        <div>
-          <h2 class="card-title">İyileştirme & Paylaşım</h2>
-          <span class="card-tag">Zümre & İş Birliği</span>
+        <div class="card-center">
+          <div class="card-visual-icon">🚀</div>
+          <div class="card-meta-chips">
+            <span class="card-pill">Paylaşım</span>
+            <span class="card-focus-text">Zümre & Standart</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <h2 class="card-title">İyileştirme & Paylaşma</h2>
         </div>
       </a>
     </section>
