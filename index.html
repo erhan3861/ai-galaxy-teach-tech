@@ -182,7 +182,6 @@
       opacity: 0.16;
       transform: scale(1.1) rotate(6deg);
     }
-
     /* CARD HEADER ROW */
     .card-top {
       display: flex;
@@ -191,26 +190,37 @@
       position: relative;
       z-index: 2;
     }
+    .card-top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .card-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       display: grid;
       place-items: center;
-      font-size: 14.5px;
+      font-size: 12px;
       font-weight: 900;
       color: #fff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .card-pill {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .card-arrow {
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
       background: #f1f6f4;
       color: var(--muted);
       display: grid;
       place-items: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 900;
       transition: all 0.2s ease;
     }
@@ -220,71 +230,52 @@
       transform: translateX(2px);
     }
 
-    /* CARD CENTER VISUAL ICON / THUMBNAIL */
-    .card-center {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 4px 0;
+    /* CARD HERO IMAGE (LARGE PROMINENT PREVIEW) */
+    .card-hero-wrap {
+      width: 100%;
+      height: 115px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 4px 0;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: #f8faf9;
       position: relative;
       z-index: 2;
     }
-    .card-thumb-wrap {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      overflow: hidden;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      border: 1.5px solid rgba(255, 255, 255, 0.9);
-      background: #f1f5f4;
-      display: grid;
-      place-items: center;
-      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
-    }
-    .card-thumb {
+    .card-hero-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .square-card:hover .card-thumb-wrap {
-      transform: scale(1.08);
-      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.14);
-    }
-    .card-meta-chips {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-    .card-pill {
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .card-focus-text {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .square-card:hover .card-hero-img {
+      transform: scale(1.06);
     }
 
     /* CARD BOTTOM TITLE */
     .card-bottom {
       position: relative;
       z-index: 2;
-      border-top: 1px solid #f0f4f3;
-      padding-top: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      padding-top: 2px;
     }
     .card-title {
-      font-size: 13px;
+      font-size: 13.5px;
       font-weight: 850;
       color: var(--ink);
-      line-height: 1.25;
+      line-height: 1.22;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-focus-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -351,7 +342,6 @@
         <p class="header-sub">Öğretmenler için 10 adımlı uygulamalı içerik ve ders tasarım rehberi</p>
       </div>
       <a class="intro-btn" href="ders0.html" target="_blank" rel="noopener">
-        <img src="assets/ders1-real-task.jpg" alt="Ders 0" style="width:24px;height:24px;border-radius:7px;object-fit:cover;border:1px solid rgba(255,255,255,0.4);display:block;">
         <span>Rehber ve Tanıtım (Ders 0)</span>
       </a>
     </header>
@@ -360,211 +350,181 @@
     <section class="cards-grid" aria-label="TeachTech Ders Kartları">
       <!-- 01 -->
       <a class="square-card c1" href="ders1.html" target="_blank" rel="noopener">
-        <div class="card-watermark">🎯</div>
         <div class="card-top">
-          <div class="card-badge">01</div>
+          <div class="card-top-left">
+            <div class="card-badge">01</div>
+            <span class="card-pill">İhtiyaç</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders1-need-analysis.jpg" alt="Ders 1 İhtiyaç" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">İhtiyaç</span>
-            <span class="card-focus-text">Öğretmen İşi & Teşhis</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders1-need-analysis.jpg" alt="Ders 1 İhtiyaç" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">İhtiyacı Belirleme</h2>
+          <span class="card-focus-text">Öğretmen İşi & Teşhis</span>
         </div>
       </a>
 
       <!-- 02 -->
       <a class="square-card c2" href="ders2.html" target="_blank" rel="noopener">
-        <div class="card-watermark">📐</div>
         <div class="card-top">
-          <div class="card-badge">02</div>
+          <div class="card-top-left">
+            <div class="card-badge">02</div>
+            <span class="card-pill">Hedef</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders2-learning-outcomes.jpg" alt="Ders 2 Kazanım" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Hedef</span>
-            <span class="card-focus-text">Öğrenme Kanıtı</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders2-learning-outcomes.jpg" alt="Ders 2 Kazanım" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Kazanım & Ölçüt</h2>
+          <span class="card-focus-text">Öğrenme Kanıtı</span>
         </div>
       </a>
 
       <!-- 03 -->
       <a class="square-card c3" href="ders3.html" target="_blank" rel="noopener">
-        <div class="card-watermark">✍️</div>
         <div class="card-top">
-          <div class="card-badge">03</div>
+          <div class="card-top-left">
+            <div class="card-badge">03</div>
+            <span class="card-pill">İstem</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders3-prompt-craft.jpg" alt="Ders 3 İstem" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">İstem</span>
-            <span class="card-focus-text">Görev, Bağlam & Çıktı</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders3-prompt-craft.jpg" alt="Ders 3 İstem" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Etkili İstem Yazma</h2>
+          <span class="card-focus-text">Görev, Bağlam & Çıktı</span>
         </div>
       </a>
 
       <!-- 04 -->
       <a class="square-card c4" href="ders4.html" target="_blank" rel="noopener">
-        <div class="card-watermark">📅</div>
         <div class="card-top">
-          <div class="card-badge">04</div>
+          <div class="card-top-left">
+            <div class="card-badge">04</div>
+            <span class="card-pill">Planlama</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders4-lesson-flow.jpg" alt="Ders 4 Plan" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Planlama</span>
-            <span class="card-focus-text">Hedef–Kanıt–Akış</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders4-lesson-flow.jpg" alt="Ders 4 Plan" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Ders Planı Geliştirme</h2>
+          <span class="card-focus-text">Hedef–Kanıt–Akış</span>
         </div>
       </a>
 
       <!-- 05 -->
       <a class="square-card c5" href="ders5.html" target="_blank" rel="noopener">
-        <div class="card-watermark">🧩</div>
         <div class="card-top">
-          <div class="card-badge">05</div>
+          <div class="card-top-left">
+            <div class="card-badge">05</div>
+            <span class="card-pill">Uyarlama</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders5-udl-lenses.jpg" alt="Ders 5 Uyarlama" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Uyarlama</span>
-            <span class="card-focus-text">Farklılaştırılmış Eğitim</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders5-udl-lenses.jpg" alt="Ders 5 Uyarlama" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Düzeye Uyarlama</h2>
+          <span class="card-focus-text">Farklılaştırılmış Eğitim</span>
         </div>
       </a>
 
       <!-- 06 -->
       <a class="square-card c6" href="ders6.html" target="_blank" rel="noopener">
-        <div class="card-watermark">📄</div>
         <div class="card-top">
-          <div class="card-badge">06</div>
+          <div class="card-top-left">
+            <div class="card-badge">06</div>
+            <span class="card-pill">Materyal</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders6-material-craft.jpg" alt="Ders 6 Materyal" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Materyal</span>
-            <span class="card-focus-text">Çalışma Kâğıdı & Kart</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders6-material-craft.jpg" alt="Ders 6 Materyal" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Materyal Tasarlama</h2>
+          <span class="card-focus-text">Çalışma Kâğıdı & Kart</span>
         </div>
       </a>
 
       <!-- 07 -->
       <a class="square-card c7" href="ders7.html" target="_blank" rel="noopener">
-        <div class="card-watermark">💡</div>
         <div class="card-top">
-          <div class="card-badge">07</div>
+          <div class="card-top-left">
+            <div class="card-badge">07</div>
+            <span class="card-pill">Etkinlik</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders7-active-learning.jpg" alt="Ders 7 Etkinlik" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Etkinlik</span>
-            <span class="card-focus-text">Aktif & Katılımcı</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders7-active-learning.jpg" alt="Ders 7 Etkinlik" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Etkinlik Geliştirme</h2>
+          <span class="card-focus-text">Aktif & Katılımcı</span>
         </div>
       </a>
 
       <!-- 08 -->
       <a class="square-card c8" href="ders8.html" target="_blank" rel="noopener">
-        <div class="card-watermark">📊</div>
         <div class="card-top">
-          <div class="card-badge">08</div>
+          <div class="card-top-left">
+            <div class="card-badge">08</div>
+            <span class="card-pill">Ölçme</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders8-assessment-rubric.jpg" alt="Ders 8 Ölçme" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Ölçme</span>
-            <span class="card-focus-text">Rubrik & Geri Bildirim</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders8-assessment-rubric.jpg" alt="Ders 8 Ölçme" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Ölçme & Geri Bildirim</h2>
+          <span class="card-focus-text">Rubrik & Geri Bildirim</span>
         </div>
       </a>
 
       <!-- 09 -->
       <a class="square-card c9" href="ders9.html" target="_blank" rel="noopener">
-        <div class="card-watermark">🛡️</div>
         <div class="card-top">
-          <div class="card-badge">09</div>
+          <div class="card-top-left">
+            <div class="card-badge">09</div>
+            <span class="card-pill">Güvenlik</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders9-ethical-safety.jpg" alt="Ders 9 Güvenlik" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Güvenlik</span>
-            <span class="card-focus-text">Etik & Mahremiyet</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders9-ethical-safety.jpg" alt="Ders 9 Güvenlik" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">Doğruluk & Güvenlik</h2>
+          <span class="card-focus-text">Etik & Mahremiyet</span>
         </div>
       </a>
 
       <!-- 10 -->
       <a class="square-card c10" href="ders10.html" target="_blank" rel="noopener">
-        <div class="card-watermark">🚀</div>
         <div class="card-top">
-          <div class="card-badge">10</div>
+          <div class="card-top-left">
+            <div class="card-badge">10</div>
+            <span class="card-pill">Paylaşım</span>
+          </div>
           <div class="card-arrow">→</div>
         </div>
-        <div class="card-center">
-          <div class="card-thumb-wrap">
-            <img src="assets/ders1-teacher-decision.jpg" alt="Ders 10 Paylaşım" class="card-thumb" loading="lazy">
-          </div>
-          <div class="card-meta-chips">
-            <span class="card-pill">Paylaşım</span>
-            <span class="card-focus-text">Zümre & Standart</span>
-          </div>
+        <div class="card-hero-wrap">
+          <img src="assets/ders1-teacher-decision.jpg" alt="Ders 10 Paylaşım" class="card-hero-img" loading="lazy">
         </div>
         <div class="card-bottom">
           <h2 class="card-title">İyileştirme & Paylaşma</h2>
+          <span class="card-focus-text">Zümre & Standart</span>
         </div>
       </a>
     </section>
