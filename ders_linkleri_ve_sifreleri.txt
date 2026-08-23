@@ -1,0 +1,68 @@
+============================================================
+AI-GALAXY TEACH-TECH · 10 ADIMLIK ÖĞRETMEN GELİŞİM PATİKASI
+GITHUB PAGES DERS LİNKLERİ VE ADIM ŞİFRELERİ
+============================================================
+
+Yayın: GitHub Pages
+Depo: https://github.com/erhan3861/ai-galaxy-teach-tech
+Ana sayfa: https://erhan3861.github.io/ai-galaxy-teach-tech/
+Kapsam: Yalnızca ai_galaxy_teach_tech klasörü
+
+------------------------------------------------------------
+DERS 1 · EĞİTİM İHTİYACINI BELİRLEME
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders1.html
+Yerel: ./ders1.html
+Şifre: ihtiyaç
+
+DERS 2 · KAZANIM VE BAŞARI ÖLÇÜTLERİNİ BELİRLEME
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders2.html
+Yerel: ./ders2.html
+Şifre: kazanım
+
+DERS 3 · ETKİLİ İSTEM YAZMA
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders3.html
+Yerel: ./ders3.html
+Şifre: istem
+
+DERS 4 · DERS PLANI GELİŞTİRME
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders4.html
+Yerel: ./ders4.html
+Şifre: plan
+
+DERS 5 · İÇERİĞİ ÖĞRENCİ DÜZEYİNE UYARLAMA
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders5.html
+Yerel: ./ders5.html
+Şifre: uyarlama
+
+DERS 6 · ÖĞRETİM MATERYALİ TASARLAMA
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders6.html
+Yerel: ./ders6.html
+Şifre: materyal
+
+DERS 7 · ETKİNLİK GELİŞTİRME
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders7.html
+Yerel: ./ders7.html
+Şifre: etkinlik
+
+DERS 8 · ÖLÇME VE GERİ BİLDİRİM
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders8.html
+Yerel: ./ders8.html
+Şifre: ölçme
+
+DERS 9 · DOĞRULUK, ETİK VE GÜVENLİK KONTROLÜ
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders9.html
+Yerel: ./ders9.html
+Şifre: doğruluk
+
+DERS 10 · İYİLEŞTİRME VE PAYLAŞMA
+Link: https://erhan3861.github.io/ai-galaxy-teach-tech/ders10.html
+Yerel: ./ders10.html
+Şifre: iyileştir
+
+============================================================
+ŞİFRE ÖZETİ
+============================================================
+Ders 1: ihtiyaç     Ders 2: kazanım     Ders 3: istem
+Ders 4: plan        Ders 5: uyarlama    Ders 6: materyal
+Ders 7: etkinlik    Ders 8: ölçme       Ders 9: doğruluk
+Ders 10: iyileştir
