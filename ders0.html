@@ -18,8 +18,7 @@
     .flow-step{display:grid;grid-template-columns:39px 1fr;align-items:center;gap:11px;padding:10px;border-radius:14px;background:#f1f6f4}
     .flow-step b:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#fff;background:var(--brand)}
     .flow-step strong{display:block;font-size:14px}
-    .flow-step span{color:var(--muted);font-size:11px}
-    .modal-mock-container{background:#fff;border:1px solid #dbe6e4;border-radius:20px;box-shadow:0 12px 36px rgba(18,55,57,.12);padding:15px 17px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden}
+    .flow-step span{color:var(--muted);font-si    .modal-mock-container{background:#fff;border:1px solid #dbe6e4;border-radius:20px;box-shadow:0 12px 36px rgba(18,55,57,.12);padding:15px 17px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden;user-select:none;pointer-events:none}
     .modal-mock-container::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1 0%,#14b8a6 100%)}
     .modal-mock-header{display:flex;align-items:flex-start;gap:10px}
     .mock-flag-box{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#fff4d6,#ffe7b3);display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:0 2px 8px rgba(234,179,8,.15)}
@@ -35,13 +34,13 @@
     .mock-input-bar{background:#fff;border:1.5px solid #cbd5e1;border-radius:9px;padding:6px 10px;display:flex;align-items:center;position:relative;min-height:34px;transition:border-color .25s,box-shadow .25s}
     .mock-input-bar.active{border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.15)}
     .mock-input-bar.success{border-color:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.2)}
-    .mock-input-placeholder{color:#94a3b8;font-size:11.5px;position:absolute;pointer-events:none;transition:opacity .15s}
-    .mock-typed{color:#0f2a31;font-size:12.5px;font-weight:800;letter-spacing:.04em;z-index:1}
+    .mock-input-placeholder{color:#94a3b8;font-size:11.5px;position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;transition:opacity .15s}
+    .mock-typed{color:#0f2a31;font-size:12.5px;font-weight:800;letter-spacing:.04em;z-index:1;min-height:16px;display:inline-flex;align-items:center}
     .mock-caret{display:inline-block;width:2px;height:14px;background:#0ea5e9;margin-left:2px;vertical-align:middle;animation:mockBlink .7s infinite}
     @keyframes mockBlink{0%,100%{opacity:1}50%{opacity:0}}
     .mock-key{margin-left:auto;font-size:14px;color:#eab308}
     .mock-btn-wrapper{position:relative}
-    .mock-submit{width:100%;min-height:36px;border:none;border-radius:10px;background:#14b8a6;color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 12px rgba(20,184,166,.28);transition:all .25s ease;position:relative;cursor:pointer}
+    .mock-submit{width:100%;min-height:36px;border:none;border-radius:10px;background:#14b8a6;color:#fff;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 12px rgba(20,184,166,.28);transition:all .25s ease;position:relative}
     .mock-submit.pressed{transform:scale(0.97);filter:brightness(.92)}
     .mock-submit.checking{background:#0d9488}
     .mock-submit.success{background:#10b981;box-shadow:0 4px 14px rgba(16,185,129,.35)}
@@ -70,7 +69,7 @@
 
         <article class="screen" data-title="Derslerden örnekler"><header class="head"><div><p class="eyebrow">Örnek sayfalar</p><h2>İhtiyacınıza yakın bir uygulamayı açın</h2><p class="lede">Örnekler yeni sekmede açılır; rehberde kaldığınız yer korunur.</p></div><span class="chip">Gör → uyarla → dene</span></header><div class="example-grid"><section class="panel example-card"><div><span class="chip">Planlama</span><h3>Ders planı iskeleti</h3></div><div class="example-preview"><span></span><span></span><span></span><p>Hedef, süre ve öğrenme kanıtını aynı akışta görün.</p></div><a class="btn primary" href="ders4.html?screen=3" target="_blank" rel="noopener">Örneği aç ↗</a></section><section class="panel example-card"><div><span class="chip blue">Etkinlik</span><h3>Günlük yaşam kancası</h3></div><div class="example-preview"><span></span><span></span><span></span><p>Tahmin, eşli konuşma ve gerekçeyi kısa bir etkinlikte birleştirin.</p></div><a class="btn primary" href="ders7.html?screen=3" target="_blank" rel="noopener">Örneği aç ↗</a></section><section class="panel example-card"><div><span class="chip amber">Ölçme</span><h3>Çıkış bileti</h3></div><div class="example-preview"><span></span><span></span><span></span><p>Toplanan kanıtı bir sonraki öğretim kararına bağlayın.</p></div><a class="btn primary" href="ders8.html?screen=3" target="_blank" rel="noopener">Örneği aç ↗</a></section></div></article>
 
-        <article class="screen" data-title="Şifreyi kullanma"><header class="head"><div><p class="eyebrow">Ders tamamlama</p><h2>Şifre son ekranda görünür</h2><p class="lede">Dersi tamamladığınızda kısa, küçük harfli anahtar kelimeyi ana sistemdeki şifre alanına girin.</p></div><span class="chip amber">Küçük harf</span></header><div class="password-layout"><section class="panel flow-list"><div class="flow-step"><b>1</b><span><strong>Dersin son ekranına ilerleyin</strong><span>Şifre yalnız final bölümünde görünür.</span></span></div><div class="flow-step"><b>2</b><span><strong>Şifreyi kopyalayın</strong><span>Türkçe karakterleri değiştirmeyin.</span></span></div><div class="flow-step"><b>3</b><span><strong>Ana sistemdeki alana girin</strong><span>Onaydan sonra sıradaki adıma geçin.</span></span></div></section><aside class="modal-mock-container" aria-label="Şifre Giriş Alanı Örnek Görseli"><div class="modal-mock-header"><div class="mock-flag-box">🚩</div><div class="mock-head-text"><div class="mock-title">AI-Galaxy Teach Tech Ders 1: Eğitim İhtiyacını Belirleme – Görsel Rehber</div><div class="mock-subtitle">İpuçlarını dikkatlice incele, doğru şifreyi (FLAG'i) bul ve görevi tamamla.</div></div><button class="mock-close-btn" type="button" aria-hidden="true">✕</button></div><div class="mock-clues-row"><span>💡 <b>İpuçları</b></span><div style="display:flex;gap:5px"><span class="mock-clue-pill">1</span><span class="mock-clue-pill">2</span></div></div><div class="mock-solved-box"><span>🏆</span><span><b>1 öğretmen</b> tarafından çözüldü</span></div><div class="mock-input-wrap"><div class="mock-input-label">Bulduğun şifreyi (FLAG'i) buraya yaz</div><div class="mock-input-bar active" id="mockInputBar"><span class="mock-input-placeholder" id="mockPlaceholder">Şifre (FLAG) değerini yaz...</span><span class="mock-typed" id="mockTypedText"></span><span class="mock-caret" id="mockCaret"></span><span class="mock-key">🔑</span></div></div><div class="mock-btn-wrapper"><button class="mock-submit" id="mockSubmitBtn" type="button"><span id="mockBtnText">Şifreyi (FLAG'i) Kontrol Et 🚀</span></button><span class="mock-hand-pointer" id="mockHand">👆</span></div></aside></div></article>
+        <article class="screen" data-title="Şifreyi kullanma"><header class="head"><div><p class="eyebrow">Ders tamamlama</p><h2>Şifre son ekranda görünür</h2><p class="lede">Dersi tamamladığınızda kısa, küçük harfli anahtar kelimeyi ana sistemdeki şifre alanına girin.</p></div><span class="chip amber">Küçük harf</span></header><div class="password-layout"><section class="panel flow-list"><div class="flow-step"><b>1</b><span><strong>Dersin son ekranına ilerleyin</strong><span>Şifre yalnız final bölümünde görünür.</span></span></div><div class="flow-step"><b>2</b><span><strong>Şifreyi kopyalayın</strong><span>Türkçe karakterleri değiştirmeyin.</span></span></div><div class="flow-step"><b>3</b><span><strong>Ana sistemdeki alana girin</strong><span>Onaydan sonra sıradaki adıma geçin.</span></span></div></section><aside class="modal-mock-container" aria-label="Şifre Giriş Alanı Örnek Görseli"><div class="modal-mock-header"><div class="mock-flag-box">🚩</div><div class="mock-head-text"><div class="mock-title">AI-Galaxy Teach Tech Ders 1: Eğitim İhtiyacını Belirleme – Görsel Rehber</div><div class="mock-subtitle">İpuçlarını dikkatlice incele, doğru şifreyi (FLAG'i) bul ve görevi tamamla.</div></div><div class="mock-close-btn" aria-hidden="true">✕</div></div><div class="mock-clues-row"><span>💡 <b>İpuçları</b></span><div style="display:flex;gap:5px"><span class="mock-clue-pill">1</span><span class="mock-clue-pill">2</span></div></div><div class="mock-solved-box"><span>🏆</span><span><b>1 öğretmen</b> tarafından çözüldü</span></div><div class="mock-input-wrap"><div class="mock-input-label">Bulduğun şifreyi (FLAG'i) buraya yaz</div><div class="mock-input-bar active" id="mockInputBar"><span class="mock-input-placeholder" id="mockPlaceholder">Şifre (FLAG) değerini yaz...</span><span class="mock-typed" id="mockTypedText"></span><span class="mock-caret" id="mockCaret"></span><span class="mock-key">🔑</span></div></div><div class="mock-btn-wrapper"><div class="mock-submit" id="mockSubmitBtn"><span id="mockBtnText">Şifreyi (FLAG'i) Kontrol Et 🚀</span></div><span class="mock-hand-pointer" id="mockHand">👆</span></div></aside></div></article>
 
         <article class="screen hero-screen" data-title="Başlamaya hazırsınız"><div class="finish"><section class="card finish-copy"><p class="eyebrow">Patikaya hazırsınız</p><h2>Küçük bir öğretmen işi seçin ve deneyerek ilerleyin.</h2><p class="lede" style="margin-top:8px">İhtiyacı tanımlayın, istemi uyarlayın, çıktıyı doğrulayın ve işe yarayan sürümü saklayın.</p><div class="ready-note"><div><b>1</b><span>gerçek iş</span></div><div><b>✎</b><span>düzenlenmiş istem</span></div><div><b>✓</b><span>öğretmen kontrolü</span></div><div><b>↻</b><span>iyileştirme</span></div></div><div class="finish-actions"><button class="btn primary" data-copy-target="password-0">Şifreyi kopyala</button></div></section><section class="panel password-card"><div class="password-inner"><div class="lock">🔓</div><div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:900;letter-spacing:.12em">TANITIM ŞİFRESİ</div><div class="password" id="password-0">başla</div><p style="margin:0;color:rgba(255,255,255,.72);font-size:12px">Küçük harflerle yazın.</p></div></section></div></article>
       </section>
@@ -82,7 +81,7 @@
     const guideVideo=document.getElementById('guideVideo'),videoScreen=guideVideo.closest('.screen');
     new MutationObserver(()=>{if(!videoScreen.classList.contains('active'))guideVideo.pause()}).observe(videoScreen,{attributes:true,attributeFilter:['class']});
 
-    // Password input animated showcase
+    // Password input animated showcase (Pure GIF-like self-running cycle)
     (()=>{
       const typedEl=document.getElementById('mockTypedText'),
             phEl=document.getElementById('mockPlaceholder'),
@@ -94,20 +93,34 @@
       if(!typedEl||!btn)return;
 
       const targetWord='ihtiyaç';
-      let timerId=null, charInterval=null;
+      const timeouts=[];
+      let charInterval=null;
+
+      function addTimeout(fn, ms) {
+        const id = setTimeout(fn, ms);
+        timeouts.push(id);
+        return id;
+      }
+
+      function clearAll() {
+        if(charInterval) clearInterval(charInterval);
+        while(timeouts.length) clearTimeout(timeouts.pop());
+      }
 
       function startCycle(){
-        if(charInterval) clearInterval(charInterval);
+        clearAll();
         typedEl.textContent='';
         phEl.style.opacity='1';
+        phEl.style.display='block';
         caretEl.style.display='inline-block';
         inputBar.className='mock-input-bar active';
         btn.className='mock-submit';
         btnText.innerHTML='Şifreyi (FLAG\'i) Kontrol Et 🚀';
         hand.className='mock-hand-pointer';
 
-        timerId=setTimeout(()=>{
+        addTimeout(()=>{
           phEl.style.opacity='0';
+          phEl.style.display='none';
           let i=0;
           charInterval=setInterval(()=>{
             if(i<targetWord.length){
@@ -115,32 +128,31 @@
               i++;
             }else{
               clearInterval(charInterval);
-              timerId=setTimeout(()=>{
+              addTimeout(()=>{
                 hand.className='mock-hand-pointer show';
-                timerId=setTimeout(()=>{
+                addTimeout(()=>{
                   hand.className='mock-hand-pointer show click';
                   btn.classList.add('pressed');
-                  timerId=setTimeout(()=>{
+                  addTimeout(()=>{
                     btn.classList.remove('pressed');
                     btn.className='mock-submit checking';
                     btnText.innerHTML='⏳ Kontrol Ediliyor...';
                     hand.className='mock-hand-pointer';
-                    timerId=setTimeout(()=>{
+                    addTimeout(()=>{
                       btn.className='mock-submit success';
                       btnText.innerHTML='🎉 Şifre Doğru! Tebrikler ✨';
                       inputBar.className='mock-input-bar success';
-                      timerId=setTimeout(startCycle,2800);
-                    },750);
-                  },280);
-                },500);
-              },350);
+                      addTimeout(startCycle, 2800);
+                    }, 750);
+                  }, 280);
+                }, 500);
+              }, 350);
             }
-          },140);
-        },750);
+          }, 140);
+        }, 750);
       }
 
       startCycle();
-      btn.addEventListener('click',startCycle);
     })();
   </script>
 </body>
