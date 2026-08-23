@@ -220,28 +220,37 @@
       transform: translateX(2px);
     }
 
-    /* CARD CENTER VISUAL ICON */
+    /* CARD CENTER VISUAL ICON / THUMBNAIL */
     .card-center {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 6px 0;
+      gap: 10px;
+      padding: 4px 0;
       position: relative;
       z-index: 2;
     }
-    .card-visual-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 13px;
+    .card-thumb-wrap {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      background: #f1f5f4;
       display: grid;
       place-items: center;
-      font-size: 23px;
-      flex-shrink: 0;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
-      transition: transform 0.2s ease;
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
     }
-    .square-card:hover .card-visual-icon {
+    .card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .square-card:hover .card-thumb-wrap {
       transform: scale(1.08);
+      box-shadow: 0 7px 18px rgba(0, 0, 0, 0.14);
     }
     .card-meta-chips {
       display: flex;
@@ -283,43 +292,33 @@
 
     /* COLOR THEMES FOR 10 CARDS */
     .c1 .card-badge, .c1::before { background: linear-gradient(135deg, #059669, #10b981); }
-    .c1 .card-visual-icon { background: #eaf8f3; }
     .c1 .card-pill { color: #059669; }
 
     .c2 .card-badge, .c2::before { background: linear-gradient(135deg, #0284c7, #06b6d4); }
-    .c2 .card-visual-icon { background: #e8f7fb; }
     .c2 .card-pill { color: #0284c7; }
 
     .c3 .card-badge, .c3::before { background: linear-gradient(135deg, #4f46e5, #6366f1); }
-    .c3 .card-visual-icon { background: #eeeffc; }
     .c3 .card-pill { color: #4f46e5; }
 
     .c4 .card-badge, .c4::before { background: linear-gradient(135deg, #2563eb, #3b82f6); }
-    .c4 .card-visual-icon { background: #eaf2ff; }
     .c4 .card-pill { color: #2563eb; }
 
     .c5 .card-badge, .c5::before { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-    .c5 .card-visual-icon { background: #f3ebfc; }
     .c5 .card-pill { color: #7c3aed; }
 
     .c6 .card-badge, .c6::before { background: linear-gradient(135deg, #0d9488, #14b8a6); }
-    .c6 .card-visual-icon { background: #e8f8f6; }
     .c6 .card-pill { color: #0d9488; }
 
     .c7 .card-badge, .c7::before { background: linear-gradient(135deg, #d97706, #f59e0b); }
-    .c7 .card-visual-icon { background: #fdf5e6; }
     .c7 .card-pill { color: #d97706; }
 
     .c8 .card-badge, .c8::before { background: linear-gradient(135deg, #e11d48, #f43f5e); }
-    .c8 .card-visual-icon { background: #fdeef2; }
     .c8 .card-pill { color: #e11d48; }
 
     .c9 .card-badge, .c9::before { background: linear-gradient(135deg, #ea580c, #fb923c); }
-    .c9 .card-visual-icon { background: #fef2eb; }
     .c9 .card-pill { color: #ea580c; }
 
     .c10 .card-badge, .c10::before { background: linear-gradient(135deg, #0f766e, #134e4a); }
-    .c10 .card-visual-icon { background: #e7f5f3; }
     .c10 .card-pill { color: #0f766e; }
 
     /* FOOTER */
@@ -352,7 +351,7 @@
         <p class="header-sub">Öğretmenler için 10 adımlı uygulamalı içerik ve ders tasarım rehberi</p>
       </div>
       <a class="intro-btn" href="ders0.html" target="_blank" rel="noopener">
-        <span class="intro-btn-play">▶</span>
+        <img src="assets/ders1-real-task.jpg" alt="Ders 0" style="width:24px;height:24px;border-radius:7px;object-fit:cover;border:1px solid rgba(255,255,255,0.4);display:block;">
         <span>Rehber ve Tanıtım (Ders 0)</span>
       </a>
     </header>
@@ -367,7 +366,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">🎯</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders1-need-analysis.jpg" alt="Ders 1 İhtiyaç" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">İhtiyaç</span>
             <span class="card-focus-text">Öğretmen İşi & Teşhis</span>
@@ -386,7 +387,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">📐</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders2-learning-outcomes.jpg" alt="Ders 2 Kazanım" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Hedef</span>
             <span class="card-focus-text">Öğrenme Kanıtı</span>
@@ -405,7 +408,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">✍️</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders3-prompt-craft.jpg" alt="Ders 3 İstem" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">İstem</span>
             <span class="card-focus-text">Görev, Bağlam & Çıktı</span>
@@ -424,7 +429,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">📅</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders4-lesson-flow.jpg" alt="Ders 4 Plan" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Planlama</span>
             <span class="card-focus-text">Hedef–Kanıt–Akış</span>
@@ -443,7 +450,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">🧩</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders5-udl-lenses.jpg" alt="Ders 5 Uyarlama" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Uyarlama</span>
             <span class="card-focus-text">Farklılaştırılmış Eğitim</span>
@@ -462,7 +471,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">📄</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders6-material-craft.jpg" alt="Ders 6 Materyal" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Materyal</span>
             <span class="card-focus-text">Çalışma Kâğıdı & Kart</span>
@@ -481,7 +492,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">💡</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders7-active-learning.jpg" alt="Ders 7 Etkinlik" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Etkinlik</span>
             <span class="card-focus-text">Aktif & Katılımcı</span>
@@ -500,7 +513,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">📊</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders8-assessment-rubric.jpg" alt="Ders 8 Ölçme" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Ölçme</span>
             <span class="card-focus-text">Rubrik & Geri Bildirim</span>
@@ -519,7 +534,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">🛡️</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders9-ethical-safety.jpg" alt="Ders 9 Güvenlik" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Güvenlik</span>
             <span class="card-focus-text">Etik & Mahremiyet</span>
@@ -538,7 +555,9 @@
           <div class="card-arrow">→</div>
         </div>
         <div class="card-center">
-          <div class="card-visual-icon">🚀</div>
+          <div class="card-thumb-wrap">
+            <img src="assets/ders1-teacher-decision.jpg" alt="Ders 10 Paylaşım" class="card-thumb" loading="lazy">
+          </div>
           <div class="card-meta-chips">
             <span class="card-pill">Paylaşım</span>
             <span class="card-focus-text">Zümre & Standart</span>
