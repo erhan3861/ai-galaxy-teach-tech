@@ -1,96 +1,537 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#183f4a">
-  <title>TeachTech - Eğitimde Yapay Zeka Patikası · Ders 3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#156c5c">
+  <meta name="description" content="Ders 3: Yapay zekâya etkili istem yazma. Her ekranda tek bilgi, görsel ve kopyalanabilir örnek promptlar.">
+  <title>TeachTech &middot; Ders 3: Etkili İstem Yazma</title>
   <style>
-    :root{--ink:#17262e;--muted:#63727a;--canvas:#edf2f2;--surface:#fff;--line:#d9e3e2;--brand:#176b5b;--navy:#183f4a;--mint:#dff3eb;--cyan:#e3f3f7;--amber:#fff0cf;--rose:#fbe7e5;--violet:#eeeafa;--shadow:0 18px 52px rgba(18,55,57,.14);--r:21px}
-    *{box-sizing:border-box}html,body{width:100%;height:100dvh;margin:0;overflow:hidden}body{color:var(--ink);background:radial-gradient(circle at 8% 10%,rgba(38,133,116,.15),transparent 30%),radial-gradient(circle at 92% 90%,rgba(43,115,144,.14),transparent 32%),var(--canvas);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;text-rendering:optimizeLegibility}button,input,select,textarea{font:inherit}button{color:inherit}.viewport{position:fixed;inset:0;overflow:hidden}.tutorial-stage{position:absolute;width:1100px;height:650px;transform-origin:top left;will-change:transform}.app{width:1100px;height:650px;display:grid;grid-template-rows:58px minmax(0,1fr) 64px;overflow:hidden;border:1px solid rgba(255,255,255,.9);border-radius:26px;background:#f8faf9;box-shadow:var(--shadow)}
-    .appbar{display:flex;align-items:center;gap:15px;padding:0 25px;color:#fff;background:linear-gradient(110deg,#163c46,#176b5b 74%,#278675)}.brand{display:flex;align-items:center;gap:9px;min-width:220px;font-weight:900;letter-spacing:.04em}.brand-mark{width:31px;height:31px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:rgba(255,255,255,.14)}.lesson-meta{flex:1;color:rgba(255,255,255,.78);font-size:14px;font-weight:750}.lesson-meta strong{color:#fff}.progress{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:900}.track{width:116px;height:7px;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.23)}.fill{height:100%;width:8.33%;border-radius:inherit;background:#a9efd9;transition:.2s}
-    .stage{position:relative;min-height:0;overflow:hidden}.screen{position:absolute;inset:0;display:none;grid-template-rows:auto minmax(0,1fr);gap:16px;padding:20px 27px 18px;overflow:hidden}.screen.active{display:grid;animation:enter .25s ease both}@keyframes enter{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
-    h1,h2,h3,p{margin-top:0}h1,h2{margin-bottom:4px;line-height:1.07;letter-spacing:-.035em}h1{font-size:40px}h2{font-size:29px}h3{margin-bottom:6px;font-size:18px;line-height:1.2}.head{display:flex;align-items:end;justify-content:space-between;gap:25px;min-height:69px}.eyebrow{margin:0 0 5px;color:var(--brand);font-size:11px;font-weight:950;letter-spacing:.13em;text-transform:uppercase}.lede{max-width:660px;margin:0;color:var(--muted);font-size:15px;line-height:1.4}.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:var(--mint);color:#164f45;font-size:12px;font-weight:900}.chip.blue{background:var(--cyan);color:#24586b}.chip.amber{background:var(--amber);color:#77511c}.panel,.card{border:1px solid var(--line);border-radius:var(--r);background:#fff;box-shadow:0 7px 22px rgba(21,62,59,.055)}.card{padding:17px}.soft-mint{background:linear-gradient(145deg,#fbfffd,#e7f6ef)}.soft-cyan{background:linear-gradient(145deg,#fcfeff,#e7f4f7)}.soft-amber{background:linear-gradient(145deg,#fffefa,#fff1d7)}.soft-violet{background:linear-gradient(145deg,#fff,#f0edfb)}.muted{color:var(--muted)}.micro{margin:0;color:var(--muted);font-size:12px;line-height:1.35}
-    .btn{min-height:37px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 13px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:13px;font-weight:900;cursor:pointer}.btn:hover{transform:translateY(-1px);border-color:#9ebfb7}.btn.primary{color:#fff;border-color:var(--brand);background:var(--brand)}.btn.small{min-height:32px;padding:0 10px;font-size:11px}.btn.active{color:#fff;border-color:var(--brand);background:var(--brand)}
-    .bottombar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;padding:0 24px;border-top:1px solid var(--line);background:rgba(255,255,255,.96)}.nav-note{color:var(--muted);font-size:11px;line-height:1.25}.nav-note strong{color:var(--ink)}.dots{display:flex;gap:6px;align-items:center}.dot{width:7px;height:7px;padding:0;border:0;border-radius:99px;background:#cbd6d4;cursor:pointer}.dot.active{width:20px;background:var(--brand)}.nav-actions{display:flex;justify-content:end;gap:8px}.nav-actions .btn:disabled{opacity:.35;cursor:default;transform:none}
-    /* açılış */
-    .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:18px;min-height:0}.hero-copy{display:flex;flex-direction:column;justify-content:center;padding:28px;border-radius:25px;color:#fff;background:radial-gradient(circle at 88% 15%,rgba(169,239,217,.22),transparent 28%),linear-gradient(135deg,#173e48,#176b5b)}.hero-copy .eyebrow{color:#a9efd9}.hero-copy p:not(.eyebrow){max-width:520px;margin:11px 0 18px;color:rgba(255,255,255,.8);font-size:16px;line-height:1.43}.hero-pills{display:flex;gap:8px;flex-wrap:wrap}.hero-pills span{padding:7px 10px;border-radius:9px;background:rgba(255,255,255,.12);font-size:12px;font-weight:850}.hero-visual{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:19px;overflow:hidden}.hero-visual img{width:100%;height:200px;object-fit:contain;grid-column:1/-1}.orbit-card{display:grid;place-items:center;padding:13px;border-radius:15px;text-align:center}.orbit-card strong{display:block;font-size:16px}.orbit-card span{font-size:11px;color:var(--muted)}
-    /* formül */
-    .formula-layout{display:grid;grid-template-columns:1fr 270px;gap:17px;min-height:0}.formula-board{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;padding:18px}.block{position:relative;display:grid;align-content:center;gap:8px;padding:14px;border-radius:16px;text-align:center}.block:nth-child(1){background:var(--mint)}.block:nth-child(2){background:var(--cyan)}.block:nth-child(3){background:var(--amber)}.block:nth-child(4){background:var(--violet)}.block:nth-child(5){background:#e7f2ec}.block .ico{font-size:28px}.block b{font-size:16px}.block span{font-size:11px;line-height:1.3;color:var(--muted)}.block:not(:last-child):after{content:'+';position:absolute;right:-9px;top:48%;z-index:2;color:var(--brand);font-size:18px;font-weight:950}.formula-side{display:grid;align-content:center;gap:12px;padding:22px}.formula-side .rule{padding:13px;border-radius:14px;background:#f0f5f3;font-size:14px;font-weight:800;line-height:1.35}
-    /* ortak pratik */
-    .practice{display:grid;grid-template-columns:330px 1fr;gap:17px;min-height:0}.brief{display:grid;align-content:center;gap:11px;padding:22px}.practice-no{width:44px;height:44px;display:grid;place-items:center;border-radius:14px;background:var(--brand);color:#fff;font-size:20px;font-weight:950}.brief blockquote{margin:0;padding:14px;border-left:4px solid var(--brand);border-radius:0 13px 13px 0;background:#f1f6f4;font-size:17px;font-weight:800;line-height:1.35}.work{min-height:0;padding:17px;overflow:hidden}.work-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}.option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.option{display:grid;align-content:center;min-height:95px;padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:left;cursor:pointer}.option:hover{border-color:#92b9af}.option.correct,.option.selected{border-color:#66a895;background:var(--mint)}.option.wrong{border-color:#d69b96;background:var(--rose)}.option strong{display:block;margin-bottom:4px;font-size:14px}.option span{color:var(--muted);font-size:11px;line-height:1.3}.feedback{margin-top:10px;padding:10px 12px;border-radius:12px;background:#f0f4f3;color:var(--muted);font-size:12px;line-height:1.35}
-    .prompt-box{padding:14px;border-radius:14px;background:#173f47;color:#effaf7;font:12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}.prompt-box.light{background:#f0f4f3;color:#25373e}.token-row{display:flex;flex-wrap:wrap;gap:8px}.token{padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:12px;font-weight:850;cursor:pointer}.token.selected{color:#fff;border-color:var(--brand);background:var(--brand)}
-    /* çıktı biçimi */
-    .format-layout{display:grid;grid-template-columns:280px 1fr;gap:14px}.format-buttons{display:grid;gap:9px}.format-btn{display:grid;grid-template-columns:40px 1fr;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:13px;background:#fff;text-align:left;cursor:pointer}.format-btn.active{border-color:#6ba995;background:var(--mint)}.format-icon{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:#edf3f1;font-size:20px}.preview{display:grid;grid-template-rows:auto 1fr;gap:10px;padding:18px}.preview-sheet{display:grid;align-content:center;gap:8px;padding:18px;border:1px dashed #b4c8c3;border-radius:15px;background:#fbfdfc}.preview-line{height:11px;border-radius:99px;background:#dfe9e6}.preview-line.short{width:56%}.preview-table{display:grid;grid-template-columns:1fr 2fr;gap:5px}.preview-table span{height:32px;border-radius:7px;background:#e4efec}.preview-table span:nth-child(2n){background:#e5f0f6}
-    /* sınır */
-    .constraint-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:10px}.constraint{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:left;cursor:pointer}.constraint.selected{border-color:#d2aa60;background:var(--amber)}.constraint .ico{font-size:23px}.constraint strong{display:block;margin:5px 0 2px;font-size:13px}.constraint span{color:var(--muted);font-size:10px}.live-prompt{min-height:105px;padding:13px;border-radius:13px;background:#fff8e8;color:#5f461e;font-size:13px;line-height:1.4}
-    /* kaynak */
-    .source-layout{display:grid;grid-template-columns:1fr 1fr;gap:13px}.source-card{padding:15px;border:1px solid var(--line);border-radius:15px;background:#fff}.source-note{padding:11px;border-radius:11px;background:#f1f5f4;color:#4c5e65;font-size:12px;line-height:1.35}.source-arrow{text-align:center;color:var(--brand);font-size:22px}.source-result{padding:12px;border-radius:12px;background:var(--mint);font-size:13px;line-height:1.35}
-    /* güvenlik */
-    .safety-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.safety-card{position:relative;min-height:180px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fff;cursor:pointer}.safety-card .signal{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#eef3f2;font-size:21px}.safety-card p{margin:11px 0;color:#34474f;font-size:13px;line-height:1.4}.safety-card small{position:absolute;left:16px;bottom:13px;color:var(--muted);font-weight:800}.safety-card.safe{border-color:#68a892;background:var(--mint)}.safety-card.risky{border-color:#d6948e;background:var(--rose)}
-    /* galeri */
-    .gallery{display:grid;grid-template-columns:250px 1fr;gap:15px}.gallery-side{padding:15px}.gallery-side img{width:100%;height:155px;object-fit:contain}.subject-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}.subject-btn{padding:7px;border:1px solid var(--line);border-radius:9px;background:#fff;font-size:11px;font-weight:850;cursor:pointer}.subject-btn.active{color:#fff;border-color:var(--brand);background:var(--brand)}.gallery-prompt{display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:17px}
-    /* takip */
-    .follow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.follow-card{padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff;cursor:pointer}.follow-card.active{border-color:#7b70bd;background:var(--violet)}.follow-card .ico{font-size:22px}.follow-card strong{display:block;margin:5px 0 3px;font-size:13px}.follow-card span{font-size:10px;color:var(--muted)}.follow-result{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-top:11px;padding:13px;border-radius:14px;background:#f3f0fb;font-size:13px;line-height:1.35}.follow-result .ico{font-size:25px}
-    /* stüdyo */
-    .studio{display:grid;grid-template-columns:.92fr 1.08fr;gap:14px}.studio-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:15px}.field{display:grid;gap:4px}.field.wide{grid-column:1/-1}.field label{color:#4b5e65;font-size:10px;font-weight:900}.field input,.field select,.field textarea{width:100%;border:1px solid #ccd9d6;border-radius:9px;background:#fbfdfc;color:var(--ink);font-size:12px;outline:none}.field input,.field select{height:33px;padding:0 9px}.field textarea{height:52px;padding:8px;resize:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(23,107,91,.1)}.studio-output{display:grid;grid-template-rows:auto 1fr auto;gap:9px;padding:15px}.level-switch{display:flex;gap:6px}.generated{overflow:hidden;padding:12px;border-radius:13px;background:#163f47;color:#edfaf6;font:11px/1.43 ui-monospace,Consolas,monospace;white-space:pre-wrap}
-    /* final */
-    .finish{display:grid;grid-template-columns:1.08fr .92fr;gap:17px;min-height:0}.finish-copy{display:grid;align-content:center;padding:26px}.checkline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:17px 0}.checkline div{padding:10px 6px;border-radius:12px;background:#eef4f2;text-align:center}.checkline b{display:block;color:var(--brand);font-size:18px}.checkline span{font-size:10px;color:var(--muted)}.finish-actions{display:flex;gap:8px}.password-card{position:relative;display:grid;place-items:center;overflow:hidden;padding:24px;color:#fff;text-align:center;background:linear-gradient(145deg,#173f48,#176b5b)}.password-card:before,.password-card:after{content:'';position:absolute;border-radius:50%;background:rgba(169,239,217,.12)}.password-card:before{width:220px;height:220px;right:-75px;top:-100px}.password-card:after{width:150px;height:150px;left:-50px;bottom:-65px}.password-inner{position:relative;z-index:1}.lock{width:57px;height:57px;display:grid;place-items:center;margin:0 auto 11px;border-radius:17px;background:rgba(255,255,255,.14);font-size:28px}.password{margin:8px 0;font-size:39px;font-weight:950;letter-spacing:.09em;opacity:0;transform:translateY(8px);transition:.5s .15s}.screen.active .password{opacity:1;transform:none}.sources{margin-top:12px;color:rgba(255,255,255,.62);font-size:9px}.sources a{color:rgba(255,255,255,.86)}.toast{position:fixed;left:50%;bottom:14px;z-index:50;padding:8px 13px;border-radius:10px;background:#17262e;color:#fff;font-size:12px;font-weight:800;opacity:0;transform:translate(-50%,10px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    :root {
+      --ink: #12262d;
+      --muted: #5d757d;
+      --line: #dbe7e3;
+      --paper: #fff;
+      --canvas: #eef5f3;
+      --brand: #156c5c;
+      --brand-dark: #0f4b40;
+      --mint: #ddf2ea;
+      --amber: #fff2d4;
+      --amber-ink: #6b4f1d;
+      --shadow: 0 14px 44px rgba(16, 52, 47, .12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+
+    html, body { width: 100%; height: 100dvh; overflow: hidden }
+
+    body {
+      display: flex;
+      color: var(--ink);
+      background: radial-gradient(circle at 10% 6%, #d3ede4, transparent 34%),
+                  radial-gradient(circle at 94% 92%, #d9ebf0, transparent 32%), var(--canvas);
+      font: 500 16px/1.5 "Plus Jakarta Sans", "Trebuchet MS", system-ui, sans-serif;
+    }
+
+    button { font: inherit; cursor: pointer }
+
+    /* ---------- cerceve ---------- */
+    .app { flex: 1; min-width: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--paper) }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(8px, 1.6vmin, 14px) clamp(12px, 2.4vmin, 26px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mark {
+      width: clamp(28px, 4.6vmin, 38px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--brand);
+      font-weight: 800;
+      font-size: clamp(14px, 2.2vmin, 19px);
+    }
+
+    .title { min-width: 0 }
+    .title strong { display: block; font-size: clamp(12px, 1.9vmin, 15px); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+    .title span { display: block; color: var(--muted); font-size: clamp(10px, 1.5vmin, 12px); font-weight: 700 }
+
+    .track { height: 4px; background: #e2ebe8 }
+    .fill { height: 100%; width: 5%; background: var(--brand); transition: width .25s ease }
+
+    /* ---------- sahne ---------- */
+    main { position: relative; min-height: 0; overflow: hidden }
+
+    .screen { position: absolute; inset: 0; display: none; padding: clamp(14px, 3vmin, 34px); overflow: auto }
+    /* uzun icerikte ustten kirpilmasin diye "safe center" */
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      justify-content: safe center;
+      animation: enter .22s ease;
+    }
+    @keyframes enter { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+
+    .card { width: min(900px, 100%); display: grid; justify-items: center; gap: clamp(10px, 2vmin, 20px); text-align: center }
+
+    .eyebrow { color: var(--brand); font-size: clamp(11px, 1.8vmin, 14px); font-weight: 800; letter-spacing: .14em; text-transform: uppercase }
+
+    .chip { padding: 6px 13px; border-radius: 99px; background: var(--mint); color: var(--brand-dark); font-size: clamp(12px, 2vmin, 15px); font-weight: 800 }
+
+    h1 { font-size: clamp(32px, 7.4vmin, 62px); line-height: 1.05; letter-spacing: -.03em; font-weight: 800 }
+
+    /* ekranin tek cumlesi */
+    .line { font-size: clamp(22px, 4.6vmin, 42px); line-height: 1.26; letter-spacing: -.02em; font-weight: 800 }
+    .line.calm { font-weight: 700; font-size: clamp(20px, 4vmin, 35px) }
+    .line.small { font-size: clamp(18px, 3.5vmin, 30px) }
+
+    .note {
+      padding: clamp(14px, 2.6vmin, 26px) clamp(16px, 3vmin, 30px);
+      border-radius: 18px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(22px, 4.6vmin, 40px);
+      line-height: 1.28;
+      font-weight: 800;
+    }
+
+    .sub { max-width: 660px; color: var(--muted); font-size: clamp(14px, 2.3vmin, 19px); font-weight: 600 }
+
+    /* ---------- gorseller ---------- */
+    .photo { display: grid; width: min(100%, 420px) }
+    .photo img {
+      display: block;
+      width: 100%;
+      max-height: min(30vh, 280px);
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(20, 58, 52, .16);
+    }
+
+    .icon {
+      width: clamp(56px, 10vmin, 96px);
+      aspect-ratio: 1;
+      padding: clamp(9px, 1.6vmin, 15px);
+      border-radius: 20px;
+      background: var(--mint);
+      color: var(--brand-dark);
+    }
+    .icon.big { width: clamp(90px, 18vmin, 160px); border-radius: 28px }
+    .icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
+
+    /* ---------- sema ---------- */
+    .flow { width: 100%; display: flex; flex-wrap: nowrap; align-items: stretch; justify-content: center; gap: clamp(6px, 1.3vmin, 14px) }
+    .node {
+      flex: 1 1 0;
+      min-width: 0;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 6px;
+      padding: clamp(11px, 2vmin, 20px) clamp(8px, 1.4vmin, 14px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .node .nico {
+      width: clamp(34px, 5.4vmin, 54px);
+      aspect-ratio: 1;
+      padding: clamp(6px, 1.1vmin, 11px);
+      border-radius: 14px;
+      background: var(--mint);
+      color: var(--brand-dark);
+    }
+    .node .nico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+    .node strong { font-size: clamp(15px, 2.7vmin, 24px); color: var(--brand-dark); line-height: 1.15 }
+    .node span { color: var(--muted); font-size: clamp(11px, 1.85vmin, 15px); font-weight: 700; line-height: 1.25 }
+    .arrow { align-self: center; color: var(--brand); font-size: clamp(20px, 3.2vmin, 30px); font-weight: 800; line-height: 1 }
+
+    /* ---------- formul ---------- */
+    .formula { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(8px, 1.6vmin, 16px) }
+    .term {
+      display: grid;
+      gap: 4px;
+      padding: clamp(11px, 2vmin, 20px) clamp(14px, 2.4vmin, 26px);
+      border-radius: 16px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(18px, 3.3vmin, 30px);
+      font-weight: 800;
+    }
+    .term span { color: var(--brand); font-size: clamp(10px, 1.6vmin, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .plus { color: var(--muted); font-size: clamp(20px, 3.2vmin, 30px); font-weight: 800 }
+
+    /* ---------- karsilastirma ---------- */
+    .compare { width: 100%; display: grid; justify-items: center; gap: clamp(8px, 1.6vmin, 14px) }
+    .box { width: 100%; padding: clamp(13px, 2.4vmin, 24px) clamp(15px, 2.8vmin, 28px); border-radius: 18px; font-size: clamp(18px, 3.5vmin, 31px); font-weight: 800; line-height: 1.3 }
+    .box small { display: block; margin-bottom: 6px; font-size: clamp(10px, 1.7vmin, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .8 }
+    .box.bad { border: 1px solid #e6d5b6; background: #fffaf0; color: var(--amber-ink) }
+    .box.good { border: 1px solid #b8dbd0; background: #f2fbf7; color: var(--brand-dark) }
+
+    /* ---------- secenek kartlari ---------- */
+    .options { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: clamp(8px, 1.6vmin, 14px) }
+    .opt { display: grid; justify-items: center; align-content: start; gap: 6px; padding: clamp(12px, 2.2vmin, 20px) clamp(10px, 1.8vmin, 16px); border: 1px solid var(--line); border-radius: 16px; background: #fff }
+    .opt b { width: clamp(28px, 4.4vmin, 36px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 11px; background: #eef4f2; color: var(--muted); font-size: clamp(14px, 2.3vmin, 18px) }
+    .opt strong { font-size: clamp(15px, 2.6vmin, 21px) }
+    .opt span { color: var(--muted); font-size: clamp(12px, 2vmin, 16px); font-weight: 600 }
+    .opt.pick { border-color: var(--brand); background: #f2fbf7; box-shadow: var(--shadow) }
+    .opt.pick b { background: var(--brand); color: #fff }
+    .opt.pick strong { color: var(--brand-dark) }
+
+    /* ---------- ogrenci karti ---------- */
+    .sheet {
+      width: min(100%, 640px);
+      display: grid;
+      gap: clamp(8px, 1.5vmin, 14px);
+      padding: clamp(15px, 2.6vmin, 26px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+    .sheet h3 { color: var(--brand-dark); font-size: clamp(15px, 2.6vmin, 21px); font-weight: 800 }
+    .sheet li { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; list-style: none; font-size: clamp(15px, 2.8vmin, 23px); font-weight: 700 }
+    .sheet li + li { margin-top: clamp(6px, 1.2vmin, 12px) }
+    .tick { width: clamp(24px, 3.8vmin, 32px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 9px; background: var(--mint); color: var(--brand-dark); font-size: clamp(13px, 2.1vmin, 17px); font-weight: 900 }
+
+    /* ---------- kontrol kutulari ---------- */
+    .quad { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: clamp(8px, 1.6vmin, 14px) }
+    .q { display: grid; justify-items: center; align-content: start; gap: 5px; padding: clamp(12px, 2.2vmin, 20px) clamp(10px, 1.8vmin, 16px); border: 1px solid var(--line); border-radius: 16px; background: #f8fbfa }
+    .q .tick { background: var(--brand); color: #fff }
+    .q strong { font-size: clamp(15px, 2.6vmin, 21px); color: var(--brand-dark); line-height: 1.2 }
+    .q span { color: var(--muted); font-size: clamp(12px, 2vmin, 15px); font-weight: 600; line-height: 1.25 }
+
+    /* ---------- prompt kutusu ---------- */
+    .prompt {
+      width: 100%;
+      padding: clamp(15px, 2.8vmin, 28px) clamp(16px, 3vmin, 30px);
+      border: 1px solid #b8dbd0;
+      border-radius: 18px;
+      background: #f8fdfb;
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      font-size: clamp(18px, 3.3vmin, 28px);
+      line-height: 1.42;
+      font-weight: 700;
+      text-align: left;
+    }
+    .prompt em { color: var(--brand); font-style: normal; font-weight: 800 }
+
+    .copy { min-height: 46px; padding: 10px 26px; border: 0; border-radius: 11px; color: #fff; background: var(--brand); font-size: clamp(14px, 2.3vmin, 17px); font-weight: 800 }
+    .copy:hover { background: var(--brand-dark) }
+
+    .warn { padding: clamp(14px, 2.6vmin, 26px); border-radius: 18px; background: var(--amber); color: var(--amber-ink); font-size: clamp(21px, 4.3vmin, 37px); line-height: 1.28; font-weight: 800 }
+
+    .password { padding: clamp(12px, 2.2vmin, 20px) clamp(20px, 3.4vmin, 34px); border-radius: 16px; background: var(--brand-dark); color: #fff }
+    .password span { display: block; color: #a9e0d1; font-size: clamp(10px, 1.6vmin, 12px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .password strong { display: block; margin-top: 4px; font-size: clamp(26px, 5.2vmin, 44px); font-weight: 800; letter-spacing: .02em }
+
+    /* ---------- alt gezinme ---------- */
+    .bottom {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: clamp(9px, 1.7vmin, 16px) clamp(12px, 2.4vmin, 26px);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .nav { min-height: 44px; padding: 9px clamp(12px, 2.4vmin, 22px); border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: clamp(13px, 2vmin, 16px); font-weight: 800; color: var(--ink) }
+    .nav:hover:not(:disabled) { background: #f2f8f6 }
+    .nav.go { justify-self: end; color: #fff; border-color: var(--brand); background: var(--brand) }
+    .nav.go:hover { background: var(--brand-dark) }
+    .nav.back { justify-self: start }
+    .nav:disabled { opacity: .3; cursor: default }
+
+    .counter { color: var(--muted); font-size: clamp(11px, 1.8vmin, 14px); font-weight: 800; white-space: nowrap }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 84px;
+      z-index: 5;
+      padding: 11px 18px;
+      border-radius: 11px;
+      color: #fff;
+      background: #14424a;
+      font-size: 14px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translate(-50%, 12px);
+      transition: .2s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0) }
+
+    @media (max-width: 520px) {
+      .flow { flex-direction: column }
+      .flow .arrow { transform: rotate(90deg); font-size: 18px }
+      .node { grid-template-columns: auto 1fr; justify-items: start; align-items: center; text-align: left; gap: 2px 12px; padding: 10px 14px }
+      .node .nico { grid-row: span 2 }
+    }
+
+    @media (max-height: 400px) {
+      .photo, .icon { display: none }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important }
+    }
   </style>
 </head>
+
 <body>
-  <div class="viewport"><div class="tutorial-stage" id="tutorialStage">
-    <main class="app" aria-label="AI-GALAXY öğretmen patikası Ders 3">
-      <header class="appbar"><div class="brand"><span class="brand-mark">✦</span> AI-GALAXY</div><div class="lesson-meta"><strong>TeachTech</strong> · Eğitimde Yapay Zeka Patikası · Ders 3 / Etkili İstem Yazma</div><div class="progress"><span id="count">1 / 12</span><div class="track"><div class="fill" id="fill"></div></div></div></header>
-      <section class="stage">
-        <article class="screen active" data-title="Başlangıç"><div></div><div class="hero"><section class="hero-copy"><p class="eyebrow">15 dakikalık uygulama</p><h1>İyi istem, iyi tarif edilmiş öğretmen işidir.</h1><p>AI-GALAXY’nin tahmin etmesini beklemeyin. Görevi, sınıf bağlamını, çıktı biçimini ve sınırları siz belirleyin.</p><div class="hero-pills"><span>8 ayrı pratik</span><span>Basit + orta istemler</span><span>Her branşa uygun</span></div></section><section class="panel hero-visual"><img src="assets/ders3-prompt-craft.jpg" alt="Yapay zekâ ile ders planlayan öğretmen illüstrasyonu"><div class="orbit-card soft-cyan"><div>🎯</div><strong>Ne istiyorum?</strong><span>Görev</span></div><div class="orbit-card soft-mint"><div>🧭</div><strong>Kim için?</strong><span>Bağlam</span></div></section></div></article>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.8" /><circle cx="12" cy="12" r="1.4" /></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12S6.5 5.8 12 5.8 21.2 12 21.2 12 17.5 18.2 12 18.2 2.8 12 2.8 12z" /><circle cx="12" cy="12" r="2.9" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 6.5h9" /><path d="M4.5 12h9" /><path d="M4.5 17.5h6" /><path d="m16 15.5 2.2 2.2 4-4.4" /></symbol>
+      <symbol id="i-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9.2 9.4a2.8 2.8 0 0 1 5.5.7c0 1.9-2.7 2.2-2.7 4" /><path d="M12 17.4h.01" /></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" /></symbol>
+      <symbol id="i-shapes" viewBox="0 0 24 24"><rect x="3" y="13" width="8" height="8" rx="1.5" /><circle cx="17" cy="17" r="4" /><path d="M11 3.5 15.5 11h-9z" /></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c-1.5-6 2.5-12 14-13 1 9-3.5 14-9.5 14-1.9 0-3.4-.4-4.5-1z" /><path d="M6.5 17.5C9 14 12 11.6 16 10" /></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.1 5.2L19.5 10l-5.4 1.8L12 17l-2.1-5.2L4.5 10l5.4-1.8z" /><path d="M18.5 16.5 19.3 18.6 21.5 19.4 19.3 20.2 18.5 22.3 17.7 20.2 15.5 19.4 17.7 18.6z" /></symbol>
+      <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6.5" r="2.5" /><circle cx="6" cy="17.5" r="2.5" /><path d="M8.2 7.8 20 18" /><path d="M8.2 16.2 20 6" /></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5z" /><path d="M14 7.5 16.5 10" /></symbol>
+      <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 15.5a2.5 2.5 0 0 1-2.5 2.5H9l-4 3v-3H6.5A2.5 2.5 0 0 1 4 15.5v-8A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5z" /><path d="M8.5 9.5h7" /><path d="M8.5 13h4" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5.2l3.2 2" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v6c0 4.2-3 7.3-7 8.5-4-1.2-7-4.3-7-8.5V6z" /><path d="M12 9v4" /><path d="M12 16h.01" /></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4" /><path d="M6 4.5h11l-2 3.5 2 3.5H6z" /></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 8.5 4.5L12 12 3.5 7.5z" /><path d="m4 12 8 4.3 8-4.3" /><path d="m4 16.5 8 4.3 8-4.3" /></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8.5h14" /><path d="m15 5.5 3 3-3 3" /><path d="M20 15.5H6" /><path d="m9 12.5-3 3 3 3" /></symbol>
+      <symbol id="i-wand" viewBox="0 0 24 24"><path d="m4 20 10-10" /><path d="m13.5 5.5 1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z" /><path d="M19 13.5l.7 1.5 1.5.7-1.5.7-.7 1.5-.7-1.5-1.5-.7 1.5-.7z" /></symbol>
+      <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3.5 15.5 15.5 3.5l5 5-12 12z" /><path d="m7.5 11.5 2 2" /><path d="m10.5 8.5 2 2" /><path d="m13.5 5.5 2 2" /></symbol>
+      <symbol id="i-exit" viewBox="0 0 24 24"><rect x="3.5" y="5" width="13" height="14" rx="2" /><path d="M20.5 12h-6" /><path d="m17.5 9 3 3-3 3" /></symbol>
+      <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4h4v2.2a1.8 1.8 0 1 0 3.6 0V4H20v4h-2.2a1.8 1.8 0 1 0 0 3.6H20V20h-4.4v-2.2a1.8 1.8 0 1 0-3.6 0V20H4v-4.4h2.2a1.8 1.8 0 1 0 0-3.6H4V8h6z" /></symbol>
+      <symbol id="i-table" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2" /><path d="M3.5 9.5h17" /><path d="M9.5 9.5v10" /><path d="M15 9.5v10" /></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2" /><path d="M3.5 19.5c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6" /><path d="M16.2 6.2a3 3 0 0 1 0 5.6" /><path d="M17.5 15.2c2 .5 3.3 2 3.7 4.3" /></symbol>
+      <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 3.5h4" /><path d="M11 3.5v6L5.8 18a2 2 0 0 0 1.7 3h9a2 2 0 0 0 1.7-3L13 9.5v-6" /><path d="M8 15h8" /></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="6" r="2.6" /><circle cx="6" cy="12" r="2.6" /><circle cx="18" cy="18" r="2.6" /><path d="m8.4 10.8 7.2-3.6" /><path d="m8.4 13.2 7.2 3.6" /></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-7.5-9.3A4.2 4.2 0 0 1 12 8.2a4.2 4.2 0 0 1 7.5 2.5C19.5 15.6 12 20 12 20z" /></symbol>
+      <symbol id="i-hand" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11" /><path d="M12 10.5V4.8a1.5 1.5 0 0 1 3 0V11" /><path d="M15 11V7.5a1.5 1.5 0 0 1 3 0V14c0 3.6-2.4 6.5-6 6.5s-6-2.6-6-6V13a1.5 1.5 0 0 1 3 0" /></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9.5 17.5h5" /><path d="M10 20.5h4" /><path d="M12 3.5a5.5 5.5 0 0 1 3.2 10c-.5.4-.7.9-.7 1.5h-5c0-.6-.2-1.1-.7-1.5A5.5 5.5 0 0 1 12 3.5z" /></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3.5H7a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8z" /><path d="M14 3.5V8h4.5" /><path d="M8.5 13h7" /><path d="M8.5 16.5h5" /></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10.5" rx="2" /><path d="M8 10V7.5a4 4 0 0 1 8 0V10" /><path d="M12 14v3" /></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16" /><path d="M6 20h12" /><path d="M4 8h16" /><path d="M4 8 1.8 13a2.6 2.6 0 0 0 4.4 0z" /><path d="M20 8l-2.2 5a2.6 2.6 0 0 0 4.4 0z" /></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.6" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.6" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.6" /></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12" height="12" rx="2" /><path d="M15.5 5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2" /></symbol>
+      <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M13.5 4.5c3.5 2 5.5 5.5 5.5 9.5l-4 3h-6l-4-3c0-4 2-7.5 5.5-9.5a3 3 0 0 1 3 0z" /><circle cx="12" cy="10.5" r="2" /><path d="M9 17c-1 1.5-1 3.5 0 4 1-.5 1.7-1.4 2-2.5" /><path d="M15 17c1 1.5 1 3.5 0 4-1-.5-1.7-1.4-2-2.5" /></symbol>
+    </defs>
+  </svg>
 
-        <article class="screen" data-title="İstem pusulası"><header class="head"><div><p class="eyebrow">Mini konu anlatımı</p><h2>Beş bloklu istem pusulası</h2><p class="lede">Her istemde beş blok şart değildir; sonuç belirsizleştikçe gerekli bloğu ekleyin.</p></div><span class="chip">Önce 3 temel blok</span></header><div class="formula-layout"><section class="panel formula-board"><div class="block"><span class="ico">🎯</span><b>Görev</b><span>AI ne üretsin?</span></div><div class="block"><span class="ico">🏫</span><b>Bağlam</b><span>Sınıf, branş, hedef, ön bilgi</span></div><div class="block"><span class="ico">📄</span><b>Çıktı</b><span>Tablo, liste, uzunluk</span></div><div class="block"><span class="ico">🚧</span><b>Sınır</b><span>Süre, dil, kaynak, kapsam</span></div><div class="block"><span class="ico">✓</span><b>Kontrol</b><span>Neyi doğrulamalı?</span></div></section><aside class="card formula-side soft-mint"><span class="chip">Başlangıç formülü</span><div class="rule">Görev + Bağlam + Çıktı</div><p class="micro">Sonuç hâlâ genel ise <strong>sınır</strong> ekleyin. Sınıfta kullanmadan önce <strong>kontrol</strong> isteyin ve kendiniz doğrulayın.</p></aside></div></article>
+  <div class="app">
+    <header>
+      <div class="topbar">
+        <div class="mark">3</div>
+        <div class="title">
+          <strong>Etkili İstem Yazma</strong>
+          <span>TeachTech &middot; Ders 3</span>
+        </div>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </header>
 
-        <article class="screen" data-title="Pratik 1 · Net görev"><header class="head"><div><p class="eyebrow">Pratik 1 / 8</p><h2>Belirsiz görevi netleştirin</h2><p class="lede">Aşağıdaki istemi en çok güçlendiren eklemeyi seçin.</p></div><span class="chip">Tek sayfa · tek karar</span></header><div class="practice"><aside class="card brief soft-amber"><div class="practice-no">1</div><span class="chip amber">Başlangıç istemi</span><blockquote>“Kesirlerle ilgili bir şey hazırla.”</blockquote><p class="micro">Sorun: “bir şey” ne ürün ne de amaç belirtir.</p></aside><section class="panel work"><div class="work-title"><h3>İlk olarak ne eklenmeli?</h3><span class="micro">Bir seçeneğe dokunun.</span></div><div class="option-grid"><button class="option clarity-option" data-correct="false"><strong>“Yaratıcı ol.”</strong><span>Tarz söyler; görevi netleştirmez.</span></button><button class="option clarity-option" data-correct="true"><strong>“5 soruluk çıkış bileti oluştur.”</strong><span>Ürün ve miktar görünür olur.</span></button><button class="option clarity-option" data-correct="false"><strong>“Çok güzel olsun.”</strong><span>Ölçülemeyen bir beklentidir.</span></button></div><div class="feedback" id="clarityFeedback">İpucu: Öğretmenin eline geçecek somut ürünü adlandırın.</div></section></div></article>
-
-        <article class="screen" data-title="Pratik 2 · Bağlam"><header class="head"><div><p class="eyebrow">Pratik 2 / 8</p><h2>AI’nın bilmesi gereken bağlamı seçin</h2><p class="lede">Her ayrıntıyı değil, çıktıyı değiştirecek bilgiyi verin.</p></div><span class="chip blue">Hedef: 4 yararlı bağlam</span></header><div class="practice"><aside class="card brief soft-cyan"><div class="practice-no">2</div><span class="chip blue">Görev</span><blockquote>“Maddenin hâlleri için etkinlik oluştur.”</blockquote><p class="micro">Bağlam eksik olursa yaş, süre ve hazırbulunuşluk tahmine kalır.</p></aside><section class="panel work"><div class="work-title"><h3>Yararlı bağlamlara dokunun</h3><span class="micro" id="contextScore">0 / 4 seçildi</span></div><div class="token-row" id="contextTokens"><button class="token" data-useful="true">5. sınıf</button><button class="token" data-useful="true">40 dakika</button><button class="token" data-useful="true">Katı–sıvı örneği biliyor</button><button class="token" data-useful="true">Hedef: sınıflandırma</button><button class="token" data-useful="false">Öğretmenin sevdiği renk</button><button class="token" data-useful="false">Okulun kuruluş yılı</button></div><div class="prompt-box light" id="contextPrompt" style="margin-top:12px">Maddenin hâlleri için etkinlik oluştur.</div></section></div></article>
-
-        <article class="screen" data-title="Pratik 3 · Çıktı biçimi"><header class="head"><div><p class="eyebrow">Pratik 3 / 8</p><h2>Çıktının şeklini önceden belirleyin</h2><p class="lede">Aynı içerik; tablo, kart veya kontrol listesi istendiğinde farklı kullanılır.</p></div><span class="chip">Ekranda anında önizleme</span></header><div class="practice"><aside class="card brief soft-mint"><div class="practice-no">3</div><span class="chip">Görev</span><blockquote>“Ders akışını 40 dakikaya planla.”</blockquote><p class="micro">Yarın kullanacağınız biçimi söylemek, düzenleme süresini azaltır.</p></aside><section class="panel work format-layout"><div class="format-buttons"><button class="format-btn active" data-format="table"><span class="format-icon">▦</span><span><strong>Tablo</strong><span class="micro">Süre · öğretmen · öğrenci</span></span></button><button class="format-btn" data-format="cards"><span class="format-icon">▤</span><span><strong>Etkinlik kartları</strong><span class="micro">Her adım ayrı blok</span></span></button><button class="format-btn" data-format="check"><span class="format-icon">☑</span><span><strong>Kontrol listesi</strong><span class="micro">Hazırlık takibi</span></span></button></div><div class="preview"><div class="work-title"><h3 id="formatTitle">3 sütunlu tablo</h3><span class="chip blue" id="formatPhrase">“tablo olarak ver”</span></div><div class="preview-sheet" id="formatPreview"><div class="preview-table"><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div></section></div></article>
-
-        <article class="screen" data-title="Pratik 4 · Sınırlar"><header class="head"><div><p class="eyebrow">Pratik 4 / 8</p><h2>Gereksiz uzunluğu sınırlarla kesin</h2><p class="lede">Kullanacağınız sınırları seçin; istemin nasıl keskinleştiğini görün.</p></div><span class="chip amber">Az ama belirleyici</span></header><div class="practice"><aside class="card brief soft-amber"><div class="practice-no">4</div><span class="chip amber">Görev + bağlam</span><blockquote>“6. sınıf için enerji tasarrufu metni yaz.”</blockquote><p class="micro">Sınır yoksa dil düzeyi ve uzunluk rastlantısal olabilir.</p></aside><section class="panel work"><div class="constraint-grid"><button class="constraint" data-text="120 kelimeyi geçme"><span class="ico">✂️</span><strong>Uzunluk</strong><span>120 kelime</span></button><button class="constraint" data-text="öğrenci dostu kısa cümleler kullan"><span class="ico">💬</span><strong>Dil</strong><span>Kısa ve açık</span></button><button class="constraint" data-text="yalnızca verdiğim kaynak metne dayan"><span class="ico">📎</span><strong>Kaynak</strong><span>Ek bilgi uydurma</span></button><button class="constraint" data-text="sonunda 2 kontrol sorusu ekle"><span class="ico">✓</span><strong>Kontrol</strong><span>2 soru</span></button></div><div class="live-prompt" id="constraintPrompt">6. sınıf öğrencileri için enerji tasarrufu hakkında bir bilgilendirme metni yaz.</div></section></div></article>
-
-        <article class="screen" data-title="Pratik 5 · Kaynak kullanımı"><header class="head"><div><p class="eyebrow">Pratik 5 / 8</p><h2>Kaynağı verin, tahmini azaltın</h2><p class="lede">Kendi materyalinizi yapıştırıp AI’nın yalnızca o içerikle çalışmasını isteyin.</p></div><span class="chip blue">Kaynak ≠ öğrenci kişisel verisi</span></header><div class="practice"><aside class="card brief soft-cyan"><div class="practice-no">5</div><span class="chip blue">Güvenli kaynak</span><blockquote>“Aşağıdaki ders kitabı paragrafını kullan…”</blockquote><p class="micro">Kaynak sınırı doğruluk garantisi değildir; yine de kontrol kolaylaşır.</p></aside><section class="panel work source-layout"><div class="source-card"><h3>Kaynak metin</h3><div class="source-note">“Buharlaşma, sıvının yüzeyinden gaz hâline geçmesidir. Sıcaklık arttıkça buharlaşma hızlanabilir.”</div><div class="source-arrow">↓</div><div class="prompt-box light">Yalnızca bu metne dayanarak 5. sınıf için 2 doğru–yanlış sorusu yaz. Metinde olmayan bilgi ekleme.</div></div><div class="source-card soft-mint"><h3>Beklenen taslak</h3><div class="source-result">1. Buharlaşma yalnızca sıvının yüzeyinde gerçekleşir. <strong>(Doğru)</strong></div><div class="source-result" style="margin-top:8px">2. Sıcaklık arttığında buharlaşma her zaman yavaşlar. <strong>(Yanlış)</strong></div><p class="micro" style="margin-top:12px"><strong>Öğretmen kontrolü:</strong> İfade, ders düzeyi ve anahtar kaynak metinle karşılaştırılır.</p></div></section></div></article>
-
-        <article class="screen" data-title="Pratik 6 · Güvenlik"><header class="head"><div><p class="eyebrow">Pratik 6 / 8</p><h2>Güvenli istemi seçin</h2><p class="lede">Kişisel veriyi değil, kimliksiz sınıf örüntüsünü kullanın; yüksek etkili kararı AI’ya bırakmayın.</p></div><span class="chip">Bir karta dokunun</span></header><div class="practice"><aside class="card brief soft-mint"><div class="practice-no">6</div><span class="chip">Kırmızı çizgi</span><blockquote>Ad, not, sağlık, davranış kaydı ve tanı bilgisi isteme girmez.</blockquote><p class="micro">Okulunuzun ve kullandığınız platformun veri politikasına uyun.</p></aside><section class="panel work"><div class="safety-grid"><button class="safety-card" data-safety="risk"><span class="signal">👤</span><p>“Ayşe’nin notlarını ve davranış kayıtlarını incele; destek planı yaz.”</p><small>Kişisel veri içeriyor</small></button><button class="safety-card" data-safety="safe"><span class="signal">📊</span><p>“Kimliksiz sınıf verisindeki üç yaygın hata örüntüsünü grupla.”</p><small>Dar görev + kimliksiz veri</small></button><button class="safety-card" data-safety="risk"><span class="signal">⚖️</span><p>“Bu öğrenci sınıfı geçmeli mi? Nihai kararı ver.”</p><small>Yüksek etkili karar</small></button></div><div class="feedback" id="safetyFeedback">En güvenli ve öğretmen kontrolünü koruyan seçeneği bulun.</div></section></div></article>
-
-        <article class="screen" data-title="Pratik 7 · Branş istemleri"><header class="head"><div><p class="eyebrow">Pratik 7 / 8</p><h2>Branşınıza uygun orta düzey istemi deneyin</h2><p class="lede">Sekmelerden bir branş seçin; köşeli alanı değiştirip AI-GALAXY editöre yapıştırın.</p></div><span class="chip">Hazır ama düzenlenebilir</span></header><div class="gallery"><aside class="card gallery-side"><img src="assets/ders2-learning-outcomes.jpg" alt="Farklı ders araçlarını gösteren illüstrasyon"><div class="subject-tabs"><button class="subject-btn active" data-subject="turkce">Türkçe</button><button class="subject-btn" data-subject="math">Matematik</button><button class="subject-btn" data-subject="science">Fen</button><button class="subject-btn" data-subject="social">Sosyal</button><button class="subject-btn" data-subject="language">Yabancı dil</button><button class="subject-btn" data-subject="arts">Sanat</button></div></aside><section class="panel gallery-prompt"><div class="work-title"><div><span class="chip" id="galleryLabel">Türkçe · Metin çalışması</span><h3 style="margin:7px 0 0">Orta istem</h3></div><button class="btn small" id="copyGallery">Kopyala</button></div><div class="prompt-box" id="galleryPrompt"></div><p class="micro">Kullanımdan önce kazanım, yaş düzeyi ve doğruluğu kontrol edin.</p></section></div></article>
-
-        <article class="screen" data-title="Pratik 8 · Takip istemi"><header class="head"><div><p class="eyebrow">Pratik 8 / 8</p><h2>İlk yanıtı atmayın; tek kusuru düzeltin</h2><p class="lede">Yanıttaki asıl soruna dokunun ve kısa takip istemini alın.</p></div><span class="chip blue">Yeni sohbet açmadan</span></header><div class="practice"><aside class="card brief soft-violet"><div class="practice-no">8</div><span class="chip blue">İlk yanıt sorunu</span><blockquote>“Etkinlik iyi ama yarın uygulamak için fazla uzun.”</blockquote><p class="micro">Bir defada tek revizyon, sonucu karşılaştırmayı kolaylaştırır.</p></aside><section class="panel work"><div class="follow-grid"><button class="follow-card active" data-follow="short"><span class="ico">✂️</span><strong>Çok uzun</strong><span>Kısalt</span></button><button class="follow-card" data-follow="level"><span class="ico">🪜</span><strong>Çok zor</strong><span>Düzeyi indir</span></button><button class="follow-card" data-follow="format"><span class="ico">▦</span><strong>Dağınık</strong><span>Tabloya çevir</span></button><button class="follow-card" data-follow="support"><span class="ico">🤝</span><strong>Tek tip</strong><span>Destek ekle</span></button></div><div class="follow-result"><span class="ico">↻</span><strong id="followText">“Aynı hedefi koru. Etkinliği 15 dakikada uygulanacak üç adıma indir; her adımı tek cümleyle yaz.”</strong><button class="btn small" id="copyFollow">Kopyala</button></div></section></div></article>
-
-        <article class="screen" data-title="İstem stüdyosu"><header class="head"><div><p class="eyebrow">Kendi dersinize uygula</p><h2>Basit veya orta isteminizi oluşturun</h2><p class="lede">Öğrenci kişisel verisi girmeyin. Gereken kadar bağlam verin; gereksiz ayrıntıyı çıkarın.</p></div><span class="chip">Alanlar otomatik kaydedilir</span></header><div class="studio"><section class="card studio-form"><div class="field"><label for="grade">Sınıf</label><input id="grade" value="6. sınıf"></div><div class="field"><label for="branch">Branş</label><input id="branch" value="Matematik"></div><div class="field wide"><label for="task">AI’dan istediğiniz somut görev</label><textarea id="task">Kesir karşılaştırma için çıkış bileti oluştur.</textarea></div><div class="field"><label for="goal">Öğrenme hedefi</label><input id="goal" value="Kesirleri modelle karşılaştırır."></div><div class="field"><label for="time">Süre / uzunluk</label><input id="time" value="5 soru, 8 dakika"></div><div class="field"><label for="prior">Ön bilgi</label><input id="prior" value="Pay ve paydayı biliyor."></div><div class="field"><label for="format">Çıktı biçimi</label><select id="format"><option>Tablo</option><option selected>Numaralı liste</option><option>Tek sayfalık çalışma kâğıdı</option></select></div></section><section class="panel studio-output"><div class="work-title"><div class="level-switch"><button class="btn small level-btn active" data-level="simple">Basit</button><button class="btn small level-btn" data-level="medium">Orta</button></div><button class="btn small" id="copyStudio">Kopyala</button></div><pre class="generated" id="studioPrompt"></pre><p class="micro" id="studioHint">Basit istem: görev + temel bağlam + çıktı.</p></section></div></article>
-
-        <article class="screen" data-title="Tamamlandı"><div></div><div class="finish"><section class="card finish-copy"><p class="eyebrow">Ders 3 tamamlandı</p><h2>Artık istemi uzatmıyor, keskinleştiriyorsunuz.</h2><p class="lede" style="margin-top:8px">Somut görev, gerekli bağlam ve kullanılabilir çıktı biçimiyle başlayın; sınır ve kontrolü ihtiyaca göre ekleyin.</p><div class="checkline"><div><b>1</b><span>Görev</span></div><div><b>2</b><span>Bağlam</span></div><div><b>3</b><span>Çıktı</span></div><div><b>4</b><span>Sınır</span></div><div><b>5</b><span>Kontrol</span></div></div><div class="finish-actions"><button class="btn primary" id="downloadPrompt">İstemimi indir</button><button class="btn" id="copyPassword">Şifreyi kopyala</button></div></section><section class="panel password-card"><div class="password-inner"><div class="lock">🔓</div><div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:900;letter-spacing:.12em">ADIM ŞİFRESİ</div><div class="password" id="password">istem</div><p style="margin:0;color:rgba(255,255,255,.72);font-size:12px">Küçük harflerle yazın.</p><p class="sources">Temel: <a href="https://academy.openai.com/en/public/clubs/k-12-education-aacga/blogs/write-better-prompts-teachers-2026-05-28" target="_blank" rel="noopener">OpenAI Academy</a> · <a href="https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research" target="_blank" rel="noopener">UNESCO</a></p></div></section></div></article>
+    <main id="main">
+      <!-- 1 -->
+      <section class="screen active">
+        <div class="card"><p class="eyebrow">TeachTech · Ders 3</p><h1>Etkili İstem Yazma</h1><figure class="photo"><img src="assets/ders3-prompt-craft.jpg" alt="Yapay zekâya istem yazan öğretmen" loading="eager"></figure><p class="line calm">Yapay zekâ tahmin etmesin; ne istediğinizi siz söyleyin.</p><p class="sub">Her ekranda tek bir bilgi var. İlerlemek için “İleri” düğmesine basın.</p></div>
       </section>
-      <footer class="bottombar"><div class="nav-note"><strong id="navTitle">Başlangıç</strong><br>← → tuşlarıyla ilerleyebilirsiniz.</div><div class="dots" id="dots"></div><div class="nav-actions"><button class="btn" id="prev" disabled>← Geri</button><button class="btn primary" id="next">İleri →</button></div></footer>
-    </main><div class="toast" id="toast" role="status" aria-live="polite"></div>
-  </div></div>
+
+      <!-- 2 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Bugünün tek bilgisi</p><p class="note">İyi istem, iyi tarif edilmiş bir öğretmen işidir.</p></div>
+      </section>
+
+      <!-- 3 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Üç adımlık şema</p><div class="flow"><div class="node"><div class="nico"><svg><use href="#i-target" /></svg></div><strong>Görev</strong><span>Ne üretsin?</span></div><div class="arrow">&#8594;</div><div class="node"><div class="nico"><svg><use href="#i-users" /></svg></div><strong>Bağlam</strong><span>Kim için?</span></div><div class="arrow">&#8594;</div><div class="node"><div class="nico"><svg><use href="#i-table" /></svg></div><strong>Çıktı</strong><span>Hangi biçimde?</span></div></div><p class="sub">Bu üçü varsa cevap işe yarar.</p></div>
+      </section>
+
+      <!-- 4 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Başlangıç formülü</p><div class="formula"><div class="term"><span>Görev</span>5 soru yaz</div><div class="plus">+</div><div class="term"><span>Bağlam</span>3. sınıf</div><div class="plus">+</div><div class="term"><span>Çıktı</span>tablo hâlinde</div></div><p class="line small">Görev + bağlam + çıktı.</p></div>
+      </section>
+
+      <!-- 5 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Aynı isteğin iki hâli</p><div class="compare"><div class="box bad"><small>Belirsiz</small>“Kesirlerle ilgili bir şey hazırla.”</div><div class="arrow">&#8595;</div><div class="box good"><small>Net</small>“3. sınıf için 5 soruluk çıkış kartı hazırla.”</div></div></div>
+      </section>
+
+      <!-- 6 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Hangi ekleme isteği güçlendirir?</p><div class="options"><div class="opt"><b>A</b><strong>“Yaratıcı ol.”</strong><span>Tarz söyler, görevi netleştirmez.</span></div><div class="opt pick"><b>✓</b><strong>“5 soruluk çıkış kartı.”</strong><span>Ürünü ve sayıyı söyler.</span></div><div class="opt"><b>C</b><strong>“Çok güzel olsun.”</strong><span>Ölçülemeyen bir beklenti.</span></div></div><p class="line small">Elinize geçecek ürünü adlandırın.</p></div>
+      </section>
+
+      <!-- 7 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Cevap hâlâ genelse</p><div class="icon"><svg><use href="#i-scissors" /></svg></div><p class="line">Sınır ekleyin: süre, uzunluk, dil düzeyi.</p></div>
+      </section>
+
+      <!-- 8 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Kontrol kartı</p><div class="sheet"><h3>İstemimde bunlar var mı?</h3><ul><li><span class="tick">&#10003;</span>Kim için? (sınıf düzeyi)</li><li><span class="tick">&#10003;</span>Ne üretilecek? (ürün)</li><li><span class="tick">&#10003;</span>Ne kadar? (sayı ve süre)</li><li><span class="tick">&#10003;</span>Hangi biçimde? (liste, tablo, kart)</li></ul></div><p class="line small">Dördü varsa istem hazırdır.</p></div>
+      </section>
+
+      <!-- 9 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Kaynağı siz verin</p><figure class="photo"><img src="assets/ders3-prompt-craft.jpg" alt="Kaynak metni yapıştıran öğretmen" loading="lazy"></figure><p class="line">Kendi metninizi yapıştırın; dışına çıkmasını istemeyin.</p></div>
+      </section>
+
+      <!-- 10 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Görevi netleştir</p><div class="icon"><svg><use href="#i-target" /></svg></div><div class="prompt" id="p1">3. sınıf öğrencilerim için <em>[konu]</em> konusunda 5 soruluk kısa bir çıkış kartı hazırla. Sorular kolaydan zora sıralansın, cevap anahtarı en sonda olsun.</div><button class="copy" data-copy="p1" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 11 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Bağlam ekle</p><div class="icon"><svg><use href="#i-users" /></svg></div><div class="prompt" id="p2"><em>[Sınıf]</em> öğrencilerim <em>[konu]</em> konusunu yeni öğrendi ve <em>[zorlandığı nokta]</em> kısmında takılıyor. Bu bilgiye göre 20 dakikalık bir alıştırma seti hazırla.</div><button class="copy" data-copy="p2" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 12 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Çıktı biçimini söyle</p><div class="icon"><svg><use href="#i-table" /></svg></div><div class="prompt" id="p3"><em>[Konu]</em> için 40 dakikalık ders akışını tablo hâlinde yaz. Sütunlar: süre, öğretmen ne yapar, öğrenci ne yapar.</div><button class="copy" data-copy="p3" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 13 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Uzunluğu sınırla</p><div class="icon"><svg><use href="#i-scissors" /></svg></div><div class="prompt" id="p4"><em>[Sınıf]</em> öğrencileri için <em>[konu]</em> hakkında en fazla 120 kelimelik bilgilendirme metni yaz. Kısa cümleler kullan, yeni terim ekleme.</div><button class="copy" data-copy="p4" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 14 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Kaynağa bağla</p><div class="icon"><svg><use href="#i-doc" /></svg></div><div class="prompt" id="p5">Yalnızca aşağıdaki metne dayanarak <em>[sınıf]</em> için 3 doğru-yanlış sorusu yaz. Metinde olmayan bilgi ekleme. Metin: <em>[metni buraya yapıştırın]</em></div><button class="copy" data-copy="p5" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 15 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Rol ver</p><div class="icon"><svg><use href="#i-hand" /></svg></div><div class="prompt" id="p6">Bir ilkokul öğretmeninin yardımcısı gibi çalış. <em>[Sınıf]</em> seviyesine uygun, sade bir dil kullan. Görev: <em>[ne istediğinizi yazın]</em></div><button class="copy" data-copy="p6" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 16 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Örnek göster</p><div class="icon"><svg><use href="#i-copy" /></svg></div><div class="prompt" id="p7">Aşağıdaki örneğe benzer 5 soru daha yaz. Aynı zorluk ve aynı biçim olsun. Örnek: <em>[kendi sorunuzu buraya yazın]</em></div><button class="copy" data-copy="p7" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 17 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Adım adım iste</p><div class="icon"><svg><use href="#i-layers" /></svg></div><div class="prompt" id="p8"><em>[Konu]</em> için bir etkinlik hazırla. Önce sadece etkinliğin adımlarını madde madde yaz, açıklamaları yazma. Onaylarsam ayrıntıya geçeriz.</div><button class="copy" data-copy="p8" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 18 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Sadeleştir</p><div class="icon"><svg><use href="#i-wand" /></svg></div><div class="prompt" id="p9">Aşağıdaki metni <em>[sınıf]</em> düzeyine göre sadeleştir. Cümleleri kısalt, zor kelimeleri değiştir, anlamı koru. Metin: <em>[metni buraya yapıştırın]</em></div><button class="copy" data-copy="p9" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 19 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Çıktı zayıfsa düzelt</p><div class="icon"><svg><use href="#i-swap" /></svg></div><div class="prompt" id="p10">Cevabın çok genel oldu. Aynı görevi <em>[sınıf]</em> için yeniden yaz: örnekleri sınıf içinden seç, her maddeyi tek cümleye indir ve süreyi 15 dakikaya sığdır.</div><button class="copy" data-copy="p10" type="button">Kopyala</button></div>
+      </section>
+
+      <!-- 20 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">İstemi dört soruda kontrol edin</p><div class="quad"><div class="q"><span class="tick">1</span><strong>Görev net mi?</strong><span>Somut bir ürün istendi.</span></div><div class="q"><span class="tick">2</span><strong>Bağlam var mı?</strong><span>Sınıf ve durum yazıldı.</span></div><div class="q"><span class="tick">3</span><strong>Biçim belli mi?</strong><span>Liste, tablo veya kart.</span></div><div class="q"><span class="tick">4</span><strong>Sınır var mı?</strong><span>Süre, uzunluk, dil.</span></div></div></div>
+      </section>
+
+      <!-- 21 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Tek uyarı</p><div class="icon"><svg><use href="#i-shield" /></svg></div><p class="warn">Öğrenci adı, notu veya sağlık bilgisi isteme girmez.</p></div>
+      </section>
+
+      <!-- 22 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Ders 3 tamamlandı</p><div class="icon"><svg><use href="#i-flag" /></svg></div><p class="line">Artık yapay zekâya ne istediğinizi tarif edebiliyorsunuz.</p><div class="password"><span>Adım şifresi</span><strong>istem</strong></div></div>
+      </section>
+
+    </main>
+
+    <footer class="bottom">
+      <button class="nav back" id="prev" type="button">&#8592; Geri</button>
+      <span class="counter" id="counter">1 / 22</span>
+      <button class="nav go" id="next" type="button">İleri &#8594;</button>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>
-    (()=>{
-      const KEY='aiGalaxyTeachTechLesson3V1',screens=[...document.querySelectorAll('.screen')],dotsWrap=document.getElementById('dots'),fill=document.getElementById('fill'),count=document.getElementById('count'),navTitle=document.getElementById('navTitle'),prev=document.getElementById('prev'),next=document.getElementById('next'),toast=document.getElementById('toast');let index=0,timer,level='simple';
-      function fit(){const s=Math.min(innerWidth/1100,innerHeight/650),el=document.getElementById('tutorialStage');el.style.left=`${Math.max(0,(innerWidth-1100*s)/2)}px`;el.style.top=`${Math.max(0,(innerHeight-650*s)/2)}px`;el.style.transform=`scale(${s})`}
-      function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),1500)}
-      async function copy(t){try{await navigator.clipboard.writeText(t)}catch(_){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}say('Kopyalandı')}
-      screens.forEach((_,i)=>{const d=document.createElement('button');d.className='dot'+(i?'':' active');d.setAttribute('aria-label',`${i+1}. ekran`);d.onclick=()=>go(i);dotsWrap.appendChild(d)});const dots=[...dotsWrap.children];
-      function go(i){index=Math.max(0,Math.min(screens.length-1,i));screens.forEach((s,n)=>s.classList.toggle('active',n===index));dots.forEach((d,n)=>d.classList.toggle('active',n===index));fill.style.width=`${(index+1)/screens.length*100}%`;count.textContent=`${index+1} / ${screens.length}`;navTitle.textContent=screens[index].dataset.title;prev.disabled=index===0;next.textContent=index===screens.length-1?'Başa dön ↺':'İleri →';try{localStorage.setItem(KEY+':screen',index)}catch(_){}}
-      prev.onclick=()=>go(index-1);next.onclick=()=>go(index===screens.length-1?0:index+1);document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight')go(index+1);if(e.key==='ArrowLeft')go(index-1)});
-      document.querySelectorAll('.clarity-option').forEach(b=>b.onclick=()=>{document.querySelectorAll('.clarity-option').forEach(x=>x.classList.remove('correct','wrong'));const ok=b.dataset.correct==='true';b.classList.add(ok?'correct':'wrong');document.getElementById('clarityFeedback').innerHTML=ok?'<strong style="color:#176b5b">Doğru.</strong> Somut ürün + miktar, görevi gözlenebilir yaptı. Şimdi sınıf ve konu bağlamı eklenebilir.':'<strong style="color:#a34a43">Bu ekleme ölçülebilir değil.</strong> Önce üretilecek ürünü adlandırın.'});
-      const ctx=[...document.querySelectorAll('#contextTokens .token')];ctx.forEach(b=>b.onclick=()=>{b.classList.toggle('selected');const useful=ctx.filter(x=>x.classList.contains('selected')&&x.dataset.useful==='true').map(x=>x.textContent),wrong=ctx.filter(x=>x.classList.contains('selected')&&x.dataset.useful==='false').length;document.getElementById('contextScore').textContent=`${useful.length} / 4 yararlı bağlam${wrong?' · '+wrong+' gereksiz':''}`;document.getElementById('contextPrompt').textContent=useful.length?`Maddenin hâlleri için etkinlik oluştur. Bağlam: ${useful.join('; ')}.`:'Maddenin hâlleri için etkinlik oluştur.'});
-      const formats={table:['3 sütunlu tablo','“süre / öğretmen eylemi / öğrenci eylemi tablosu olarak ver”','table'],cards:['Etkinlik kartları','“her adımı ayrı kart başlığıyla ver”','cards'],check:['Hazırlık kontrol listesi','“işaretlenebilir kontrol listesi olarak ver”','check']};document.querySelectorAll('.format-btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.format-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');const [t,p,k]=formats[b.dataset.format];document.getElementById('formatTitle').textContent=t;document.getElementById('formatPhrase').textContent=p;const preview=document.getElementById('formatPreview');preview.innerHTML=k==='table'?'<div class="preview-table"><span></span><span></span><span></span><span></span><span></span><span></span></div>':k==='cards'?'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><div class="preview-line"></div><div class="preview-line"></div><div class="preview-line"></div><div class="preview-line short"></div><div class="preview-line short"></div><div class="preview-line short"></div></div>':'<div style="display:grid;gap:13px"><div>☐ <span class="preview-line" style="display:inline-block;width:75%"></span></div><div>☐ <span class="preview-line" style="display:inline-block;width:62%"></span></div><div>☐ <span class="preview-line" style="display:inline-block;width:82%"></span></div></div>'});
-      const constraints=[...document.querySelectorAll('.constraint')];constraints.forEach(b=>b.onclick=()=>{b.classList.toggle('selected');const selected=constraints.filter(x=>x.classList.contains('selected')).map(x=>x.dataset.text);document.getElementById('constraintPrompt').textContent='6. sınıf öğrencileri için enerji tasarrufu hakkında bir bilgilendirme metni yaz.'+(selected.length?' Sınırlar: '+selected.join('; ')+'.':'')});
-      document.querySelectorAll('.safety-card').forEach(b=>b.onclick=()=>{document.querySelectorAll('.safety-card').forEach(x=>x.classList.remove('safe','risky'));const ok=b.dataset.safety==='safe';b.classList.add(ok?'safe':'risky');document.getElementById('safetyFeedback').innerHTML=ok?'<strong style="color:#176b5b">Doğru.</strong> Kimliksiz örüntü, dar analiz görevi ve öğretmen kontrolü korunuyor.':'<strong style="color:#a34a43">Riskli.</strong> Kişisel veri veya yüksek etkili karar AI’ya bırakılıyor.'});
-      const gallery={turkce:['Türkçe · Metin çalışması','7. sınıf Türkçe için, verdiğim kısa metne dayanarak ana fikir ile yardımcı fikirleri ayırt ettiren 15 dakikalık bir etkinlik taslağı oluştur. 1 yönerge, 3 metin kanıtı sorusu ve 1 çıkış bileti ver. Öğrenci dostu dil kullan; metinde olmayan bilgi ekleme. Cevap anahtarını sona koy.'],math:['Matematik · Soru seti','6. sınıf matematikte kesirleri karşılaştırma hedefi için 6 soruluk taslak oluştur: 2 temel, 2 orta, 1 görsel model, 1 gerekçelendirme. Soruları numaralı listele; cevap ve kısa çözümü ayrı bölümde ver. Her sorunun hedefle uyumunu öğretmenin kontrol etmesi için not ekle.'],science:['Fen · Kavram yanılgısı','5. sınıf fen bilimlerinde maddenin hâlleri için 3 yaygın kavram yanılgısını hedefleyen mini etkinlik tasarla. Her biri için günlük yaşam örneği, tahmin sorusu ve öğretmenin doğrulayacağı bilimsel açıklama ver. Toplam süre 20 dakika; tablo kullan.'],social:['Sosyal · Kaynak karşılaştırma','7. sınıf sosyal bilgiler için aşağıdaki iki kaynak parçasını karşılaştıran çalışma kâğıdı taslağı oluştur. 4 kanıt sorusu, 1 benzerlik-farklılık tablosu ve 1 gerekçeli sonuç sorusu ver. Yalnızca sağladığım kaynaklara dayan; belirsiz noktaları işaretle.'],language:['Yabancı dil · Rol oynama','A2 düzeyi yabancı dil sınıfı için “yol tarifi sorma” konusunda 3 kısa rol oynama kartı üret. Her kartta amaç, iki zorunlu kalıp ve 4 satırlık örnek diyalog olsun. Kültürel açıdan nötr, günlük bağlamlar kullan; öğretmen için kısa dil kontrol listesi ekle.'],arts:['Sanat · Görsel fikir','6. sınıf görsel sanatlar için “ritim ve tekrar” kavramını kullanan 25 dakikalık bireysel çalışma taslağı oluştur. Malzemeleri okulda kolay bulunanlarla sınırla. 3 adımlı yönerge, 2 görsel düşünme sorusu ve öğrenci dilinde 3 başarı ölçütü ver.']};
-      function showGallery(k){const [l,p]=gallery[k];document.getElementById('galleryLabel').textContent=l;document.getElementById('galleryPrompt').textContent=p}showGallery('turkce');document.querySelectorAll('.subject-btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.subject-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');showGallery(b.dataset.subject)});document.getElementById('copyGallery').onclick=()=>copy(document.getElementById('galleryPrompt').textContent);
-      const follows={short:'“Aynı hedefi koru. Etkinliği 15 dakikada uygulanacak üç adıma indir; her adımı tek cümleyle yaz.”',level:'“Hedefi değiştirme. Yönergeleri bir sınıf düzeyi daha sadeleştir; zor sözcükleri günlük karşılıklarıyla değiştir.”',format:'“İçeriği değiştirmeden 3 sütunlu tabloya çevir: süre, öğretmen eylemi, öğrenci eylemi.”',support:'“Aynı göreve, desteğe ihtiyaç duyan öğrenci için bir cümle başlangıcı ve hazır öğrenci için bir genişletme ekle.”'};document.querySelectorAll('.follow-card').forEach(b=>b.onclick=()=>{document.querySelectorAll('.follow-card').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('followText').textContent=follows[b.dataset.follow]});document.getElementById('copyFollow').onclick=()=>copy(document.getElementById('followText').textContent);
-      const fieldIds=['grade','branch','task','goal','time','prior','format'];function build(){const v=id=>document.getElementById(id).value.trim(),simple=`${v('grade')} ${v('branch')} dersi için ${v('task')} Hedef: ${v('goal')} Çıktıyı ${v('format').toLowerCase()} biçiminde ver; sınır: ${v('time')}.`,medium=`K–12 öğretim tasarım yardımcısı gibi çalış. ${v('grade')} ${v('branch')} dersi için şu görevi yerine getir: ${v('task')}\n\nÖğrenme hedefi: “${v('goal')}”\nÖn bilgi: “${v('prior')}”\nSüre / kapsam: “${v('time')}”\n\nÇıktıyı ${v('format').toLowerCase()} biçiminde, öğrenci düzeyine uygun ve sınıfta doğrudan düzenlenebilir bir taslak olarak ver. Hedef dışına çıkma; varsayım yaparsan belirt; sonunda öğretmenin doğrulaması gereken 2 noktayı yaz.`;document.getElementById('studioPrompt').textContent=level==='simple'?simple:medium;try{localStorage.setItem(KEY+':fields',JSON.stringify(Object.fromEntries(fieldIds.map(id=>[id,document.getElementById(id).value]))))}catch(_){}}try{const saved=JSON.parse(localStorage.getItem(KEY+':fields')||'{}');fieldIds.forEach(id=>{if(saved[id])document.getElementById(id).value=saved[id]})}catch(_){}fieldIds.forEach(id=>document.getElementById(id).addEventListener('input',build));document.querySelectorAll('.level-btn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.level-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');level=b.dataset.level;document.getElementById('studioHint').textContent=level==='simple'?'Basit istem: görev + temel bağlam + çıktı.':'Orta istem: rol + bağlam + sınır + öğretmen kontrolü.';build()});build();document.getElementById('copyStudio').onclick=()=>copy(document.getElementById('studioPrompt').textContent);
-      document.getElementById('copyPassword').onclick=()=>copy('istem');document.getElementById('downloadPrompt').onclick=()=>{const content='AI-GALAXY ÖĞRETMEN PATİKASI — DERS 3\n\n'+document.getElementById('studioPrompt').textContent+'\n\nKONTROL\n□ Görev somut\n□ Bağlam yeterli\n□ Çıktı biçimi açık\n□ Sınırlar gerekli ve ölçülebilir\n□ Kişisel veri yok; öğretmen doğrulaması var\n',blob=new Blob([content],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='ai-galaxy-ders3-istemim.txt';a.click();URL.revokeObjectURL(url);say('İstem indirildi')};
-      fit();addEventListener('resize',fit,{passive:true});addEventListener('orientationchange',fit,{passive:true});if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);const requested=Number(new URLSearchParams(location.search).get('screen'));go(Number.isInteger(requested)&&requested>=1&&requested<=screens.length?requested-1:0);
+    (() => {
+      const screens = [...document.querySelectorAll('.screen')];
+      const total = screens.length;
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const fill = document.getElementById('fill');
+      const counter = document.getElementById('counter');
+      const toast = document.getElementById('toast');
+      let index = 0, timer;
+
+      const say = text => {
+        toast.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(timer);
+        timer = setTimeout(() => toast.classList.remove('show'), 1700);
+      };
+
+      const go = target => {
+        index = Math.max(0, Math.min(total - 1, target));
+        screens.forEach((screen, i) => screen.classList.toggle('active', i === index));
+        screens[index].scrollTop = 0;
+        fill.style.width = ((index + 1) / total * 100) + '%';
+        counter.textContent = (index + 1) + ' / ' + total;
+        prev.disabled = index === 0;
+        next.textContent = index === total - 1 ? 'Başa dön \u21ba' : 'İleri \u2192';
+      };
+
+      prev.onclick = () => go(index - 1);
+      next.onclick = () => go(index === total - 1 ? 0 : index + 1);
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') go(index + 1);
+        if (event.key === 'ArrowLeft') go(index - 1);
+      });
+
+      let startX = null;
+      const main = document.getElementById('main');
+      main.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+      main.addEventListener('touchend', e => {
+        if (startX === null) return;
+        const delta = e.changedTouches[0].clientX - startX;
+        if (Math.abs(delta) > 60) go(index + (delta < 0 ? 1 : -1));
+        startX = null;
+      }, { passive: true });
+
+      document.querySelectorAll('[data-copy]').forEach(button => {
+        button.onclick = async () => {
+          const text = document.getElementById(button.dataset.copy).innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (_) {
+            const area = document.createElement('textarea');
+            area.value = text;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand('copy');
+            area.remove();
+          }
+          say('Prompt kopyalandı');
+        };
+      });
+
+      go(0);
     })();
   </script>
 </body>
+
 </html>

@@ -1,909 +1,817 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#123f39">
-  <title>TeachTech - Eğitimde Yapay Zeka Patikası · Ders 2</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#156c5c">
+  <meta name="description" content="Ders 2: Kazanımı gözlenebilir hedefe, kanıta ve başarı ölçütüne dönüştürme. Her ekranda tek bilgi, görsel ve kopyalanabilir örnek promptlar.">
+  <title>TeachTech · Ders 2: Kazanımı Görünür Yap</title>
   <style>
     :root {
-      --ink: #17242c;
-      --muted: #607079;
-      --canvas: #edf2f1;
-      --surface: #ffffff;
-      --line: #d8e2df;
-      --brand: #176b5b;
-      --brand-dark: #123f39;
-      --mint: #dff3eb;
-      --blue: #28658b;
-      --blue-soft: #e5f1f8;
-      --amber: #9a6519;
-      --amber-soft: #fff0cf;
-      --red: #a94a45;
-      --red-soft: #fbe8e6;
-      --shadow: 0 18px 52px rgba(20, 54, 49, .14);
-      --radius: 22px;
+      --ink: #12262d;
+      --muted: #5d757d;
+      --line: #dbe7e3;
+      --paper: #fff;
+      --canvas: #eef5f3;
+      --brand: #156c5c;
+      --brand-dark: #0f4b40;
+      --mint: #ddf2ea;
+      --amber: #fff2d4;
+      --amber-ink: #6b4f1d;
+      --shadow: 0 14px 44px rgba(16, 52, 47, .12);
     }
 
-    * { box-sizing: border-box; }
-    html, body { width: 100%; height: 100dvh; margin: 0; overflow: hidden; }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+
+    html, body { width: 100%; height: 100dvh; overflow: hidden }
+
     body {
-      background:
-        radial-gradient(circle at 10% 12%, rgba(82, 166, 143, .18), transparent 30%),
-        radial-gradient(circle at 90% 90%, rgba(53, 121, 161, .14), transparent 31%),
-        var(--canvas);
+      display: flex;
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      text-rendering: optimizeLegibility;
+      background: radial-gradient(circle at 10% 6%, #d3ede4, transparent 34%),
+                  radial-gradient(circle at 94% 92%, #d9ebf0, transparent 32%), var(--canvas);
+      font: 500 16px/1.5 "Plus Jakarta Sans", "Trebuchet MS", system-ui, sans-serif;
     }
 
-    button, input, textarea, select { font: inherit; }
-    button { color: inherit; }
+    button { font: inherit; cursor: pointer }
 
-    .viewport {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-    }
-
-    .scale-root {
-      position: absolute;
-      width: 1100px;
-      height: 650px;
-      transform-origin: top left;
-      will-change: transform;
-    }
-
+    /* ---------- çerçeve ---------- */
     .app {
-      width: 1100px;
-      height: 650px;
+      flex: 1;
+      min-width: 0;
       display: grid;
-      grid-template-rows: 58px minmax(0, 1fr) 66px;
-      overflow: hidden;
-      background: rgba(247, 250, 249, .97);
-      border: 1px solid rgba(255, 255, 255, .84);
-      border-radius: 26px;
-      box-shadow: var(--shadow);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      background: var(--paper);
     }
 
-    .appbar {
+    .topbar {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 0 26px;
-      color: #fff;
-      background: linear-gradient(112deg, #123f39 0%, #176b5b 72%, #227d6b 100%);
+      gap: 12px;
+      padding: clamp(8px, 1.6vmin, 14px) clamp(12px, 2.4vmin, 26px);
+      border-bottom: 1px solid var(--line);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 235px;
-      font-weight: 850;
-      letter-spacing: .04em;
-    }
-
-    .brand-mark {
-      width: 31px;
-      height: 31px;
+    .mark {
+      width: clamp(28px, 4.6vmin, 38px);
+      aspect-ratio: 1;
       display: grid;
       place-items: center;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, .16);
-      border: 1px solid rgba(255, 255, 255, .24);
-      font-size: 18px;
-    }
-
-    .lesson-meta {
-      flex: 1;
-      font-size: 14px;
-      font-weight: 700;
-      color: rgba(255, 255, 255, .82);
-    }
-
-    .lesson-meta strong { color: #fff; }
-
-    .progress-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--brand);
       font-weight: 800;
+      font-size: clamp(14px, 2.2vmin, 19px);
     }
 
-    .progress-track {
-      width: 118px;
-      height: 7px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .22);
-    }
+    .title { min-width: 0 }
+    .title strong { display: block; font-size: clamp(12px, 1.9vmin, 15px); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+    .title span { display: block; color: var(--muted); font-size: clamp(10px, 1.5vmin, 12px); font-weight: 700 }
 
-    .progress-fill {
-      width: 11.11%;
-      height: 100%;
-      border-radius: inherit;
-      background: #a8efd8;
-      transition: width .28s ease;
-    }
+    .track { height: 4px; background: #e2ebe8 }
+    .fill { height: 100%; width: 5%; background: var(--brand); transition: width .25s ease }
 
-    .stage { position: relative; min-height: 0; overflow: hidden; }
+    /* ---------- sahne ---------- */
+    main { position: relative; min-height: 0; overflow: hidden }
 
     .screen {
       position: absolute;
       inset: 0;
       display: none;
-      grid-template-rows: auto minmax(0, 1fr);
-      gap: 18px;
-      padding: 22px 28px 20px;
-      overflow: hidden;
+      padding: clamp(14px, 3vmin, 34px);
+      overflow: auto;
     }
-
-    .screen.active { display: grid; animation: enter .3s ease both; }
-
-    @keyframes enter {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-    }
-
-    .screen-head {
+    /* uzun içerikte üstten kırpılmasın diye "safe center" */
+    .screen.active {
       display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 30px;
-      min-height: 70px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      justify-content: safe center;
+      animation: enter .22s ease;
+    }
+    @keyframes enter { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+
+    .card {
+      width: min(900px, 100%);
+      display: grid;
+      justify-items: center;
+      gap: clamp(10px, 2vmin, 20px);
+      text-align: center;
     }
 
     .eyebrow {
-      margin: 0 0 5px;
       color: var(--brand);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .12em;
+      font-size: clamp(11px, 1.8vmin, 14px);
+      font-weight: 800;
+      letter-spacing: .14em;
       text-transform: uppercase;
     }
 
-    h1, h2, h3, p { margin-top: 0; }
-    h1, h2 { margin-bottom: 4px; letter-spacing: -.035em; line-height: 1.06; }
-    h1 { font-size: 38px; }
-    h2 { font-size: 30px; }
-    h3 { margin-bottom: 7px; font-size: 18px; line-height: 1.2; }
-
-    .lede {
-      max-width: 620px;
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.42;
-    }
-
-    .head-chip {
-      flex: 0 0 auto;
-      padding: 9px 13px;
-      border-radius: 999px;
-      color: var(--brand-dark);
+    .chip {
+      padding: 6px 13px;
+      border-radius: 99px;
       background: var(--mint);
-      font-size: 13px;
-      font-weight: 850;
+      color: var(--brand-dark);
+      font-size: clamp(12px, 2vmin, 15px);
+      font-weight: 800;
     }
 
-    .panel, .card {
+    h1 { font-size: clamp(32px, 7.4vmin, 62px); line-height: 1.05; letter-spacing: -.03em; font-weight: 800 }
+
+    /* ekranın tek cümlesi */
+    .line {
+      font-size: clamp(22px, 4.6vmin, 42px);
+      line-height: 1.26;
+      letter-spacing: -.02em;
+      font-weight: 800;
+    }
+    .line.calm { font-weight: 700; font-size: clamp(20px, 4vmin, 35px) }
+    .line.small { font-size: clamp(18px, 3.5vmin, 30px) }
+
+    .note {
+      padding: clamp(14px, 2.6vmin, 26px) clamp(16px, 3vmin, 30px);
+      border-radius: 18px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(22px, 4.6vmin, 40px);
+      line-height: 1.28;
+      font-weight: 800;
+    }
+
+    .sub { max-width: 660px; color: var(--muted); font-size: clamp(14px, 2.3vmin, 19px); font-weight: 600 }
+
+    /* ---------- görseller ---------- */
+    .photo {
+      display: grid;
+      width: min(100%, 420px);
+    }
+    .photo img {
+      display: block;
+      width: 100%;
+      max-height: min(30vh, 280px);
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(20, 58, 52, .16);
+    }
+
+    .icon {
+      width: clamp(56px, 10vmin, 96px);
+      aspect-ratio: 1;
+      padding: clamp(9px, 1.6vmin, 15px);
+      border-radius: 20px;
+      background: var(--mint);
+      color: var(--brand-dark);
+    }
+    .icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
+
+    /* ---------- şema: hedef → kanıt → ölçüt ---------- */
+    .flow {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: stretch;
+      gap: clamp(8px, 1.6vmin, 16px);
+    }
+    .node {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      padding: clamp(12px, 2.2vmin, 22px) clamp(10px, 1.8vmin, 18px);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      box-shadow: 0 8px 24px rgba(29, 66, 59, .06);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
     }
-
-    .card { padding: 18px; }
-    .soft-green { background: linear-gradient(145deg, #f9fffc, #e7f6ef); }
-    .soft-blue { background: linear-gradient(145deg, #fbfdff, #e8f3f8); }
-    .soft-amber { background: linear-gradient(145deg, #fffdfa, #fff1d9); }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 9px;
-      border-radius: 9px;
-      color: var(--brand-dark);
+    .node .nico {
+      width: clamp(38px, 6vmin, 58px);
+      aspect-ratio: 1;
+      padding: clamp(7px, 1.2vmin, 12px);
+      border-radius: 15px;
       background: var(--mint);
-      font-size: 12px;
-      font-weight: 850;
+      color: var(--brand-dark);
     }
+    .node .nico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+    .node strong { font-size: clamp(17px, 3.1vmin, 27px); color: var(--brand-dark) }
+    .node span { color: var(--muted); font-size: clamp(12px, 2vmin, 16px); font-weight: 700 }
+    .arrow { align-self: center; color: var(--brand); font-size: clamp(22px, 3.6vmin, 34px); font-weight: 800; line-height: 1 }
 
-    .tag.blue { color: #154d70; background: var(--blue-soft); }
-    .tag.amber { color: #755018; background: var(--amber-soft); }
+    /* ---------- formül: eylem + içerik + koşul ---------- */
+    .formula { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(8px, 1.6vmin, 16px) }
+    .term {
+      display: grid;
+      gap: 4px;
+      padding: clamp(11px, 2vmin, 20px) clamp(14px, 2.4vmin, 26px);
+      border-radius: 16px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(18px, 3.3vmin, 30px);
+      font-weight: 800;
+    }
+    .term span { color: var(--brand); font-size: clamp(10px, 1.6vmin, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .plus { color: var(--muted); font-size: clamp(20px, 3.2vmin, 30px); font-weight: 800 }
 
-    .icon-box {
-      width: 42px;
-      height: 42px;
+    /* ---------- karşılaştırma ---------- */
+    .compare { width: 100%; display: grid; justify-items: center; gap: clamp(8px, 1.6vmin, 14px) }
+    .box {
+      width: 100%;
+      padding: clamp(13px, 2.4vmin, 24px) clamp(15px, 2.8vmin, 28px);
+      border-radius: 18px;
+      font-size: clamp(18px, 3.5vmin, 31px);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .box small { display: block; margin-bottom: 6px; font-size: clamp(10px, 1.7vmin, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .8 }
+    .box.bad { border: 1px solid #e6d5b6; background: #fffaf0; color: var(--amber-ink) }
+    .box.bad b { font-weight: 800; text-decoration: line-through; text-decoration-thickness: 2px }
+    .box.good { border: 1px solid #b8dbd0; background: #f2fbf7; color: var(--brand-dark) }
+
+    /* ---------- seçenek kartları ---------- */
+    .options { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: clamp(8px, 1.6vmin, 14px) }
+    .opt {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      padding: clamp(12px, 2.2vmin, 20px) clamp(10px, 1.8vmin, 16px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+    }
+    .opt b {
+      width: clamp(28px, 4.4vmin, 36px);
+      aspect-ratio: 1;
       display: grid;
       place-items: center;
-      flex: 0 0 auto;
-      border-radius: 14px;
-      color: var(--brand);
-      background: var(--mint);
-      font-size: 22px;
-    }
-
-    .micro {
-      margin: 0;
+      border-radius: 11px;
+      background: #eef4f2;
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
+      font-size: clamp(14px, 2.3vmin, 18px);
+    }
+    .opt strong { font-size: clamp(15px, 2.6vmin, 21px) }
+    .opt span { color: var(--muted); font-size: clamp(12px, 2vmin, 16px); font-weight: 600 }
+    .opt.pick { border-color: var(--brand); background: #f2fbf7; box-shadow: var(--shadow) }
+    .opt.pick b { background: var(--brand); color: #fff }
+    .opt.pick strong { color: var(--brand-dark) }
+
+    /* ---------- öğrenci ölçüt kartı ---------- */
+    .sheet {
+      width: min(100%, 620px);
+      display: grid;
+      gap: clamp(8px, 1.5vmin, 14px);
+      padding: clamp(15px, 2.6vmin, 26px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+    .sheet h3 { color: var(--brand-dark); font-size: clamp(15px, 2.6vmin, 21px); font-weight: 800 }
+    .sheet li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 12px;
+      list-style: none;
+      font-size: clamp(16px, 2.9vmin, 24px);
+      font-weight: 700;
+    }
+    .sheet li + li { margin-top: clamp(6px, 1.2vmin, 12px) }
+    .tick {
+      width: clamp(24px, 3.8vmin, 32px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(14px, 2.2vmin, 18px);
+      font-weight: 900;
     }
 
-    .bottombar {
+    /* ---------- kontrol kutuları ---------- */
+    .quad { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(8px, 1.6vmin, 14px) }
+    .q {
+      display: grid;
+      justify-items: center;
+      gap: 5px;
+      padding: clamp(12px, 2.2vmin, 20px) clamp(10px, 1.8vmin, 16px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #f8fbfa;
+    }
+    .q .tick { background: var(--brand); color: #fff }
+    .q strong { font-size: clamp(15px, 2.6vmin, 21px); color: var(--brand-dark) }
+    .q span { color: var(--muted); font-size: clamp(12px, 2vmin, 15px); font-weight: 600 }
+
+    /* ---------- prompt kutusu ---------- */
+    .prompt {
+      width: 100%;
+      padding: clamp(15px, 2.8vmin, 28px) clamp(16px, 3vmin, 30px);
+      border: 1px solid #b8dbd0;
+      border-radius: 18px;
+      background: #f8fdfb;
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      font-size: clamp(18px, 3.3vmin, 28px);
+      line-height: 1.42;
+      font-weight: 700;
+      text-align: left;
+    }
+    .prompt em { color: var(--brand); font-style: normal; font-weight: 800 }
+
+    .copy {
+      min-height: 46px;
+      padding: 10px 26px;
+      border: 0;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--brand);
+      font-size: clamp(14px, 2.3vmin, 17px);
+      font-weight: 800;
+    }
+    .copy:hover { background: var(--brand-dark) }
+
+    .warn {
+      padding: clamp(14px, 2.6vmin, 26px);
+      border-radius: 18px;
+      background: var(--amber);
+      color: var(--amber-ink);
+      font-size: clamp(21px, 4.3vmin, 37px);
+      line-height: 1.28;
+      font-weight: 800;
+    }
+
+    .password {
+      padding: clamp(12px, 2.2vmin, 20px) clamp(20px, 3.4vmin, 34px);
+      border-radius: 16px;
+      background: var(--brand-dark);
+      color: #fff;
+    }
+    .password span { display: block; color: #a9e0d1; font-size: clamp(10px, 1.6vmin, 12px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .password strong { display: block; margin-top: 4px; font-size: clamp(26px, 5.2vmin, 44px); font-weight: 800; letter-spacing: .02em }
+
+    /* ---------- alt gezinme ---------- */
+    .bottom {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 16px;
-      padding: 0 25px;
+      gap: 10px;
+      padding: clamp(9px, 1.7vmin, 16px) clamp(12px, 2.4vmin, 26px);
       border-top: 1px solid var(--line);
-      background: rgba(255, 255, 255, .94);
+      background: #fff;
     }
 
-    .nav-note { color: var(--muted); font-size: 12px; line-height: 1.25; }
-    .nav-note strong { color: var(--ink); }
-
-    .dots { display: flex; align-items: center; gap: 7px; }
-    .dot {
-      width: 8px;
-      height: 8px;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: #c7d2d0;
-      cursor: pointer;
-    }
-    .dot.active { width: 22px; border-radius: 999px; background: var(--brand); }
-
-    .nav-actions { display: flex; justify-content: end; gap: 9px; }
-    .btn {
-      min-height: 39px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 0 15px;
+    .nav {
+      min-height: 44px;
+      padding: 9px clamp(12px, 2.4vmin, 22px);
       border: 1px solid var(--line);
       border-radius: 12px;
       background: #fff;
-      font-size: 14px;
-      font-weight: 850;
-      cursor: pointer;
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-    }
-    .btn:hover { transform: translateY(-1px); border-color: #aac5bd; }
-    .btn.primary { color: #fff; border-color: var(--brand); background: var(--brand); }
-    .btn.primary:hover { background: #115b4d; }
-    .btn:disabled { opacity: .36; cursor: default; transform: none; }
-    .btn.small { min-height: 34px; padding: 0 11px; font-size: 12px; }
-
-    /* 1 — Açılış */
-    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; gap: 20px; min-height: 0; }
-    .hero-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 30px;
-      border-radius: 26px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 86% 18%, rgba(168, 239, 216, .22), transparent 27%),
-        linear-gradient(135deg, #123f39, #176b5b);
-    }
-    .hero-copy h1 { max-width: 520px; font-size: 43px; }
-    .hero-copy p { max-width: 500px; margin: 12px 0 20px; color: rgba(255,255,255,.78); font-size: 17px; line-height: 1.45; }
-    .outcomes { display: flex; gap: 9px; flex-wrap: wrap; }
-    .outcomes span { padding: 7px 10px; border-radius: 10px; background: rgba(255,255,255,.12); font-size: 13px; font-weight: 750; }
-
-    .route-visual { display: grid; place-items: center; padding: 26px; overflow: hidden; }
-    .route {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 26px 1fr 26px 1fr;
-      align-items: center;
-      gap: 4px;
-    }
-    .route-step { min-height: 150px; display: grid; align-content: center; gap: 9px; padding: 17px; border-radius: 19px; text-align: center; }
-    .route-step strong { font-size: 18px; }
-    .route-step span { color: var(--muted); font-size: 13px; line-height: 1.3; }
-    .route-arrow { color: var(--brand); text-align: center; font-size: 25px; font-weight: 900; }
-    .route-icon { margin: auto; font-size: 29px; }
-    .one-line-rule { grid-column: 1 / -1; margin: 18px 0 0; padding: 13px 15px; border-radius: 14px; background: var(--mint); color: var(--brand-dark); text-align: center; font-size: 15px; font-weight: 850; }
-
-    /* 2 — Kavramlar */
-    .concept-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; min-height: 0; }
-    .concept-card { position: relative; display: flex; flex-direction: column; padding: 19px; overflow: hidden; }
-    .concept-card::after { content: attr(data-no); position: absolute; right: 12px; bottom: -16px; color: rgba(23,107,91,.07); font-size: 86px; font-weight: 950; }
-    .concept-card p { position: relative; z-index: 1; margin: 3px 0 12px; color: var(--muted); font-size: 14px; line-height: 1.4; }
-    .concept-card .example { position: relative; z-index: 1; margin-top: auto; padding: 11px; border-radius: 12px; background: #f3f6f5; font-size: 13px; line-height: 1.35; }
-
-    /* 3 — Fiil laboratuvarı */
-    .verb-lab { display: grid; grid-template-columns: 390px 1fr; gap: 18px; min-height: 0; }
-    .formula-card { display: grid; align-content: center; padding: 24px; }
-    .formula {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center;
-      gap: 8px;
-      margin: 18px 0;
-    }
-    .formula span { padding: 14px 8px; border-radius: 13px; background: #f0f6f4; text-align: center; font-size: 14px; font-weight: 850; }
-    .formula b { color: var(--brand); font-size: 20px; }
-    .verb-workspace { display: grid; grid-template-rows: auto 1fr; gap: 14px; padding: 20px; }
-    .verb-chips { display: flex; gap: 9px; }
-    .verb-chip { padding: 9px 15px; border: 1px solid #efc4bf; border-radius: 999px; background: var(--red-soft); color: #843c38; font-weight: 850; cursor: pointer; }
-    .verb-chip.active { color: #fff; border-color: var(--brand); background: var(--brand); }
-    .verb-result { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 12px; }
-    .before-after { display: flex; flex-direction: column; justify-content: center; padding: 19px; border-radius: 17px; }
-    .before-after.bad { background: var(--red-soft); }
-    .before-after.good { background: var(--mint); }
-    .before-after small { margin-bottom: 8px; color: var(--muted); font-weight: 850; text-transform: uppercase; letter-spacing: .06em; }
-    .before-after strong { font-size: 20px; line-height: 1.25; }
-    .swap-arrow { align-self: center; color: var(--brand); font-size: 27px; }
-
-    /* 4 — Branş örnekleri */
-    .example-layout { display: grid; grid-template-columns: 250px 1fr; gap: 18px; min-height: 0; }
-    .subject-side { position: relative; overflow: hidden; padding: 18px; }
-    .subject-side img { width: 100%; height: 170px; object-fit: contain; display: block; }
-    .subject-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 9px; }
-    .subject-tab { padding: 8px 7px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font-size: 12px; font-weight: 850; cursor: pointer; }
-    .subject-tab.active { color: #fff; border-color: var(--brand); background: var(--brand); }
-    .alignment-card { display: grid; grid-template-rows: auto 1fr; gap: 12px; padding: 20px; }
-    .alignment-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; min-height: 0; }
-    .alignment-item { padding: 15px; border-radius: 16px; background: #f2f6f5; }
-    .alignment-item:nth-child(2) { background: var(--blue-soft); }
-    .alignment-item:nth-child(3) { background: var(--mint); }
-    .alignment-item small { display: block; margin-bottom: 8px; color: var(--muted); font-weight: 900; letter-spacing: .05em; text-transform: uppercase; }
-    .alignment-item p { margin: 0; font-size: 14px; line-height: 1.38; }
-    .criteria-list { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.45; }
-
-    /* 5 — Eşleştirme */
-    .match-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 18px; min-height: 0; }
-    .target-card { display: grid; align-content: center; padding: 26px; }
-    .target-card blockquote { margin: 15px 0 0; padding: 16px; border-left: 4px solid var(--brand); border-radius: 0 14px 14px 0; background: #f2f7f5; font-size: 19px; font-weight: 750; line-height: 1.38; }
-    .evidence-options { display: grid; gap: 10px; }
-    .evidence-option { display: grid; grid-template-columns: 38px 1fr; align-items: center; gap: 12px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 15px; background: #fff; text-align: left; cursor: pointer; }
-    .evidence-option:hover { border-color: #91b9ae; }
-    .evidence-option.correct { border-color: #68a995; background: var(--mint); }
-    .evidence-option.wrong { border-color: #d99d97; background: var(--red-soft); }
-    .option-letter { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: #edf2f1; font-weight: 900; }
-    .evidence-option strong { display: block; margin-bottom: 2px; font-size: 15px; }
-    .evidence-option span:last-child { color: var(--muted); font-size: 13px; }
-    .match-feedback { min-height: 42px; padding: 10px 12px; border-radius: 12px; background: #f0f4f3; color: var(--muted); font-size: 13px; line-height: 1.35; }
-
-    /* 6 — İstemler */
-    .prompt-grid { display: grid; grid-template-columns: 1fr 1.12fr; gap: 16px; min-height: 0; }
-    .prompt-card { display: grid; grid-template-rows: auto 1fr auto; gap: 11px; padding: 18px; overflow: hidden; }
-    .prompt-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .prompt-text { margin: 0; padding: 14px; overflow: hidden; border-radius: 14px; background: #f1f5f4; color: #26373f; font-size: 13px; line-height: 1.42; white-space: pre-wrap; }
-    .prompt-card.medium .prompt-text { background: #eef5f9; }
-    .prompt-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-
-    /* 7 — İstem oluşturucu */
-    .builder { display: grid; grid-template-columns: .94fr 1.06fr; gap: 16px; min-height: 0; }
-    .form-card { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; padding: 18px; align-content: start; }
-    .field { display: grid; gap: 5px; }
-    .field.wide { grid-column: 1 / -1; }
-    .field label { color: #46575f; font-size: 12px; font-weight: 850; }
-    .field input, .field textarea, .field select {
-      width: 100%;
-      border: 1px solid #cdd9d6;
-      border-radius: 11px;
-      outline: none;
-      background: #fbfdfc;
+      font-size: clamp(13px, 2vmin, 16px);
+      font-weight: 800;
       color: var(--ink);
-      font-size: 13px;
     }
-    .field input, .field select { height: 37px; padding: 0 10px; }
-    .field textarea { height: 62px; padding: 9px 10px; resize: none; line-height: 1.3; }
-    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(23,107,91,.11); }
-    .builder-output { display: grid; grid-template-rows: auto 1fr auto; gap: 11px; padding: 18px; }
-    .generated-prompt { margin: 0; padding: 14px; overflow: hidden; border-radius: 14px; background: #123f39; color: #eaf7f3; font-size: 13px; line-height: 1.42; white-space: pre-wrap; }
+    .nav:hover:not(:disabled) { background: #f2f8f6 }
+    .nav.go { justify-self: end; color: #fff; border-color: var(--brand); background: var(--brand) }
+    .nav.go:hover { background: var(--brand-dark) }
+    .nav.back { justify-self: start }
+    .nav:disabled { opacity: .3; cursor: default }
 
-    /* 8 — Kontrol */
-    .audit-layout { display: grid; grid-template-columns: 1fr .9fr; gap: 18px; min-height: 0; }
-    .audit-list { display: grid; gap: 9px; padding: 18px; }
-    .audit-item { display: grid; grid-template-columns: 34px 1fr; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 13px; background: #f2f6f5; cursor: pointer; }
-    .audit-item input { position: absolute; opacity: 0; pointer-events: none; }
-    .checkmark { width: 30px; height: 30px; display: grid; place-items: center; border: 2px solid #aebdba; border-radius: 10px; background: #fff; color: transparent; font-weight: 950; }
-    .audit-item:has(input:checked) { background: var(--mint); }
-    .audit-item input:checked + .checkmark { color: #fff; border-color: var(--brand); background: var(--brand); }
-    .audit-item strong { display: block; font-size: 14px; }
-    .audit-item small { color: var(--muted); font-size: 12px; }
-    .revision-card { display: grid; align-content: center; gap: 13px; padding: 22px; }
-    .revision-prompt { padding: 14px; border-radius: 14px; background: var(--amber-soft); color: #5f451c; font-size: 14px; line-height: 1.42; }
-    .audit-score { font-size: 13px; font-weight: 850; color: var(--brand); }
-
-    /* 9 — Kapanış */
-    .finish-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 18px; min-height: 0; }
-    .finish-card { display: grid; align-content: center; padding: 27px; }
-    .finish-card h2 { font-size: 34px; }
-    .takeaways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 19px; }
-    .takeaway { padding: 13px; border-radius: 14px; background: #f0f5f3; }
-    .takeaway strong { display: block; color: var(--brand); font-size: 18px; }
-    .takeaway span { color: var(--muted); font-size: 12px; line-height: 1.3; }
-    .finish-actions { display: flex; gap: 9px; margin-top: 16px; }
-    .password-card {
-      position: relative;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      padding: 24px;
-      color: #fff;
-      text-align: center;
-      background: linear-gradient(145deg, #123f39, #176b5b);
-    }
-    .password-card::before, .password-card::after { content: ""; position: absolute; border-radius: 50%; background: rgba(168,239,216,.12); }
-    .password-card::before { width: 210px; height: 210px; top: -95px; right: -70px; }
-    .password-card::after { width: 150px; height: 150px; bottom: -70px; left: -45px; }
-    .password-inner { position: relative; z-index: 1; }
-    .lock-icon { width: 58px; height: 58px; display: grid; place-items: center; margin: 0 auto 12px; border-radius: 18px; background: rgba(255,255,255,.14); font-size: 29px; }
-    .password-label { color: rgba(255,255,255,.72); font-size: 12px; font-weight: 850; letter-spacing: .11em; text-transform: uppercase; }
-    .password {
-      margin: 10px 0;
-      font-size: 38px;
-      font-weight: 950;
-      letter-spacing: .08em;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity .55s ease .15s, transform .55s ease .15s;
-    }
-    .screen.active .password { opacity: 1; transform: translateY(0); }
-    .sources { margin-top: 12px; color: rgba(255,255,255,.62); font-size: 10px; }
-    .sources a { color: rgba(255,255,255,.82); }
+    .counter { color: var(--muted); font-size: clamp(11px, 1.8vmin, 14px); font-weight: 800; white-space: nowrap }
 
     .toast {
       position: fixed;
       left: 50%;
-      bottom: 16px;
-      z-index: 30;
-      padding: 9px 14px;
-      border-radius: 10px;
+      bottom: 84px;
+      z-index: 5;
+      padding: 11px 18px;
+      border-radius: 11px;
       color: #fff;
-      background: #17242c;
-      box-shadow: 0 10px 25px rgba(0,0,0,.2);
-      font-size: 13px;
-      font-weight: 750;
+      background: #14424a;
+      font-size: 14px;
+      font-weight: 800;
       opacity: 0;
       transform: translate(-50%, 12px);
+      transition: .2s;
       pointer-events: none;
-      transition: .2s ease;
     }
-    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .toast.show { opacity: 1; transform: translate(-50%, 0) }
 
-    @media (max-width: 720px) {
-      .app { border-radius: 18px; }
+    @media (max-width: 520px) {
+      .flow { grid-template-columns: 1fr }
+      .flow .arrow { transform: rotate(90deg); font-size: 18px }
+      .node { grid-template-columns: auto 1fr; justify-items: start; align-items: center; text-align: left; gap: 2px 12px; padding: 10px 14px }
+      .node .nico { grid-row: span 2 }
+    }
+
+    @media (max-height: 400px) {
+      .photo, .icon { display: none }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important }
     }
   </style>
 </head>
+
 <body>
-  <div class="viewport">
-    <div class="scale-root tutorial-stage" id="scaleRoot">
-      <main class="app" aria-label="AI-GALAXY öğretmen patikası Ders 2">
-        <header class="appbar">
-          <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> AI-GALAXY</div>
-          <div class="lesson-meta"><strong>TeachTech</strong> · Eğitimde Yapay Zeka Patikası · Ders 2 / Kazanım ve Başarı Ölçütleri</div>
-          <div class="progress-wrap"><span id="screenCount">1 / 9</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
-        </header>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.8" /><circle cx="12" cy="12" r="1.4" /></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12S6.5 5.8 12 5.8 21.2 12 21.2 12 17.5 18.2 12 18.2 2.8 12 2.8 12z" /><circle cx="12" cy="12" r="2.9" /></symbol>
+      <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4h4v2.2a1.8 1.8 0 1 0 3.6 0V4H20v4h-2.2a1.8 1.8 0 1 0 0 3.6H20V20h-4.4v-2.2a1.8 1.8 0 1 0-3.6 0V20H4v-4.4h2.2a1.8 1.8 0 1 0 0-3.6H4V8h6z" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 6.5h9" /><path d="M4.5 12h9" /><path d="M4.5 17.5h6" /><path d="m16 15.5 2.2 2.2 4-4.4" /></symbol>
+      <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3.5 15.5 15.5 3.5l5 5-12 12z" /><path d="m7.5 11.5 2 2" /><path d="m10.5 8.5 2 2" /><path d="m13.5 5.5 2 2" /></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" /></symbol>
+      <symbol id="i-shapes" viewBox="0 0 24 24"><rect x="3" y="13" width="8" height="8" rx="1.5" /><circle cx="17" cy="17" r="4" /><path d="M11 3.5 15.5 11h-9z" /></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c-1.5-6 2.5-12 14-13 1 9-3.5 14-9.5 14-1.9 0-3.4-.4-4.5-1z" /><path d="M6.5 17.5C9 14 12 11.6 16 10" /></symbol>
+      <symbol id="i-exit" viewBox="0 0 24 24"><rect x="3.5" y="5" width="13" height="14" rx="2" /><path d="M20.5 12h-6" /><path d="m17.5 9 3 3-3 3" /></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 8.5 4.5L12 12 3.5 7.5z" /><path d="m4 12 8 4.3 8-4.3" /><path d="m4 16.5 8 4.3 8-4.3" /></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8.5h14" /><path d="m15 5.5 3 3-3 3" /><path d="M20 15.5H6" /><path d="m9 12.5-3 3 3 3" /></symbol>
+      <symbol id="i-wand" viewBox="0 0 24 24"><path d="m4 20 10-10" /><path d="m13.5 5.5 1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z" /><path d="M19 13.5l.7 1.5 1.5.7-1.5.7-.7 1.5-.7-1.5-1.5-.7 1.5-.7z" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v6c0 4.2-3 7.3-7 8.5-4-1.2-7-4.3-7-8.5V6z" /><path d="M12 9v4" /><path d="M12 16h.01" /></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4" /><path d="M6 4.5h11l-2 3.5 2 3.5H6z" /></symbol>
+    </defs>
+  </svg>
 
-        <section class="stage">
-          <!-- 1 -->
-          <article class="screen active" data-title="Başlangıç">
-            <div></div>
-            <div class="hero-grid">
-              <section class="hero-copy">
-                <p class="eyebrow" style="color:#a8efd8">12 dakikalık uygulama</p>
-                <h1>Kazanımı görünür öğrenmeye dönüştür.</h1>
-                <p>Yapay zekâdan “ders planı” istemeden önce, öğrencinin ne yapacağını ve bunu hangi kanıtla göstereceğini netleştirin.</p>
-                <div class="outcomes"><span>1 gözlenebilir hedef</span><span>1 öğrenci kanıtı</span><span>En fazla 3 ölçüt</span></div>
-              </section>
-              <section class="panel route-visual" aria-label="Hedef kanıt ölçüt akışı">
-                <div class="route">
-                  <div class="route-step soft-amber"><div class="route-icon">🧭</div><strong>Hedef</strong><span>Öğrenci ne yapacak?</span></div>
-                  <div class="route-arrow">›</div>
-                  <div class="route-step soft-blue"><div class="route-icon">🔎</div><strong>Kanıt</strong><span>Neyi görürsem anlarım?</span></div>
-                  <div class="route-arrow">›</div>
-                  <div class="route-step soft-green"><div class="route-icon">✓</div><strong>Ölçüt</strong><span>İyi iş nasıl görünür?</span></div>
-                  <p class="one-line-rule">Kısa kural: Hedef görünmüyorsa, öğrenme de ölçülemez.</p>
-                </div>
-              </section>
+  <div class="app">
+    <header>
+      <div class="topbar">
+        <div class="mark">2</div>
+        <div class="title">
+          <strong>Kazanımı Görünür Yap</strong>
+          <span>TeachTech · Ders 2</span>
+        </div>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </header>
+
+    <main id="main">
+
+      <!-- 1 -->
+      <section class="screen active">
+        <div class="card">
+          <p class="eyebrow">TeachTech · Ders 2</p>
+          <h1>Kazanımı Görünür Yap</h1>
+          <figure class="photo"><img src="assets/ders2-learning-outcomes.jpg" alt="Kazanımları inceleyen öğretmen" loading="eager"></figure>
+          <p class="line calm">Kazanım, öğrencide görebildiğiniz bir işe dönüşmezse ölçülemez.</p>
+          <p class="sub">Her ekranda tek bir bilgi var. İlerlemek için “İleri” düğmesine basın.</p>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Bugünün tek bilgisi</p>
+          <p class="note">Önce öğrencinin ne yapacağını yazın, sonra bunu neyle göstereceğini.</p>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Üç adımlık şema</p>
+          <div class="flow">
+            <div class="node">
+              <div class="nico"><svg><use href="#i-target" /></svg></div>
+              <strong>Hedef</strong>
+              <span>Öğrenci ne yapacak?</span>
             </div>
-          </article>
-
-          <!-- 2 -->
-          <article class="screen" data-title="Kavramlar">
-            <header class="screen-head">
-              <div><p class="eyebrow">Ön bilgi</p><h2>Dört ifade, dört farklı iş</h2><p class="lede">Birbirine benzeyen bu kavramları ayırmak, yapay zekâdan daha isabetli çıktı aldırır.</p></div>
-              <span class="head-chip">Önce hizala, sonra üret</span>
-            </header>
-            <div class="concept-grid">
-              <section class="card concept-card" data-no="1"><div class="icon-box">📘</div><h3>Öğrenme çıktısı</h3><p>Programdaki bilgi ve beceriyi birlikte tanımlar. Kaynağınız resmî programdır.</p><div class="example"><strong>Koruyun:</strong> Yapay zekâ yeni çıktı eklemesin.</div></section>
-              <section class="card concept-card" data-no="2"><div class="icon-box">🎯</div><h3>Ders hedefi</h3><p>Çıktının bu derste ele alınacak, gözlenebilir ve yönetilebilir parçasıdır.</p><div class="example"><strong>Fiil:</strong> karşılaştırır, sınıflandırır, gerekçelendirir…</div></section>
-              <section class="card concept-card" data-no="3"><div class="icon-box">🧩</div><h3>Başarı kanıtı</h3><p>Öğrencinin hedefe ulaştığını gösteren ürün, açıklama ya da performanstır.</p><div class="example"><strong>Örnek:</strong> çözüm yolu, ses kaydı, model, kısa metin.</div></section>
-              <section class="card concept-card" data-no="4"><div class="icon-box">✅</div><h3>Başarı ölçütü</h3><p>Kanıtın hangi özellikleri taşıması gerektiğini öğrenci dilinde açıklar.</p><div class="example"><strong>Sınır:</strong> Genellikle 2–3 net ölçüt yeterlidir.</div></section>
+            <div class="arrow">→</div>
+            <div class="node">
+              <div class="nico"><svg><use href="#i-eye" /></svg></div>
+              <strong>Kanıt</strong>
+              <span>Neyi görürsem anlarım?</span>
             </div>
-          </article>
-
-          <!-- 3 -->
-          <article class="screen" data-title="Fiil laboratuvarı">
-            <header class="screen-head">
-              <div><p class="eyebrow">Mini uygulama</p><h2>“Anlar”ı gözlenebilir hâle getirin</h2><p class="lede">Belirsiz fiile dokunun; aynı niyetin sınıfta görülebilir sürümünü karşılaştırın.</p></div>
-              <span class="head-chip">Hedef = eylem + içerik + koşul</span>
-            </header>
-            <div class="verb-lab">
-              <section class="card formula-card soft-green">
-                <span class="tag">Hedef cümlesi</span>
-                <div class="formula"><span>Eylem</span><b>+</b><span>İçerik</span><b>+</b><span>Koşul</span></div>
-                <p class="micro"><strong>Ders sonunda öğrenci…</strong> gözlenebilir bir eylem yapar. Sayı, araç veya bağlam yalnızca gerçekten gerekliyse eklenir.</p>
-              </section>
-              <section class="panel verb-workspace">
-                <div class="verb-chips" role="group" aria-label="Belirsiz fiiller">
-                  <button class="verb-chip active" data-verb="anlar">anlar</button>
-                  <button class="verb-chip" data-verb="bilir">bilir</button>
-                  <button class="verb-chip" data-verb="öğrenir">öğrenir</button>
-                  <button class="verb-chip" data-verb="fark eder">fark eder</button>
-                </div>
-                <div class="verb-result">
-                  <div class="before-after bad"><small>Belirsiz</small><strong id="badVerb">“Ana fikri anlar.”</strong></div>
-                  <div class="swap-arrow">→</div>
-                  <div class="before-after good"><small>Gözlenebilir</small><strong id="goodVerb">“Metnin ana fikrini yazar ve iki ayrıntıyla destekler.”</strong></div>
-                </div>
-              </section>
+            <div class="arrow">→</div>
+            <div class="node">
+              <div class="nico"><svg><use href="#i-check" /></svg></div>
+              <strong>Ölçüt</strong>
+              <span>İyi iş nasıl görünür?</span>
             </div>
-          </article>
+          </div>
+          <p class="sub">Her ders bu üç kutu ile kurulur.</p>
+        </div>
+      </section>
 
-          <!-- 4 -->
-          <article class="screen" data-title="Branş örnekleri">
-            <header class="screen-head">
-              <div><p class="eyebrow">Her branşa uyarlanabilir</p><h2>Hedef, kanıt ve ölçüt aynı çizgide</h2><p class="lede">Branşlara dokunun. Her örnekte hedef ile öğrenci ürününün aynı eylemi taşıdığına dikkat edin.</p></div>
-              <span class="head-chip">Örnekler taslaktır</span>
-            </header>
-            <div class="example-layout">
-              <aside class="card subject-side">
-                <img src="assets/ders2-learning-outcomes.jpg" alt="Farklı branş araçlarını gösteren eğitim illüstrasyonu">
-                <div class="subject-tabs">
-                  <button class="subject-tab active" data-subject="fen">Fen</button>
-                  <button class="subject-tab" data-subject="matematik">Matematik</button>
-                  <button class="subject-tab" data-subject="turkce">Türkçe</button>
-                  <button class="subject-tab" data-subject="sosyal">Sosyal</button>
-                </div>
-              </aside>
-              <section class="panel alignment-card">
-                <div><span class="tag" id="subjectLabel">5. sınıf · Fen Bilimleri</span></div>
-                <div class="alignment-flow">
-                  <div class="alignment-item"><small>1 · Ders hedefi</small><p id="subjectTarget">Öğrenci, günlük yaşamdan sekiz maddeyi hâllerine göre sınıflandırır ve iki kararını madde özelliğiyle gerekçelendirir.</p></div>
-                  <div class="alignment-item"><small>2 · Öğrenci kanıtı</small><p id="subjectEvidence">Sınıflandırılmış görsel kartlar ve iki kısa gerekçe.</p></div>
-                  <div class="alignment-item"><small>3 · “Başardım” ölçütleri</small><ul class="criteria-list" id="subjectCriteria"><li>Maddeleri uygun gruba yerleştirdim.</li><li>İki kararımı gözlenebilir özellikle açıkladım.</li><li>Grup adlarını açık yazdım.</li></ul></div>
-                </div>
-              </section>
+      <!-- 4 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Kısa kural</p>
+          <div class="icon"><svg><use href="#i-eye" /></svg></div>
+          <p class="line">Hedef görünmüyorsa, öğrenme de ölçülemez.</p>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Hedef formülü</p>
+          <div class="formula">
+            <div class="term"><span>Eylem</span>sınıflandırır</div>
+            <div class="plus">+</div>
+            <div class="term"><span>İçerik</span>maddeleri</div>
+            <div class="plus">+</div>
+            <div class="term"><span>Koşul</span>8 örnekle</div>
+          </div>
+          <p class="line small">Hedef = eylem + içerik + koşul.</p>
+        </div>
+      </section>
+
+      <!-- 6 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Fiili değiştirin</p>
+          <div class="compare">
+            <div class="box bad"><small>Belirsiz</small><b>anlar · bilir · öğrenir · fark eder</b></div>
+            <div class="arrow">↓</div>
+            <div class="box good"><small>Gözlenebilir</small>yazar · sınıflandırır · karşılaştırır · gösterir</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Aynı hedefin iki hâli</p>
+          <div class="compare">
+            <div class="box bad"><small>Belirsiz hedef</small>“Ana fikri anlar.”</div>
+            <div class="arrow">↓</div>
+            <div class="box good"><small>Gözlenebilir hedef</small>“Metnin ana fikrini yazar ve iki ayrıntıyla destekler.”</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Hedef: “iki karakteri karşılaştırır”</p>
+          <div class="options">
+            <div class="opt">
+              <b>A</b>
+              <strong>Karakter listesi</strong>
+              <span>Hatırlamayı gösterir.</span>
             </div>
-          </article>
-
-          <!-- 5 -->
-          <article class="screen" data-title="Kanıt seçimi">
-            <header class="screen-head">
-              <div><p class="eyebrow">30 saniyelik karar</p><h2>Hangi kanıt hedefi gerçekten gösterir?</h2><p class="lede">En kolay ürünü değil, hedefteki eylemi görünür kılan ürünü seçin.</p></div>
-              <span class="head-chip">Hedefte “karşılaştırır” var</span>
-            </header>
-            <div class="match-layout">
-              <section class="card target-card soft-green">
-                <span class="tag">Türkçe · Örnek hedef</span>
-                <blockquote>“Öğrenci, iki karakterin kararlarını metinden kanıt göstererek karşılaştırır.”</blockquote>
-              </section>
-              <section class="panel" style="padding:18px;display:grid;grid-template-rows:1fr auto;gap:10px">
-                <div class="evidence-options">
-                  <button class="evidence-option" data-answer="wrong"><span class="option-letter">A</span><span><strong>Karakter adları listesi</strong><span>Hatırlamayı gösterir; karşılaştırmayı değil.</span></span></button>
-                  <button class="evidence-option" data-answer="correct"><span class="option-letter">B</span><span><strong>Venn şeması + iki metin kanıtı</strong><span>Hem karşılaştırmayı hem kanıt kullanımını görünür kılar.</span></span></button>
-                  <button class="evidence-option" data-answer="wrong"><span class="option-letter">C</span><span><strong>Metnin kısa özeti</strong><span>Özetleme becerisini gösterir; hedef başka.</span></span></button>
-                </div>
-                <div class="match-feedback" id="matchFeedback">Bir kanıt seçin. İpucu: Ürün, hedefteki iki fiili de göstermeli.</div>
-              </section>
+            <div class="opt pick">
+              <b>✓</b>
+              <strong>Venn şeması + 2 kanıt</strong>
+              <span>Karşılaştırmayı gösterir.</span>
             </div>
-          </article>
-
-          <!-- 6 -->
-          <article class="screen" data-title="İstem örnekleri">
-            <header class="screen-head">
-              <div><p class="eyebrow">AI-GALAXY pratiği</p><h2>Önce basit, sonra kontrollü istem</h2><p class="lede">Köşeli alanları kendi dersinizle değiştirip AI-GALAXY editöre yapıştırın.</p></div>
-              <span class="head-chip">Görev + bağlam + çıktı</span>
-            </header>
-            <div class="prompt-grid">
-              <section class="card prompt-card">
-                <div class="prompt-head"><div><span class="tag">Basit istem</span><h3 style="margin:7px 0 0">Tek hedef üretir</h3></div><button class="btn small copy-btn" data-copy="simplePrompt">Kopyala</button></div>
-                <pre class="prompt-text" id="simplePrompt">[Sınıf] [branş] dersindeki şu öğrenme çıktısını 40 dakikalık tek ders için gözlenebilir bir hedefe dönüştür:
-
-“[Resmî öğrenme çıktısı]”
-
-“Anlar/bilir” kullanma. Yeni kazanım ekleme. Yalnızca bir hedef yaz.</pre>
-                <div class="prompt-foot"><p class="micro"><strong>Ne zaman?</strong> Hızlı bir ilk taslak gerektiğinde.</p></div>
-              </section>
-              <section class="card prompt-card medium soft-blue">
-                <div class="prompt-head"><div><span class="tag blue">Orta istem</span><h3 style="margin:7px 0 0">Hedef + kanıt + ölçüt üretir</h3></div><button class="btn small copy-btn" data-copy="mediumPrompt">Kopyala</button></div>
-                <pre class="prompt-text" id="mediumPrompt">K–12 öğretim tasarım yardımcısı gibi çalış. [Sınıf/branş] için aşağıdaki resmî öğrenme çıktısını değiştirmeden 40 dakikalık derse uyarla.
-
-Çıktı: “[...]”  ·  Ön bilgi: “[...]”
-
-1 gözlenebilir ders hedefi, hedefi gösterecek 1 öğrenci ürünü ve öğrenci dilinde 3 başarı ölçütü ver. Yeni çıktı ekleme; varsayımını belirt. Kısa tablo kullan. Öğretmen doğrulayacak.</pre>
-                <div class="prompt-foot"><p class="micro"><strong>Neden güçlü?</strong> Bağlamı, sınırı ve beklenen biçimi söyler.</p></div>
-              </section>
+            <div class="opt">
+              <b>C</b>
+              <strong>Metnin özeti</strong>
+              <span>Özetlemeyi gösterir.</span>
             </div>
-          </article>
+          </div>
+          <p class="line small">Kanıt, hedefteki fiili göstermelidir.</p>
+        </div>
+      </section>
 
-          <!-- 7 -->
-          <article class="screen" data-title="İstem oluşturucu">
-            <header class="screen-head">
-              <div><p class="eyebrow">Kendi dersine uygula</p><h2>60 saniyede AI-GALAXY isteminizi kurun</h2><p class="lede">Öğrenci adı veya kişisel veri girmeyin. Resmî çıktıyı programdan aynen alın.</p></div>
-              <span class="head-chip">Alanlar otomatik kaydedilir</span>
-            </header>
-            <div class="builder">
-              <section class="card form-card">
-                <div class="field"><label for="grade">Sınıf düzeyi</label><select id="grade"><option>3. sınıf</option><option selected>5. sınıf</option><option>7. sınıf</option><option>9. sınıf</option><option>11. sınıf</option></select></div>
-                <div class="field"><label for="branch">Branş</label><input id="branch" value="Fen Bilimleri"></div>
-                <div class="field wide"><label for="officialOutcome">Resmî öğrenme çıktısı</label><textarea id="officialOutcome">Maddeleri hâllerine göre sınıflandırabilme</textarea></div>
-                <div class="field"><label for="priorKnowledge">Öğrencinin ön bilgisi</label><input id="priorKnowledge" value="Günlük maddelere örnek verebiliyor."></div>
-                <div class="field"><label for="lessonTime">Ders süresi</label><input id="lessonTime" value="40 dakika"></div>
-                <div class="field wide"><label for="desiredProduct">Tercih edilen öğrenci ürünü</label><input id="desiredProduct" value="Kart sınıflandırması ve kısa gerekçe"></div>
-              </section>
-              <section class="panel builder-output">
-                <div class="prompt-head"><div><span class="tag">Hazır istem</span><h3 style="margin:7px 0 0">AI-GALAXY editöre yapıştırın</h3></div></div>
-                <pre class="generated-prompt" id="generatedPrompt"></pre>
-                <div class="prompt-foot"><p class="micro">İlk yanıt taslaktır; sonraki ekranda öğretmen kontrolünden geçirin.</p><button class="btn primary small" id="copyGenerated">İstemi kopyala</button></div>
-              </section>
-            </div>
-          </article>
+      <!-- 9 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Öğrenci kartı</p>
+          <div class="sheet">
+            <h3>Başardım mı?</h3>
+            <ul>
+              <li><span class="tick">✓</span>Maddeleri doğru gruba yerleştirdim.</li>
+              <li><span class="tick">✓</span>İki kararımı örnekle açıkladım.</li>
+              <li><span class="tick">✓</span>Grup adlarını açık yazdım.</li>
+            </ul>
+          </div>
+          <p class="line small">Ölçütü öğrencinin diliyle yazın.</p>
+        </div>
+      </section>
 
-          <!-- 8 -->
-          <article class="screen" data-title="Öğretmen kontrolü">
-            <header class="screen-head">
-              <div><p class="eyebrow">İnsan denetimi</p><h2>AI çıktısını dört soruda kontrol edin</h2><p class="lede">Yapay zekâ taslak üretir; program uygunluğuna ve sınıf gerçekliğine öğretmen karar verir.</p></div>
-              <span class="head-chip">Öğretmen son sözü söyler</span>
-            </header>
-            <div class="audit-layout">
-              <section class="card audit-list">
-                <label class="audit-item"><input type="checkbox" class="audit-check"><span class="checkmark">✓</span><span><strong>Programla uyumlu mu?</strong><small>Yeni bilgi veya beceri eklemiyor.</small></span></label>
-                <label class="audit-item"><input type="checkbox" class="audit-check"><span class="checkmark">✓</span><span><strong>Hedef gözlenebilir mi?</strong><small>Öğrencinin yapacağı eylem açık.</small></span></label>
-                <label class="audit-item"><input type="checkbox" class="audit-check"><span class="checkmark">✓</span><span><strong>Kanıt hedefle eşleşiyor mu?</strong><small>Ürün, hedefteki eylemi gerçekten gösteriyor.</small></span></label>
-                <label class="audit-item"><input type="checkbox" class="audit-check"><span class="checkmark">✓</span><span><strong>Ölçütler sade mi?</strong><small>Öğrenci tarafından anlaşılabilen en fazla üç ifade.</small></span></label>
-              </section>
-              <section class="card revision-card soft-amber">
-                <span class="tag amber">Gerekirse düzeltme istemi</span>
-                <div class="revision-prompt" id="revisionPrompt">“Taslağı yeniden düzenle. Resmî çıktının dışına çıkma; hedefte tek gözlenebilir fiil kullan; öğrenci ürününü bu fiille eşleştir; ölçütleri öğrenci dilinde ve en fazla üç madde yaz.”</div>
-                <div class="prompt-foot"><span class="audit-score" id="auditScore">0 / 4 kontrol tamamlandı</span><button class="btn small copy-btn" data-copy="revisionPrompt">Kopyala</button></div>
-              </section>
-            </div>
-          </article>
+      <!-- 10 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Sınır</p>
+          <figure class="photo"><img src="assets/ders2-success-criteria.jpg" alt="Başarı ölçütlerini yazan öğretmen" loading="lazy"></figure>
+          <p class="line">En fazla üç ölçüt yazın; fazlası öğrenciyi kaybettirir.</p>
+        </div>
+      </section>
 
-          <!-- 9 -->
-          <article class="screen" data-title="Tamamlandı">
-            <div></div>
-            <div class="finish-grid">
-              <section class="card finish-card">
-                <p class="eyebrow">Ders 2 tamamlandı</p>
-                <h2>Artık AI’dan “bir şeyler” değil, öğrenme kanıtı istiyorsunuz.</h2>
-                <p class="lede" style="margin-top:9px">Kendi çıktınızı hedefe, hedefi öğrenci ürününe, ürünü de anlaşılır ölçütlere bağladınız.</p>
-                <div class="takeaways">
-                  <div class="takeaway"><strong>1</strong><span>gözlenebilir hedef</span></div>
-                  <div class="takeaway"><strong>1</strong><span>eşleşen öğrenci kanıtı</span></div>
-                  <div class="takeaway"><strong>≤ 3</strong><span>başarı ölçütü</span></div>
-                </div>
-                <div class="finish-actions"><button class="btn primary" id="downloadCard">Çalışma kartını indir</button><button class="btn" id="copyPassword">Şifreyi kopyala</button></div>
-              </section>
-              <section class="panel password-card">
-                <div class="password-inner">
-                  <div class="lock-icon">🔓</div>
-                  <div class="password-label">Adım şifresi</div>
-                  <div class="password" id="lessonPassword">kazanım</div>
-                  <p style="margin:0;color:rgba(255,255,255,.72);font-size:13px">Küçük harflerle yazın.</p>
-                  <p class="sources">Temel: <a href="https://tymm.meb.gov.tr/surec" target="_blank" rel="noopener">MEB öğrenme çıktıları</a> · <a href="https://academy.openai.com/en/public/clubs/k-12-education-aacga/blogs/write-better-prompts-teachers-2026-05-28" target="_blank" rel="noopener">OpenAI öğretmen istemleri</a></p>
-                </div>
-              </section>
-            </div>
-          </article>
-        </section>
+      <!-- 11 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Kazanım → Hedef</p>
+          <div class="icon"><svg><use href="#i-swap" /></svg></div>
+          <div class="prompt" id="p1">Şu kazanımı 40 dakikalık tek ders için gözlenebilir bir hedefe dönüştür: <em>[kazanımı buraya yapıştırın]</em>. “Anlar, bilir” gibi fiiller kullanma. Tek hedef yaz.</div>
+          <button class="copy" data-copy="p1" type="button">Kopyala</button>
+        </div>
+      </section>
 
-        <footer class="bottombar">
-          <div class="nav-note"><strong id="navTitle">Başlangıç</strong><br>← → tuşlarıyla da ilerleyebilirsiniz.</div>
-          <div class="dots" id="dots" aria-label="Ders ekranları"></div>
-          <div class="nav-actions"><button class="btn" id="prevBtn" disabled>← Geri</button><button class="btn primary" id="nextBtn">İleri →</button></div>
-        </footer>
-      </main>
-      <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    </div>
+      <!-- 12 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Hedef + kanıt + ölçüt</p>
+          <div class="icon"><svg><use href="#i-layers" /></svg></div>
+          <div class="prompt" id="p2"><em>[Sınıf]</em> <em>[ders]</em> için şu kazanımı değiştirmeden 1 gözlenebilir hedef, 1 öğrenci ürünü ve öğrenci dilinde 3 başarı ölçütü yaz. Kazanım: <em>[kazanım]</em></div>
+          <button class="copy" data-copy="p2" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 13 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Belirsiz fiili düzelt</p>
+          <div class="icon"><svg><use href="#i-wand" /></svg></div>
+          <div class="prompt" id="p3">Aşağıdaki hedefte belirsiz fiiller var. Her birini sınıfta gözlenebilecek bir eyleme çevir ve yeni hedefi tek cümle yaz. Hedef: <em>[hedefi buraya yazın]</em></div>
+          <button class="copy" data-copy="p3" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 14 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Öğrenci dilinde ölçüt</p>
+          <div class="icon"><svg><use href="#i-check" /></svg></div>
+          <div class="prompt" id="p4">Şu hedef için “Başardım” ölçütleri yaz. 3 madde olsun, her madde “Ben…” diye başlasın ve 2. sınıf öğrencisinin anlayacağı sadelikte olsun. Hedef: <em>[hedef]</em></div>
+          <button class="copy" data-copy="p4" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 15 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Hangi ürün kanıt olur?</p>
+          <div class="icon"><svg><use href="#i-puzzle" /></svg></div>
+          <div class="prompt" id="p5">Şu hedefi hangi öğrenci ürünü görünür kılar? 3 farklı ürün öner ve her birinin hedefteki fiili gösterip göstermediğini tek cümleyle değerlendir. Hedef: <em>[hedef]</em></div>
+          <button class="copy" data-copy="p5" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 16 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Matematik · Kesirler</p>
+          <div class="icon"><svg><use href="#i-shapes" /></svg></div>
+          <div class="prompt" id="p6">4. sınıf “kesirleri karşılaştırma” kazanımı için 1 gözlenebilir hedef ve bunu gösterecek 1 öğrenci ürünü yaz. Ürün 15 dakikada tamamlanabilsin.</div>
+          <button class="copy" data-copy="p6" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 17 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Türkçe · Okuma</p>
+          <div class="icon"><svg><use href="#i-book" /></svg></div>
+          <div class="prompt" id="p7">2. sınıf “okuduğu metnin ana fikrini belirler” kazanımı için hedef, öğrenci ürünü ve 3 ölçüt yaz. Ölçütler öğrencinin kendi kendine kontrol edebileceği kadar sade olsun.</div>
+          <button class="copy" data-copy="p7" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 18 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Hayat Bilgisi · Fen</p>
+          <div class="icon"><svg><use href="#i-leaf" /></svg></div>
+          <div class="prompt" id="p8">3. sınıf “canlıları özelliklerine göre sınıflandırma” kazanımı için hedef-kanıt-ölçüt üçlüsünü tablo hâlinde yaz. Yeni kazanım ekleme.</div>
+          <button class="copy" data-copy="p8" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 19 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">3 seviyeli ölçek</p>
+          <div class="icon"><svg><use href="#i-ruler" /></svg></div>
+          <div class="prompt" id="p9"><em>[Konu]</em> için üç satırlık basit bir değerlendirme ölçeği hazırla: “Başladım / Yolundayım / Başardım”. Her satır tek cümle ve öğrenci diliyle olsun.</div>
+          <button class="copy" data-copy="p9" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 20 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Ders sonu · Çıkış kartı</p>
+          <div class="icon"><svg><use href="#i-exit" /></svg></div>
+          <div class="prompt" id="p10">Öğrencilerimin bu hedefe ulaşıp ulaşmadığını 3 dakikada görmek istiyorum. Ders sonunda soracağım 2 soruluk bir çıkış kartı yaz. Hedef: <em>[hedef]</em></div>
+          <button class="copy" data-copy="p10" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 21 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Çıktı zayıfsa · Düzeltme</p>
+          <div class="icon"><svg><use href="#i-swap" /></svg></div>
+          <div class="prompt" id="p11">Taslağı yeniden düzenle. Kazanımın dışına çıkma, hedefte tek gözlenebilir fiil kullan, öğrenci ürününü bu fiille eşleştir, ölçütleri en fazla üç madde ve öğrenci dilinde yaz.</div>
+          <button class="copy" data-copy="p11" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 22 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Çıktıyı dört soruda kontrol edin</p>
+          <div class="quad">
+            <div class="q"><span class="tick">1</span><strong>Kazanıma uygun mu?</strong><span>Yeni kazanım eklenmemiş.</span></div>
+            <div class="q"><span class="tick">2</span><strong>Hedef gözlenebilir mi?</strong><span>Öğrencinin eylemi açık.</span></div>
+            <div class="q"><span class="tick">3</span><strong>Kanıt eşleşiyor mu?</strong><span>Ürün, hedefteki fiili gösteriyor.</span></div>
+            <div class="q"><span class="tick">4</span><strong>Ölçütler sade mi?</strong><span>En fazla üç madde.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 23 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Tek uyarı</p>
+          <div class="icon"><svg><use href="#i-shield" /></svg></div>
+          <p class="warn">Resmî kazanımı değiştirmeyin; yapay zekâ yeni kazanım eklemesin.</p>
+        </div>
+      </section>
+
+      <!-- 24 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Ders 2 tamamlandı</p>
+          <div class="icon"><svg><use href="#i-flag" /></svg></div>
+          <p class="line">Bir hedef, bir kanıt, üç ölçüt: dersiniz artık ölçülebilir.</p>
+          <div class="password"><span>Adım şifresi</span><strong>kazanım</strong></div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="bottom">
+      <button class="nav back" id="prev" type="button">← Geri</button>
+      <span class="counter" id="counter">1 / 24</span>
+      <button class="nav go" id="next" type="button">İleri →</button>
+    </footer>
   </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     (() => {
-      const STORAGE_KEY = 'aiGalaxyTeachTechLesson2V1';
       const screens = [...document.querySelectorAll('.screen')];
-      const dotsWrap = document.getElementById('dots');
-      const progressFill = document.getElementById('progressFill');
-      const screenCount = document.getElementById('screenCount');
-      const navTitle = document.getElementById('navTitle');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
+      const total = screens.length;
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const fill = document.getElementById('fill');
+      const counter = document.getElementById('counter');
       const toast = document.getElementById('toast');
-      let index = 0;
-      let toastTimer;
+      let index = 0, timer;
 
-      function fitApp() {
-        const scale = Math.min(window.innerWidth / 1100, window.innerHeight / 650);
-        const root = document.getElementById('scaleRoot');
-        root.style.left = `${Math.max(0, (window.innerWidth - (1100 * scale)) / 2)}px`;
-        root.style.top = `${Math.max(0, (window.innerHeight - (650 * scale)) / 2)}px`;
-        root.style.transform = `scale(${scale})`;
-      }
-
-      function showToast(message) {
-        toast.textContent = message;
+      const say = text => {
+        toast.textContent = text;
         toast.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
-      }
+        clearTimeout(timer);
+        timer = setTimeout(() => toast.classList.remove('show'), 1700);
+      };
 
-      screens.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', `${i + 1}. ekrana git`);
-        dot.addEventListener('click', () => go(i));
-        dotsWrap.appendChild(dot);
-      });
-      const dots = [...dotsWrap.children];
-
-      function go(nextIndex) {
-        index = Math.max(0, Math.min(screens.length - 1, nextIndex));
+      const go = target => {
+        index = Math.max(0, Math.min(total - 1, target));
         screens.forEach((screen, i) => screen.classList.toggle('active', i === index));
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-        progressFill.style.width = `${((index + 1) / screens.length) * 100}%`;
-        screenCount.textContent = `${index + 1} / ${screens.length}`;
-        navTitle.textContent = screens[index].dataset.title;
-        prevBtn.disabled = index === 0;
-        nextBtn.textContent = index === screens.length - 1 ? 'Başa dön ↺' : 'İleri →';
-        try { localStorage.setItem(STORAGE_KEY + ':screen', String(index)); } catch (_) {}
-      }
+        screens[index].scrollTop = 0;
+        fill.style.width = ((index + 1) / total * 100) + '%';
+        counter.textContent = (index + 1) + ' / ' + total;
+        prev.disabled = index === 0;
+        next.textContent = index === total - 1 ? 'Başa dön ↺' : 'İleri →';
+      };
 
-      prevBtn.addEventListener('click', () => go(index - 1));
-      nextBtn.addEventListener('click', () => go(index === screens.length - 1 ? 0 : index + 1));
+      prev.onclick = () => go(index - 1);
+      next.onclick = () => go(index === total - 1 ? 0 : index + 1);
+
       document.addEventListener('keydown', event => {
-        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
         if (event.key === 'ArrowRight') go(index + 1);
         if (event.key === 'ArrowLeft') go(index - 1);
       });
 
-      const verbData = {
-        'anlar': ['“Ana fikri anlar.”', '“Metnin ana fikrini yazar ve iki ayrıntıyla destekler.”'],
-        'bilir': ['“Kesirleri bilir.”', '“Dört kesir çiftini model kullanarak karşılaştırır.”'],
-        'öğrenir': ['“Madde hâllerini öğrenir.”', '“Günlük maddeleri katı, sıvı ve gaz olarak sınıflandırır.”'],
-        'fark eder': ['“Nedenleri fark eder.”', '“Bir olayın iki nedenini metin kanıtıyla açıklar.”']
-      };
-      document.querySelectorAll('.verb-chip').forEach(button => button.addEventListener('click', () => {
-        document.querySelectorAll('.verb-chip').forEach(item => item.classList.remove('active'));
-        button.classList.add('active');
-        const [bad, good] = verbData[button.dataset.verb];
-        document.getElementById('badVerb').textContent = bad;
-        document.getElementById('goodVerb').textContent = good;
-      }));
+      let startX = null;
+      const main = document.getElementById('main');
+      main.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+      main.addEventListener('touchend', e => {
+        if (startX === null) return;
+        const delta = e.changedTouches[0].clientX - startX;
+        if (Math.abs(delta) > 60) go(index + (delta < 0 ? 1 : -1));
+        startX = null;
+      }, { passive: true });
 
-      const subjectData = {
-        fen: {
-          label: '5. sınıf · Fen Bilimleri',
-          target: 'Öğrenci, günlük yaşamdan sekiz maddeyi hâllerine göre sınıflandırır ve iki kararını madde özelliğiyle gerekçelendirir.',
-          evidence: 'Sınıflandırılmış görsel kartlar ve iki kısa gerekçe.',
-          criteria: ['Maddeleri uygun gruba yerleştirdim.', 'İki kararımı gözlenebilir özellikle açıkladım.', 'Grup adlarını açık yazdım.']
-        },
-        matematik: {
-          label: '6. sınıf · Matematik',
-          target: 'Öğrenci, dört kesir çiftini model kullanarak karşılaştırır ve iki karşılaştırmayı gerekçelendirir.',
-          evidence: 'Kesir modelleri, karşılaştırma sembolleri ve iki açıklama.',
-          criteria: ['Modellerim kesirleri doğru gösteriyor.', 'Sembolleri doğru kullandım.', 'İki kararımın nedenini açıkladım.']
-        },
-        turkce: {
-          label: '4. sınıf · Türkçe',
-          target: 'Öğrenci, kısa bir metnin ana fikrini yazar ve iki destekleyici ayrıntı seçer.',
-          evidence: 'Bir ana fikir cümlesi ve metinden iki ayrıntı.',
-          criteria: ['Ana fikir metnin tamamını kapsıyor.', 'İki ayrıntı ana fikri destekliyor.', 'Cümlelerim açık ve kısa.']
-        },
-        sosyal: {
-          label: '7. sınıf · Sosyal Bilgiler',
-          target: 'Öğrenci, tarihî bir gelişmenin iki nedenini ve iki sonucunu kaynak bilgisiyle ilişkilendirir.',
-          evidence: 'Neden–sonuç şeması ve kaynak notları.',
-          criteria: ['Neden ve sonuçları ayırdım.', 'Bağlantıları açıklayan oklar kullandım.', 'Her iddia için kaynak notu ekledim.']
-        }
-      };
-
-      document.querySelectorAll('.subject-tab').forEach(button => button.addEventListener('click', () => {
-        document.querySelectorAll('.subject-tab').forEach(item => item.classList.remove('active'));
-        button.classList.add('active');
-        const data = subjectData[button.dataset.subject];
-        document.getElementById('subjectLabel').textContent = data.label;
-        document.getElementById('subjectTarget').textContent = data.target;
-        document.getElementById('subjectEvidence').textContent = data.evidence;
-        document.getElementById('subjectCriteria').innerHTML = data.criteria.map(item => `<li>${item}</li>`).join('');
-      }));
-
-      document.querySelectorAll('.evidence-option').forEach(button => button.addEventListener('click', () => {
-        document.querySelectorAll('.evidence-option').forEach(item => item.classList.remove('correct', 'wrong'));
-        const correct = button.dataset.answer === 'correct';
-        button.classList.add(correct ? 'correct' : 'wrong');
-        document.getElementById('matchFeedback').innerHTML = correct
-          ? '<strong style="color:#176b5b">Doğru eşleşme.</strong> Ürün hem karşılaştırmayı hem metinden kanıt göstermeyi görünür kılıyor.'
-          : '<strong style="color:#a94a45">Yaklaştınız.</strong> Bu ürün hedefteki “karşılaştırma + kanıt gösterme” eylemlerinin ikisini birden göstermiyor.';
-      }));
-
-      async function copyText(text) {
-        try {
-          await navigator.clipboard.writeText(text);
-          showToast('Kopyalandı');
-        } catch (_) {
-          const area = document.createElement('textarea');
-          area.value = text;
-          document.body.appendChild(area);
-          area.select();
-          document.execCommand('copy');
-          area.remove();
-          showToast('Kopyalandı');
-        }
-      }
-
-      document.querySelectorAll('.copy-btn').forEach(button => button.addEventListener('click', () => {
-        const source = document.getElementById(button.dataset.copy);
-        copyText(source.innerText || source.textContent);
-      }));
-
-      const fields = ['grade', 'branch', 'officialOutcome', 'priorKnowledge', 'lessonTime', 'desiredProduct'];
-      function buildPrompt() {
-        const value = id => document.getElementById(id).value.trim();
-        const prompt = `K–12 öğretim tasarım yardımcısı gibi çalış. ${value('grade')} ${value('branch')} dersi için aşağıdaki resmî öğrenme çıktısını değiştirmeden ${value('lessonTime')} süren tek derse uyarla.\n\nÖğrenme çıktısı: “${value('officialOutcome')}”\nÖn bilgi: “${value('priorKnowledge')}”\nTercih edilen öğrenci ürünü: “${value('desiredProduct')}”\n\n1 gözlenebilir ders hedefi, hedefi gösterecek 1 öğrenci ürünü ve öğrenci dilinde en fazla 3 başarı ölçütü üret. “Anlar/bilir” kullanma. Yeni çıktı ekleme; varsayım yaparsan belirt. Sonucu kısa tablo ver. Öğretmen doğrulayacak.`;
-        document.getElementById('generatedPrompt').textContent = prompt;
-        try {
-          const state = Object.fromEntries(fields.map(id => [id, document.getElementById(id).value]));
-          localStorage.setItem(STORAGE_KEY + ':fields', JSON.stringify(state));
-        } catch (_) {}
-      }
-
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY + ':fields') || '{}');
-        fields.forEach(id => { if (saved[id]) document.getElementById(id).value = saved[id]; });
-      } catch (_) {}
-      fields.forEach(id => document.getElementById(id).addEventListener('input', buildPrompt));
-      buildPrompt();
-      document.getElementById('copyGenerated').addEventListener('click', () => copyText(document.getElementById('generatedPrompt').textContent));
-
-      const auditChecks = [...document.querySelectorAll('.audit-check')];
-      function updateAudit() {
-        const completed = auditChecks.filter(check => check.checked).length;
-        document.getElementById('auditScore').textContent = `${completed} / 4 kontrol tamamlandı`;
-      }
-      auditChecks.forEach(check => check.addEventListener('change', updateAudit));
-
-      document.getElementById('copyPassword').addEventListener('click', () => copyText('kazanım'));
-      document.getElementById('downloadCard').addEventListener('click', () => {
-        const value = id => document.getElementById(id).value.trim();
-        const content = `AI-GALAXY ÖĞRETMEN PATİKASI — DERS 2\n\nSINIF / BRANŞ\n${value('grade')} · ${value('branch')}\n\nRESMÎ ÖĞRENME ÇIKTISI\n${value('officialOutcome')}\n\nÖN BİLGİ\n${value('priorKnowledge')}\n\nDERS SÜRESİ\n${value('lessonTime')}\n\nTERCİH EDİLEN ÖĞRENCİ KANITI\n${value('desiredProduct')}\n\nAI-GALAXY İSTEMİ\n${document.getElementById('generatedPrompt').textContent}\n\nÖĞRETMEN KONTROLÜ\n□ Programla uyumlu\n□ Hedef gözlenebilir\n□ Kanıt hedefle eşleşiyor\n□ Ölçütler sade ve en fazla üç madde\n`;
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'ai-galaxy-ders2-calisma-karti.txt';
-        link.click();
-        URL.revokeObjectURL(url);
-        showToast('Çalışma kartı indirildi');
+      document.querySelectorAll('[data-copy]').forEach(button => {
+        button.onclick = async () => {
+          const text = document.getElementById(button.dataset.copy).innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (_) {
+            const area = document.createElement('textarea');
+            area.value = text;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand('copy');
+            area.remove();
+          }
+          say('Prompt kopyalandı');
+        };
       });
 
-      fitApp();
-      window.addEventListener('resize', fitApp, { passive: true });
-      window.addEventListener('orientationchange', fitApp, { passive: true });
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitApp);
-      const requestedScreen = Number(new URLSearchParams(location.search).get('screen'));
-      go(Number.isInteger(requestedScreen) && requestedScreen >= 1 && requestedScreen <= screens.length ? requestedScreen - 1 : 0);
+      go(0);
     })();
   </script>
 </body>
+
 </html>

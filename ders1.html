@@ -1,1012 +1,586 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Öğretmenler için yapay zekâya uygun eğitim ihtiyacını belirleme uygulaması.">
-  <title>TeachTech - Eğitimde Yapay Zeka Patikası · Ders 1</title>
+  <meta name="theme-color" content="#156c5c">
+  <meta name="description" content="Ders 1: Yapay zekâya ihtiyacınızı nasıl anlatırsınız? Her ekranda tek bir bilgi ve kopyalanabilir örnek promptlar.">
+  <title>TeachTech · Ders 1: İhtiyaçtan Başla</title>
   <style>
     :root {
-      --ink: #182232;
-      --muted: #647083;
-      --line: #dce3e7;
-      --canvas: #eef2f2;
-      --surface: #ffffff;
-      --surface-2: #f7f9f9;
-      --brand: #176b5b;
-      --brand-dark: #105347;
-      --brand-soft: #e4f3ef;
-      --blue: #315c85;
-      --blue-soft: #eaf1f8;
-      --amber: #976413;
-      --amber-soft: #fff3d8;
-      --red: #a23d3d;
-      --red-soft: #fceaea;
-      --green: #207451;
-      --green-soft: #e7f5ed;
-      --shadow: 0 20px 55px rgba(28, 43, 58, .12);
-      --radius: 20px;
+      --ink: #12262d;
+      --muted: #5d757d;
+      --line: #dbe7e3;
+      --paper: #fff;
+      --canvas: #eef5f3;
+      --brand: #156c5c;
+      --brand-dark: #0f4b40;
+      --mint: #ddf2ea;
+      --amber: #fff2d4;
+      --amber-ink: #6b4f1d;
+      --shadow: 0 14px 44px rgba(16, 52, 47, .12);
     }
 
-    * { box-sizing: border-box; }
-    html, body { width: 100%; height: 100dvh; margin: 0; overflow: hidden; }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+
+    html, body { width: 100%; height: 100dvh; overflow: hidden }
+
     body {
+      display: flex;
       color: var(--ink);
-      background: var(--canvas);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.48;
+      background: radial-gradient(circle at 10% 6%, #d3ede4, transparent 34%),
+                  radial-gradient(circle at 94% 92%, #d9ebf0, transparent 32%), var(--canvas);
+      font: 500 16px/1.5 "Plus Jakarta Sans", "Trebuchet MS", system-ui, sans-serif;
     }
-    .tutorial-viewport { position: fixed; inset: 0; overflow: hidden; }
-    .tutorial-stage {
-      position: absolute;
-      width: 1100px;
-      height: 800px;
-      transform-origin: top left;
-      will-change: transform;
-    }
-    button, input, select, textarea { font: inherit; }
-    button { cursor: pointer; }
-    figure { margin: 0; }
-    :focus-visible { outline: 3px solid rgba(23, 107, 91, .28); outline-offset: 2px; }
 
+    button { font: inherit; cursor: pointer }
+
+    /* ---------- çerçeve ---------- */
     .app {
-      width: 1100px;
-      height: 800px;
-      margin: 0;
+      flex: 1;
+      min-width: 0;
       display: grid;
-      grid-template-rows: 66px minmax(0, 1fr) 76px;
-      overflow: hidden;
-      background: var(--surface);
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      background: var(--paper);
     }
 
-    .appbar {
-      min-width: 0;
-      padding: 0 clamp(16px, 3vw, 34px);
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(8px, 1.6vmin, 14px) clamp(12px, 2.4vmin, 26px);
       border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: minmax(190px, 1fr) minmax(220px, 520px) minmax(120px, 1fr);
-      align-items: center;
-      gap: 24px;
-      background: rgba(255, 255, 255, .98);
     }
-    .lesson-id { min-width: 0; display: flex; align-items: center; gap: 11px; }
-    .step-mark { width: 36px; height: 36px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 11px; color: #fff; background: var(--brand); font-weight: 850; }
-    .lesson-id strong, .lesson-id span { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
-    .lesson-id strong { font-size: .91rem; }
-    .lesson-id span { color: var(--muted); font-size: .73rem; }
-    .progress-wrap { display: grid; gap: 6px; }
-    .progress-meta { display: flex; justify-content: space-between; color: var(--muted); font-size: .73rem; font-weight: 700; }
-    .progress-track { height: 6px; overflow: hidden; border-radius: 99px; background: #e5eaed; }
-    .progress-fill { width: 10%; height: 100%; border-radius: inherit; background: var(--brand); transition: width .22s ease; }
-    .app-actions { display: flex; justify-content: flex-end; gap: 7px; }
 
-    .icon-button {
-      min-width: 38px;
-      height: 38px;
-      padding: 0 11px;
-      border: 1px solid var(--line);
+    .mark {
+      width: clamp(28px, 4.6vmin, 38px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
       border-radius: 11px;
-      color: var(--muted);
-      background: #fff;
-      font-weight: 750;
+      color: #fff;
+      background: var(--brand);
+      font-weight: 800;
+      font-size: clamp(14px, 2.2vmin, 19px);
     }
-    .icon-button:hover { color: var(--ink); background: var(--surface-2); }
 
-    .stage {
-      position: relative;
-      min-height: 0;
-      overflow: hidden;
-      padding: clamp(14px, 2.5vh, 26px) clamp(16px, 2.5vw, 36px);
-      background:
-        radial-gradient(circle at 94% 12%, rgba(23, 107, 91, .07), transparent 25%),
-        var(--surface-2);
-    }
-    .screen { display: none; width: 100%; height: 100%; min-height: 0; }
-    .screen.active { display: grid; animation: enter .2s ease; }
-    @keyframes enter { from { opacity: .3; transform: translateX(8px); } to { opacity: 1; transform: translateX(0); } }
+    .title { min-width: 0 }
+    .title strong { display: block; font-size: clamp(12px, 1.9vmin, 15px); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+    .title span { display: block; color: var(--muted); font-size: clamp(10px, 1.5vmin, 12px); font-weight: 700 }
 
-    .screen-inner {
-      width: min(100%, 1120px);
-      height: 100%;
-      min-height: 0;
-      margin: 0 auto;
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr);
-      gap: clamp(12px, 2vh, 20px);
-    }
-    .screen-head { min-width: 0; }
-    .screen-kicker { margin: 0 0 5px; color: var(--brand); font-size: .72rem; font-weight: 850; letter-spacing: .09em; text-transform: uppercase; }
-    .screen-head h1, .screen-head h2 { margin: 0; line-height: 1.08; letter-spacing: -.035em; }
-    .screen-head h1 { font-size: clamp(1.9rem, 4vw, 3.35rem); }
-    .screen-head h2 { font-size: clamp(1.55rem, 3vw, 2.35rem); }
-    .screen-head > p:last-child { max-width: 780px; margin: 8px 0 0; color: var(--muted); font-size: clamp(.88rem, 1.5vw, 1rem); }
+    .track { height: 4px; background: #e2ebe8 }
+    .fill { height: 100%; width: 5%; background: var(--brand); transition: width .25s ease }
 
-    .workspace {
-      min-height: 0;
+    /* ---------- sahne ---------- */
+    main { position: relative; min-height: 0; overflow: hidden }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: clamp(14px, 3vmin, 34px);
       overflow: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
-      scrollbar-color: #bbc7ca transparent;
     }
-    .workspace::-webkit-scrollbar { width: 7px; }
-    .workspace::-webkit-scrollbar-thumb { border-radius: 99px; background: #bbc7ca; }
-
-    #screen-1 .workspace,
-    #screen-2 .workspace { overflow: hidden; }
-    #screen-3 .workspace {
-      display: grid;
-      grid-template-rows: minmax(0, 1fr) auto;
-      gap: 14px;
-      overflow: hidden;
-    }
-
-    .panel { padding: clamp(16px, 2.5vw, 26px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-    .panel.fill { height: 100%; min-height: 0; }
-    .panel h3 { margin: 0 0 8px; font-size: 1rem; }
-    .panel p { margin: 6px 0; }
-    .soft { background: var(--brand-soft); border-color: #cce3dd; }
-    .blue-soft { background: var(--blue-soft); border-color: #d3e0ed; }
-
-    .grid-2, .grid-3, .grid-4 { display: grid; gap: clamp(10px, 1.6vw, 16px); }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .fit-grid { height: 100%; align-items: stretch; }
-
-    .concept-card { padding: clamp(15px, 2vw, 22px); border: 1px solid var(--line); border-radius: 17px; background: #fff; }
-    .concept-card h3 { margin: 0 0 6px; font-size: 1rem; }
-    .concept-card p { margin: 0; color: var(--muted); font-size: .88rem; }
-    .concept-number { width: 34px; height: 34px; margin-bottom: 12px; display: grid; place-items: center; border-radius: 11px; color: var(--brand-dark); background: var(--brand-soft); font-weight: 850; }
-    .concept-card.warning .concept-number { color: var(--red); background: var(--red-soft); }
-    .concept-card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-    .concept-card:hover { transform: translateY(-3px); border-color: #bdd6cf; box-shadow: 0 12px 24px rgba(33, 59, 73, .08); }
-
-    .intro-layout {
-      height: 100%;
-      min-height: 0;
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr);
-      gap: clamp(18px, 3vw, 42px);
+    /* uzun içerikte üstten kırpılmasın diye "safe center" */
+    .screen.active {
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      justify-content: safe center;
+      animation: enter .22s ease;
     }
-    .intro-copy { min-height: 0; display: grid; gap: 14px; }
-    .intro-copy .flow { height: auto; grid-template-columns: 1fr; gap: 8px; }
-    .intro-copy .flow-arrow { display: none; }
-    .intro-copy .flow-step { min-height: 0; padding: 14px 17px; grid-template-columns: 34px 1fr; align-items: center; }
-    .intro-copy .flow-step::before { counter-increment: intro-step; content: counter(intro-step); width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: var(--brand-dark); background: var(--brand-soft); font-size: .78rem; font-weight: 900; }
-    .intro-copy .flow { counter-reset: intro-step; }
-    .intro-visual { height: 100%; min-height: 0; display: grid; place-items: center; position: relative; }
-    .intro-visual::before { content: ""; position: absolute; width: 78%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(23,107,91,.14), rgba(23,107,91,0) 68%); }
-    .intro-visual img { position: relative; z-index: 1; width: min(100%, 620px); max-height: 100%; object-fit: contain; filter: drop-shadow(0 18px 25px rgba(29,48,56,.13)); animation: gentle-float 5.5s ease-in-out infinite; }
+    @keyframes enter { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
 
-    .concept-layout { height: 100%; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: clamp(16px, 2.6vw, 34px); align-items: center; }
-    .concept-copy { display: grid; gap: 12px; }
-    .concept-copy .grid-3 { grid-template-columns: 1fr; }
-    .concept-copy .concept-card { display: grid; grid-template-columns: 42px 1fr; column-gap: 12px; align-items: center; padding: 14px 16px; }
-    .concept-copy .concept-number { grid-row: 1 / 3; margin: 0; }
-    .concept-copy .concept-card h3 { margin: 0; }
-    .concept-visual { height: 100%; min-height: 0; display: grid; place-items: center; }
-    .concept-visual img { width: min(100%, 460px); max-height: 100%; object-fit: contain; filter: drop-shadow(0 18px 25px rgba(29,48,56,.14)); animation: gentle-float 6.5s ease-in-out infinite reverse; }
-    @keyframes gentle-float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-7px) rotate(.35deg); } }
+    .card {
+      width: min(900px, 100%);
+      display: grid;
+      justify-items: center;
+      gap: clamp(10px, 2vmin, 20px);
+      text-align: center;
+    }
 
-    .flow { height: 100%; display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: center; gap: 8px; }
-    .flow-step { min-height: 150px; padding: clamp(16px, 2.4vw, 26px); border: 1px solid var(--line); border-radius: 18px; display: grid; align-content: center; background: #fff; }
-    .flow-step b { display: block; margin-bottom: 5px; font-size: 1.05rem; }
-    .flow-step span { color: var(--muted); font-size: .88rem; }
-    .flow-arrow { color: #93a0aa; text-align: center; font-size: 1.4rem; }
-    .principle { margin-top: 14px; padding: 14px 17px; border-left: 4px solid var(--brand); border-radius: 0 13px 13px 0; color: var(--brand-dark); background: var(--brand-soft); font-weight: 720; }
+    .eyebrow {
+      color: var(--brand);
+      font-size: clamp(11px, 1.8vmin, 14px);
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
 
-    .role-card { position: relative; min-height: 190px; padding: 19px; border: 1px solid var(--line); border-radius: 17px; display: flex; flex-direction: column; background: #fff; }
-    .role-card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-    .role-card:hover { transform: translateY(-4px); border-color: #a9cdc3; box-shadow: 0 13px 26px rgba(33, 59, 73, .09); }
-    .role-card:hover .role-icon { transform: rotate(-5deg) scale(1.07); }
-    .role-card h3 { margin: 10px 0 5px; font-size: 1rem; }
-    .role-card p { margin: 0; color: var(--muted); font-size: .84rem; }
-    .role-card button { margin-top: auto; padding-top: 11px; border: 0; color: var(--brand); background: transparent; text-align: left; font-weight: 780; }
-    .role-card.selected { border-color: #85bdad; box-shadow: inset 0 0 0 2px var(--brand-soft); }
-    .role-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 11px; color: var(--brand-dark); background: var(--brand-soft); font-weight: 900; }
-    .role-icon { transition: transform .2s ease; }
-    .role-output { margin-top: 14px; padding: 14px 16px; border-radius: 14px; background: var(--surface-2); color: var(--muted); font-size: .88rem; }
+    .chip {
+      padding: 6px 13px;
+      border-radius: 99px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(12px, 2vmin, 15px);
+      font-weight: 800;
+    }
 
-    .decision-layout { height: 100%; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(250px, .65fr); gap: 16px; }
-    .decision-card { height: 100%; padding: clamp(20px, 4vw, 42px); border: 1px solid var(--line); border-radius: var(--radius); display: grid; grid-template-rows: auto 1fr auto; background: #fff; }
-    .question-count { color: var(--muted); font-size: .76rem; font-weight: 800; }
-    .decision-task { max-width: 680px; margin: auto 0; font-size: clamp(1.25rem, 2.6vw, 2rem); line-height: 1.3; font-weight: 740; }
-    .traffic-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .traffic-button { min-height: 48px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-weight: 780; }
-    .traffic-button.green { color: var(--green); }
-    .traffic-button.yellow { color: var(--amber); }
-    .traffic-button.red { color: var(--red); }
-    .traffic-button.green:hover, .traffic-button.green.selected { border-color: #8cc7a8; background: var(--green-soft); }
-    .traffic-button.yellow:hover, .traffic-button.yellow.selected { border-color: #e1bd64; background: var(--amber-soft); }
-    .traffic-button.red:hover, .traffic-button.red.selected { border-color: #dfa4a4; background: var(--red-soft); }
-    .feedback-panel { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-    .feedback-panel .big-score { display: block; margin: 2px 0 10px; font-size: 2.2rem; font-weight: 850; }
-    .feedback-text { color: var(--muted); font-size: .88rem; }
-    .mini-progress { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-top: 18px; }
-    .mini-progress span { height: 5px; border-radius: 99px; background: #e3e8eb; }
-    .mini-progress span.current { background: var(--brand); }
-    .mini-progress span.done { background: #8fc6b7; }
+    h1 { font-size: clamp(32px, 7.4vmin, 62px); line-height: 1.05; letter-spacing: -.03em; font-weight: 800 }
 
-    .field { display: grid; gap: 5px; }
-    .field label { color: #455062; font-size: .8rem; font-weight: 760; }
-    input[type="text"], input[type="number"], select, textarea {
+    /* ekranın tek cümlesi */
+    .line {
+      font-size: clamp(22px, 4.6vmin, 42px);
+      line-height: 1.26;
+      letter-spacing: -.02em;
+      font-weight: 800;
+    }
+    .line.calm { font-weight: 700; font-size: clamp(20px, 4vmin, 35px) }
+
+    .note {
+      padding: clamp(14px, 2.6vmin, 26px) clamp(16px, 3vmin, 30px);
+      border-radius: 18px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(22px, 4.6vmin, 40px);
+      line-height: 1.28;
+      font-weight: 800;
+    }
+
+    .sub { max-width: 660px; color: var(--muted); font-size: clamp(14px, 2.3vmin, 19px); font-weight: 600 }
+
+    /* ---------- görseller ---------- */
+    /* akışta duran basit çerçeve; hiçbir katman metnin üzerine binmez */
+    .photo {
+      display: grid;
+      width: min(100%, 420px);
+    }
+    .photo img {
+      display: block;
       width: 100%;
-      border: 1px solid #ccd6dc;
-      border-radius: 11px;
+      max-height: min(30vh, 280px);
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(20, 58, 52, .16);
+    }
+
+    .icon {
+      width: clamp(56px, 10vmin, 96px);
+      aspect-ratio: 1;
+      padding: clamp(9px, 1.6vmin, 15px);
+      border-radius: 20px;
+      background: var(--mint);
+      color: var(--brand-dark);
+    }
+    .icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
+
+    /* ---------- prompt kutusu ---------- */
+    .prompt {
+      width: 100%;
+      padding: clamp(15px, 2.8vmin, 28px) clamp(16px, 3vmin, 30px);
+      border: 1px solid #b8dbd0;
+      border-radius: 18px;
+      background: #f8fdfb;
+      box-shadow: var(--shadow);
       color: var(--ink);
-      background: #fff;
+      font-size: clamp(18px, 3.3vmin, 28px);
+      line-height: 1.42;
+      font-weight: 700;
+      text-align: left;
     }
-    input[type="text"], input[type="number"], select { min-height: 42px; padding: 8px 11px; }
-    textarea { min-height: 76px; padding: 10px 11px; resize: vertical; }
-    input::placeholder, textarea::placeholder { color: #939ca7; }
-    .span-2 { grid-column: 1 / -1; }
+    .prompt.weak { border-color: #e6d5b6; background: #fffaf0; color: #6b4f1d; text-align: center; box-shadow: none }
+    .prompt em { color: var(--brand); font-style: normal; font-weight: 800 }
 
-    .task-workspace { height: 100%; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr); gap: 16px; }
-    .task-list { display: grid; gap: 10px; }
-    .task-row { padding: 13px; border: 1px solid var(--line); border-radius: 14px; display: grid; grid-template-columns: 34px minmax(0, 1fr) 92px 130px; gap: 9px; align-items: end; background: #fff; }
-    .task-row.selected { border-color: #8bbfb1; background: #fcfffe; }
-    .task-index { width: 32px; height: 32px; align-self: center; display: grid; place-items: center; border-radius: 10px; color: var(--blue); background: var(--blue-soft); font-weight: 850; }
-    .choose-task { align-self: center; text-align: center; }
-    .choose-task input { width: 18px; height: 18px; accent-color: var(--brand); }
-    .tip-list { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
-    .tip-list li { padding-left: 25px; position: relative; color: var(--muted); font-size: .86rem; }
-    .tip-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--brand); font-weight: 900; }
+    .copy {
+      min-height: 46px;
+      padding: 10px 26px;
+      border: 0;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--brand);
+      font-size: clamp(14px, 2.3vmin, 17px);
+      font-weight: 800;
+    }
+    .copy:hover { background: var(--brand-dark) }
 
-    .radar-layout { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 16px; }
-    .radar-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .radar-item { padding: 13px 15px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
-    .radar-top { display: flex; justify-content: space-between; gap: 8px; font-size: .85rem; font-weight: 760; }
-    .score { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 8px; color: var(--brand-dark); background: var(--brand-soft); font-weight: 850; }
-    input[type="range"] { width: 100%; margin: 10px 0 3px; accent-color: var(--brand); }
-    .range-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: .65rem; }
-    .radar-side { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); display: grid; align-content: center; text-align: center; background: #fff; }
-    .score-ring { width: 118px; height: 118px; margin: 0 auto 10px; display: grid; place-items: center; border-radius: 50%; background: conic-gradient(var(--brand) 0deg, #e5eaed 0deg); }
-    .score-core { width: 91px; height: 91px; display: grid; place-items: center; border-radius: 50%; background: #fff; }
-    .score-core b { display: block; font-size: 1.9rem; line-height: 1; }
-    .score-core span { color: var(--muted); font-size: .67rem; }
-    .status { display: inline-flex; justify-self: center; padding: 6px 10px; border-radius: 99px; font-size: .74rem; font-weight: 850; }
-    .status.red { color: var(--red); background: var(--red-soft); }
-    .status.yellow { color: var(--amber); background: var(--amber-soft); }
-    .status.green { color: var(--green); background: var(--green-soft); }
-    .red-flag { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); text-align: left; }
-    .red-flag label { display: flex; gap: 8px; color: var(--muted); font-size: .75rem; }
-    .red-flag input { margin-top: 3px; accent-color: var(--red); }
+    .warn {
+      padding: clamp(14px, 2.6vmin, 26px);
+      border-radius: 18px;
+      background: var(--amber);
+      color: var(--amber-ink);
+      font-size: clamp(21px, 4.3vmin, 37px);
+      line-height: 1.28;
+      font-weight: 800;
+    }
 
-    .case-layout { height: 100%; display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 15px; }
-    .case-list { display: grid; align-content: start; gap: 6px; }
-    .case-tab { padding: 9px 11px; border: 1px solid transparent; border-radius: 10px; color: var(--muted); background: transparent; text-align: left; font-size: .8rem; font-weight: 720; }
-    .case-tab:hover { background: #fff; }
-    .case-tab.active { color: var(--brand-dark); border-color: #c5ded7; background: var(--brand-soft); }
-    .case-card { min-height: 0; padding: clamp(17px, 2.5vw, 25px); border: 1px solid var(--line); border-radius: var(--radius); display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, .65fr); gap: 20px; background: #fff; overflow: hidden; }
-    .case-content { min-height: 0; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; }
-    .case-content .form-grid { align-content: start; }
-    .case-content .field { align-content: start; }
-    .case-card h3 { margin: 0 0 5px; }
-    .case-content > p { margin: 0 0 13px; color: var(--muted); }
-    .case-answer { display: none; margin-top: 11px; padding: 12px 14px; border-radius: 12px; color: var(--brand-dark); background: var(--brand-soft); font-size: .82rem; }
-    .case-answer.show { display: block; }
-    .case-visual { min-height: 0; display: grid; place-items: center; position: relative; }
-    .case-visual::before { content: ""; position: absolute; width: 92%; aspect-ratio: 1; border-radius: 50%; background: var(--brand-soft); }
-    .case-visual img { position: relative; z-index: 1; width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 13px 20px rgba(29,48,56,.12)); animation: gentle-float 7s ease-in-out infinite; }
+    .password {
+      padding: clamp(12px, 2.2vmin, 20px) clamp(20px, 3.4vmin, 34px);
+      border-radius: 16px;
+      background: var(--brand-dark);
+      color: #fff;
+    }
+    .password span { display: block; color: #a9e0d1; font-size: clamp(10px, 1.6vmin, 12px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .password strong { display: block; margin-top: 4px; font-size: clamp(26px, 5.2vmin, 44px); font-weight: 800; letter-spacing: .02em }
 
-    .compare { height: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 15px; }
-    .prompt-card { padding: clamp(18px, 3vw, 28px); border: 1px solid var(--line); border-radius: var(--radius); display: grid; grid-template-rows: auto 1fr auto; background: #fff; }
-    .prompt-card.good { border-color: #a8cfc4; background: #fbfffd; }
-    .prompt-tag { justify-self: start; padding: 5px 9px; border-radius: 8px; color: var(--muted); background: #eef2f4; font-size: .7rem; font-weight: 850; text-transform: uppercase; }
-    .prompt-card.good .prompt-tag { color: var(--brand-dark); background: var(--brand-soft); }
-    blockquote { margin: auto 0; font-size: clamp(.95rem, 1.6vw, 1.12rem); line-height: 1.55; }
-    .prompt-meta { display: flex; flex-wrap: wrap; gap: 5px; }
-    .prompt-meta span { padding: 5px 8px; border-radius: 8px; color: var(--brand-dark); background: var(--brand-soft); font-size: .69rem; font-weight: 720; }
-
-    .form-page { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(270px, .62fr); gap: 16px; }
-    .form-panel { padding: clamp(16px, 2.5vw, 24px); border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
-    .form-help { padding: 20px; border-radius: var(--radius); background: var(--brand-soft); }
-    .form-help h3 { margin: 0 0 8px; }
-    .form-help p, .form-help li { color: var(--brand-dark); font-size: .82rem; }
-    .form-help ul { margin: 10px 0 0; padding-left: 18px; }
-    #screen-9 .screen-inner { gap: 8px; }
-    #screen-9 .screen-head h2 { font-size: 1.8rem; }
-    #screen-9 .screen-head > p:last-child { margin-top: 4px; font-size: .88rem; }
-    #screen-9 .form-panel { padding: 14px; }
-    #screen-9 .form-grid { gap: 7px 10px; }
-    #screen-9 .field { gap: 3px; }
-    #screen-9 .field label { font-size: .75rem; }
-    #screen-9 input[type="text"], #screen-9 select { min-height: 36px; padding: 6px 9px; }
-    #screen-9 textarea { min-height: 60px; padding: 8px 9px; resize: none; }
-    #screen-9 .form-help { padding: 16px; }
-    #screen-9 .form-help ul { margin-top: 7px; }
-
-    .summary-layout { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 16px; }
-    .summary-card { min-height: 0; padding: clamp(17px, 2.5vw, 25px); border: 1px solid var(--line); border-radius: var(--radius); background: #fff; overflow: auto; }
-    .summary-card pre { margin: 0; white-space: pre-wrap; color: #364254; font: .82rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
-    .finish-panel { padding: 22px; border-radius: var(--radius); display: grid; align-content: center; background: var(--brand-soft); }
-    .finish-check { width: 48px; height: 48px; margin-bottom: 12px; display: grid; place-items: center; border-radius: 15px; color: #fff; background: var(--brand); font-size: 1.4rem; font-weight: 900; }
-    .finish-panel h3 { margin: 0 0 7px; }
-    .finish-panel p { margin: 0 0 15px; color: var(--brand-dark); font-size: .85rem; }
-    .step-password {
-      margin: 2px 0 15px;
-      padding: 12px 14px;
-      border: 1px dashed rgba(16, 83, 71, .34);
-      border-radius: 13px;
+    /* ---------- alt gezinme ---------- */
+    .bottom {
       display: grid;
-      grid-template-columns: 30px 1fr;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 2px 10px;
-      background: rgba(255, 255, 255, .58);
-      animation: password-reveal .55s .2s both;
-    }
-    .password-icon { grid-row: 1 / 3; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; color: #fff; background: var(--brand); font-size: .86rem; }
-    .step-password span { color: var(--brand-dark); font-size: .68rem; font-weight: 820; letter-spacing: .07em; text-transform: uppercase; }
-    .step-password strong { color: var(--ink); font: 850 1.08rem/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .05em; }
-    @keyframes password-reveal { from { opacity: 0; transform: translateY(7px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-    .stack { display: grid; gap: 8px; }
-
-    .bottombar {
-      min-width: 0;
-      padding: 0 clamp(16px, 3vw, 34px) max(0px, env(safe-area-inset-bottom));
+      gap: 10px;
+      padding: clamp(9px, 1.7vmin, 16px) clamp(12px, 2.4vmin, 26px);
       border-top: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 130px minmax(0, 1fr) 130px;
-      align-items: center;
-      gap: 18px;
       background: #fff;
     }
-    .nav-button { min-height: 43px; padding: 8px 15px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: #fff; font-weight: 780; }
-    .nav-button:hover { background: var(--surface-2); }
-    .nav-button.primary { color: #fff; border-color: var(--brand); background: var(--brand); }
-    .nav-button.primary:hover { background: var(--brand-dark); }
-    .nav-button:disabled { opacity: .38; cursor: default; }
-    .slide-dots { min-width: 0; display: flex; justify-content: center; gap: 6px; }
-    .slide-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: #d7dfe2; transition: .2s ease; }
-    .slide-dot.visited { background: #8dc1b4; }
-    .slide-dot.active { width: 25px; background: var(--brand); }
 
-    .toast { position: fixed; right: 18px; bottom: 90px; z-index: 50; max-width: 320px; padding: 11px 14px; border-radius: 11px; color: #fff; background: #20322f; box-shadow: var(--shadow); opacity: 0; transform: translateY(10px); pointer-events: none; transition: .2s ease; }
-    .toast.show { opacity: 1; transform: translateY(0); }
-    .small-note { color: var(--muted); font-size: .75rem; }
-    .action-button { min-height: 39px; padding: 8px 12px; border: 1px solid #bfdcd4; border-radius: 10px; color: var(--brand-dark); background: var(--brand-soft); font-weight: 760; }
-    .action-button:hover { background: #d8ece7; }
+    .nav {
+      min-height: 44px;
+      padding: 9px clamp(12px, 2.4vmin, 22px);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      font-size: clamp(13px, 2vmin, 16px);
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .nav:hover:not(:disabled) { background: #f2f8f6 }
+    .nav.go { justify-self: end; color: #fff; border-color: var(--brand); background: var(--brand) }
+    .nav.go:hover { background: var(--brand-dark) }
+    .nav.back { justify-self: start }
+    .nav:disabled { opacity: .3; cursor: default }
 
-    @media (max-width: 0px) {
-      .appbar { grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
-      .progress-wrap { display: none; }
-      .stage { padding: 14px; }
-      .grid-3, .grid-4, .radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .flow { grid-template-columns: 1fr; align-content: start; }
-      .flow-arrow { transform: rotate(90deg); }
-      .decision-layout, .task-workspace, .radar-layout, .case-layout, .form-page, .summary-layout { grid-template-columns: 1fr; }
-      .feedback-panel, .radar-side, .case-list, .form-help { display: none; }
-      .compare { grid-template-columns: 1fr; }
-      .intro-layout, .concept-layout { grid-template-columns: 1fr; }
-      .intro-visual, .concept-visual, .case-visual { display: none; }
-      .case-card { grid-template-columns: 1fr; }
-      .task-row { grid-template-columns: 32px minmax(0, 1fr) 76px; }
-      .task-row .frequency-field { display: none; }
-      .bottombar { grid-template-columns: 105px minmax(0, 1fr) 105px; gap: 8px; }
-      .nav-button { padding-inline: 9px; }
+    .counter { color: var(--muted); font-size: clamp(11px, 1.8vmin, 14px); font-weight: 800; white-space: nowrap }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 84px;
+      z-index: 5;
+      padding: 11px 18px;
+      border-radius: 11px;
+      color: #fff;
+      background: #14424a;
+      font-size: 14px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translate(-50%, 12px);
+      transition: .2s;
+      pointer-events: none;
     }
-    @media (max-width: 0px) {
-      .lesson-id span { display: none; }
-      .app-actions #resetButton { display: none; }
-      .screen-head > p:last-child { display: none; }
-      .grid-2, .grid-3, .grid-4, .radar-grid, .form-grid { grid-template-columns: 1fr; }
-      .span-2 { grid-column: auto; }
-      .role-card { min-height: 145px; }
-      .traffic-actions { grid-template-columns: 1fr; }
-      .task-row { grid-template-columns: 28px minmax(0, 1fr) 28px; }
-      .task-row .minutes-field { display: none; }
-      .prompt-card { min-height: 240px; }
-      .slide-dots { gap: 4px; }
-      .slide-dot { width: 6px; height: 6px; }
-      .slide-dot.active { width: 16px; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0) }
+
+    @media (max-height: 400px) {
+      .photo, .icon { display: none }
     }
-    @media (max-height: 0px) {
-      .app { grid-template-rows: 58px minmax(0, 1fr) 64px; }
-      .screen-head > p:last-child { display: none; }
-      .stage { padding-block: 12px; }
-      .screen-inner { gap: 9px; }
-      .role-card { min-height: 155px; }
-      .flow-step { min-height: 115px; }
-    }
-    @media print {
-      html, body { height: auto; overflow: visible; background: #fff; }
-      .app { height: auto; display: block; box-shadow: none; }
-      .appbar, .bottombar, .screen:not(#screen-10), .finish-panel, .toast { display: none !important; }
-      .stage, #screen-10, #screen-10 .screen-inner, #screen-10 .workspace, .summary-layout { display: block !important; height: auto; overflow: visible; padding: 0; }
-      .summary-card { border: 0; overflow: visible; }
-    }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important }
     }
   </style>
 </head>
+
 <body>
-  <div class="tutorial-viewport">
-  <div class="tutorial-stage" id="lesson1TutorialStage">
-  <div class="app" role="application" aria-label="TeachTech - Eğitimde Yapay Zeka Patikası Ders 1">
-    <header class="appbar">
-      <div class="lesson-id">
-        <div class="step-mark">1</div>
-        <div><strong>Önce İhtiyaç, Sonra AI</strong><span>TeachTech · Eğitimde Yapay Zeka Patikası</span></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9.2 9.4a2.8 2.8 0 0 1 5.5.7c0 1.9-2.7 2.2-2.7 4" /><path d="M12 17.4h.01" /></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" /></symbol>
+      <symbol id="i-shapes" viewBox="0 0 24 24"><rect x="3" y="13" width="8" height="8" rx="1.5" /><circle cx="17" cy="17" r="4" /><path d="M11 3.5 15.5 11h-9z" /></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c-1.5-6 2.5-12 14-13 1 9-3.5 14-9.5 14-1.9 0-3.4-.4-4.5-1z" /><path d="M6.5 17.5C9 14 12 11.6 16 10" /></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.1 5.2L19.5 10l-5.4 1.8L12 17l-2.1-5.2L4.5 10l5.4-1.8z" /><path d="M18.5 16.5 19.3 18.6 21.5 19.4 19.3 20.2 18.5 22.3 17.7 20.2 15.5 19.4 17.7 18.6z" /></symbol>
+      <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6.5" r="2.5" /><circle cx="6" cy="17.5" r="2.5" /><path d="M8.2 7.8 20 18" /><path d="M8.2 16.2 20 6" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 6.5h9" /><path d="M4.5 12h9" /><path d="M4.5 17.5h6" /><path d="m16 15.5 2.2 2.2 4-4.4" /></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 8.5 4.5L12 12 3.5 7.5z" /><path d="m4 12 8 4.3 8-4.3" /><path d="m4 16.5 8 4.3 8-4.3" /></symbol>
+      <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 15.5a2.5 2.5 0 0 1-2.5 2.5H9l-4 3v-3H6.5A2.5 2.5 0 0 1 4 15.5v-8A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5z" /><path d="M8.5 9.5h7" /><path d="M8.5 13h4" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5.2l3.2 2" /></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5z" /><path d="M14 7.5 16.5 10" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v6c0 4.2-3 7.3-7 8.5-4-1.2-7-4.3-7-8.5V6z" /><path d="M12 9v4" /><path d="M12 16h.01" /></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4" /><path d="M6 4.5h11l-2 3.5 2 3.5H6z" /></symbol>
+    </defs>
+  </svg>
+
+  <div class="app">
+    <header>
+      <div class="topbar">
+        <div class="mark">1</div>
+        <div class="title">
+          <strong>İhtiyaçtan Başla</strong>
+          <span>TeachTech · Ders 1</span>
+        </div>
       </div>
-      <div class="progress-wrap" aria-label="Ders ilerlemesi">
-        <div class="progress-meta"><span id="screenName">Ön bilgi</span><span id="progressText">1 / 10</span></div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      </div>
-      <div class="app-actions">
-        <button class="icon-button" id="printButton" type="button" title="İhtiyaç kartını yazdır" aria-label="İhtiyaç kartını yazdır">↗</button>
-        <button class="icon-button" id="resetButton" type="button" title="Dersi sıfırla">Sıfırla</button>
-      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
     </header>
 
-    <main class="stage">
-      <section class="screen active" id="screen-1" data-title="Ön bilgi" aria-labelledby="title-1">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Ön bilgi modülü · 5 dakika</p>
-            <h1 id="title-1">AI işi üstlenmez;<br>öğretmeni güçlendirir.</h1>
-            <p>Doğru başlangıç, araçtan önce eğitim ihtiyacını görmektir.</p>
-          </header>
-          <div class="workspace">
-            <div class="intro-layout">
-              <div class="intro-copy">
-                <div class="flow">
-                  <article class="flow-step"><div><b>İhtiyacı gör</b><span>Öğrenci nerede zorlanıyor? Hangi iş sürekli tekrarlanıyor?</span></div></article>
-                  <article class="flow-step"><div><b>Sınırlı yardım iste</b><span>Fikir, taslak, dönüşüm ya da kontrol rolü ver.</span></div></article>
-                  <article class="flow-step"><div><b>İnsan kontrolünü koru</b><span>Doğrula, düzelt ve son kararı sen ver.</span></div></article>
-                </div>
-                <div class="principle">AI taslak üretir; pedagojik karar öğretmende kalır.</div>
-              </div>
-              <figure class="intro-visual" aria-label="Yapay zekâdan fikir alırken son kararı veren öğretmen illüstrasyonu">
-                <img src="assets/ders1-need-analysis.jpg" alt="Ders planını incelerken yapay zekânın önerileri arasından seçim yapan öğretmen" loading="eager">
-              </figure>
-            </div>
-          </div>
+    <main id="main">
+
+      <!-- 1 -->
+      <section class="screen active">
+        <div class="card">
+          <p class="eyebrow">TeachTech · Ders 1</p>
+          <h1>İhtiyaçtan Başla</h1>
+          <figure class="photo"><img src="assets/ders1-need-analysis.jpg" alt="Yapay zekâ ile ders planı hazırlayan öğretmen" loading="eager"></figure>
+          <p class="line calm">Yapay zekâ, ne istediğinizi net söylediğinizde işe yarar.</p>
+          <p class="sub">Her ekranda tek bir bilgi var. İlerlemek için “İleri” düğmesine basın.</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-2" data-title="Uygun görev" aria-labelledby="title-2">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Konu anlatımı · 6 dakika</p>
-            <h2 id="title-2">İlk AI görevinizi üç filtreyle seçin</h2>
-            <p>Yapabilir mi sorusundan önce güvenli ve faydalı mı diye bakın.</p>
-          </header>
-          <div class="workspace">
-            <div class="concept-layout">
-              <div class="concept-copy">
-                <div class="grid-3">
-                  <article class="concept-card"><div class="concept-number">1</div><h3>Tekrarlanır</h3><p>Zaman alan ve sık yapılan bir iştir.</p></article>
-                  <article class="concept-card"><div class="concept-number">2</div><h3>Kontrol edilebilir</h3><p>Çıktıyı kaynakla hızlıca sınayabilirsiniz.</p></article>
-                  <article class="concept-card"><div class="concept-number">3</div><h3>Düşük risklidir</h3><p>Hata, kullanımdan önce kolayca düzeltilebilir.</p></article>
-                </div>
-                <div class="principle">Kendinize sorun: “Yanlış yaparsa ne olur; ben nasıl kontrol ederim?”</div>
-              </div>
-              <figure class="concept-visual" aria-label="Bir eğitim görevini uygunluk açısından inceleyen öğretmen illüstrasyonu">
-                <img src="assets/ders1-real-task.jpg" alt="Bir eğitim görevini büyüteç ve güvenlik ölçütleriyle inceleyen öğretmen" loading="lazy">
-              </figure>
-            </div>
-          </div>
+      <!-- 2 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Bugünün tek bilgisi</p>
+          <p class="note">Yapay zekâya konuyu değil, öğrencinizin zorlandığı yeri anlatın.</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-3" data-title="Dört rol" aria-labelledby="title-3">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Konu anlatımı · 7 dakika</p>
-            <h2 id="title-3">Yapay zekâya sınırlı bir rol verin</h2>
-            <p>Bir role tıklayın. Böylece “dersimi hazırla” gibi belirsiz bir devir yerine yönetilebilir bir destek tanımlarsınız.</p>
-          </header>
-          <div class="workspace">
-            <div class="grid-4">
-              <article class="role-card" data-role="Fikir ortağı"><div class="role-icon">F</div><h3>Fikir ortağı</h3><p>Örnek, benzetme ve derse giriş alternatifleri önerir.</p><button type="button">Bu rolü seç</button></article>
-              <article class="role-card" data-role="İlk taslakçı"><div class="role-icon">T</div><h3>İlk taslakçı</h3><p>Soru, rubrik veya çalışma kâğıdının ilk sürümünü oluşturur.</p><button type="button">Bu rolü seç</button></article>
-              <article class="role-card" data-role="Dönüştürücü"><div class="role-icon">D</div><h3>Dönüştürücü</h3><p>Verilen içeriği yaşa, biçime veya destek düzeyine uyarlar.</p><button type="button">Bu rolü seç</button></article>
-              <article class="role-card" data-role="Kontrol yardımcısı"><div class="role-icon">K</div><h3>Kontrol yardımcısı</h3><p>Eksik yönerge ve kontrol noktaları için liste önerir.</p><button type="button">Bu rolü seç</button></article>
-            </div>
-            <div class="role-output" id="roleOutput">Henüz rol seçmediniz. İlk denemeniz için en yararlı görünen rolü seçin.</div>
-          </div>
+      <!-- 3 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">1. adım</p>
+          <div class="icon"><svg><use href="#i-question" /></svg></div>
+          <p class="line">Önce şunu yanıtlayın: “Öğrencim tam olarak neyi yapamıyor?”</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-4" data-title="Karar testi" aria-labelledby="title-4">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Uygulama · 12 dakika</p>
-            <h2 id="title-4">Yapabilir mi, yapması uygun mu?</h2>
-            <p>Görevleri tek tek değerlendirin. Yeşil: taslak alınabilir. Sarı: ek önlem gerekir. Kırmızı: araca bırakılmaz.</p>
-          </header>
-          <div class="workspace">
-            <div class="decision-layout">
-              <article class="decision-card">
-                <span class="question-count" id="questionCount">Görev 1 / 8</span>
-                <div class="decision-task" id="decisionTask"></div>
-                <div class="traffic-actions">
-                  <button class="traffic-button green" type="button" data-choice="green">Yeşil</button>
-                  <button class="traffic-button yellow" type="button" data-choice="yellow">Sarı</button>
-                  <button class="traffic-button red" type="button" data-choice="red">Kırmızı</button>
-                </div>
-              </article>
-              <aside class="feedback-panel">
-                <span class="small-note">Karar özeti</span>
-                <strong class="big-score" id="decisionScore">0 / 8</strong>
-                <div class="feedback-text" id="decisionFeedback">İlk görevi değerlendirdiğinizde gerekçe burada görünecek.</div>
-                <div class="mini-progress" id="decisionProgress"></div>
-              </aside>
-            </div>
-          </div>
+      <!-- 4 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">2. adım</p>
+          <figure class="photo"><img src="assets/ders1-real-task.jpg" alt="Sınıfta uygulanacak küçük bir görev seçen öğretmen" loading="lazy"></figure>
+          <p class="line">Yapay zekâdan tek bir şey isteyin: fikir, taslak ya da sadeleştirme.</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-5" data-title="İş yükü" aria-labelledby="title-5">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Kişisel çalışma · 10 dakika</p>
-            <h2 id="title-5">Günlük iş yükünüzden bir görev seçin</h2>
-            <p>Son çalışma gününüzü düşünün. Zaman alan üç görevi yazın ve ilk AI denemeniz için birini işaretleyin.</p>
-          </header>
-          <div class="workspace">
-            <div class="task-workspace">
-              <div class="task-list" id="taskList"></div>
-              <aside class="panel soft">
-                <h3>İlk görev için seçim filtresi</h3>
-                <ul class="tip-list">
-                  <li>Sık tekrarlanıyor mu?</li>
-                  <li>İlk taslağı kolayca kontrol edebilir misiniz?</li>
-                  <li>Kişisel öğrenci verisi olmadan yapılabilir mi?</li>
-                  <li>Yanlış taslak ciddi bir karar doğurmadan düzeltilebilir mi?</li>
-                </ul>
-              </aside>
-            </div>
-          </div>
+      <!-- 5 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">3. adım</p>
+          <figure class="photo"><img src="assets/ders1-teacher-decision.jpg" alt="Son kararı veren öğretmen" loading="lazy"></figure>
+          <p class="line">Son kararı siz verirsiniz; yapay zekâ yalnızca taslak üretir.</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-6" data-title="Görev radarı" aria-labelledby="title-6">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Karar aracı · 15 dakika</p>
-            <h2 id="title-6">AI Görev Radarı</h2>
-            <p id="radarTaskLabel">Seçtiğiniz görevi altı ölçütle puanlayın.</p>
-          </header>
-          <div class="workspace">
-            <div class="radar-layout">
-              <div class="radar-grid" id="radarGrid"></div>
-              <aside class="radar-side">
-                <div class="score-ring" id="scoreRing"><div class="score-core"><div><b id="radarTotal">0</b><span>12 üzerinden</span></div></div></div>
-                <span class="status red" id="radarStatus">Kırmızı aday</span>
-                <p class="small-note" id="radarMessage">Görevi daraltın veya başka bir görev seçin.</p>
-                <div class="red-flag">
-                  <label><input type="checkbox" id="redFlag"><span>Kişisel veri, nihai not, tanı veya disiplin kararı içeriyor.</span></label>
-                </div>
-              </aside>
-            </div>
-          </div>
+      <!-- 6 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Zayıf istek</p>
+          <div class="prompt weak">“Kesirlerle ilgili güzel bir etkinlik hazırla.”</div>
+          <p class="sub">Sınıf yok, zorlanılan nokta yok, süre yok. Cevap da havada kalır.</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-7" data-title="Branş vakası" aria-labelledby="title-7">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Vaka laboratuvarı · 12 dakika</p>
-            <h2 id="title-7">Aynı ilke, farklı branşlar</h2>
-            <p>Bir branş seçin; yapay zekânın rolünü, öğretmende kalacak kararı ve doğrulama yolunu belirleyin.</p>
-          </header>
-          <div class="workspace">
-            <div class="case-layout">
-              <nav class="case-list" id="caseList" aria-label="Branş vakaları"></nav>
-              <article class="case-card">
-                <div class="case-content">
-                  <h3 id="caseTitle"></h3>
-                  <p id="caseText"></p>
-                  <div class="form-grid">
-                    <div class="field"><label for="caseRole">AI rolü</label><select id="caseRole" data-save><option value="">Seçin</option><option>Fikir ortağı</option><option>İlk taslakçı</option><option>Dönüştürücü</option><option>Kontrol yardımcısı</option></select></div>
-                    <div class="field"><label for="caseVerify">Nasıl doğrularım?</label><input id="caseVerify" type="text" data-save placeholder="Ders kitabı, kazanım..."></div>
-                    <div class="field span-2"><label for="caseHuman">Bende kalacak karar</label><input id="caseHuman" type="text" data-save placeholder="Nihai pedagojik karar"></div>
-                  </div>
-                  <div><button class="action-button" id="showCaseAnswer" type="button">Örnek yaklaşım</button><div class="case-answer" id="caseAnswer"></div></div>
-                </div>
-                <figure class="case-visual" aria-label="Farklı okul branşlarını gösteren eğitim araçları illüstrasyonu">
-                  <img src="assets/ders1-teacher-decision.jpg" alt="Matematik, fen, dil, sosyal bilimler ve sanat derslerini temsil eden eğitim araçları" loading="lazy">
-                </figure>
-              </article>
-            </div>
-          </div>
+      <!-- 7 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Güçlü istek</p>
+          <div class="prompt" id="p0">3. sınıf öğrencilerim yarım ile çeyreği karıştırıyor. Sınıfta 15 dakikada yapılabilecek 3 etkinlik öner. Her etkinliği 3 cümleyle anlat.</div>
+          <button class="copy" data-copy="p0" type="button">Kopyala</button>
         </div>
       </section>
 
-      <section class="screen" id="screen-8" data-title="Mini deney" aria-labelledby="title-8">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Mini deney · 8 dakika</p>
-            <h2 id="title-8">İyi istemden önce iyi ihtiyaç gelir</h2>
-            <p>İki isteği karşılaştırın. Fark, “sihirli kelimelerde” değil; eğitim bağlamının açıklığında.</p>
-          </header>
-          <div class="workspace">
-            <div class="compare">
-              <article class="prompt-card">
-                <span class="prompt-tag">Belirsiz istek</span>
-                <blockquote>“Kesirlerle ilgili güzel bir etkinlik hazırla.”</blockquote>
-                <p class="small-note">Sınıf, güçlük, süre, başarı ölçütü ve öğretmen kontrolü belirsiz.</p>
-              </article>
-              <article class="prompt-card good">
-                <span class="prompt-tag">Tanımlanmış ihtiyaç</span>
-                <blockquote>“5. sınıfta öğrenciler farklı paydalı kesirleri görsel modelle karşılaştıramıyor. 15 dakikalık kâğıt şerit etkinliği için üç taslak öner. Son seçimi öğretmen yapacak.”</blockquote>
-                <div class="prompt-meta"><span>Sınıf</span><span>Gözlenebilir güçlük</span><span>Süre</span><span>Materyal</span><span>İnsan kararı</span></div>
-              </article>
-            </div>
-          </div>
+      <!-- 8 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Formül</p>
+          <p class="note">Sınıf + zorlanılan nokta + istediğiniz çıktı + süre.</p>
         </div>
       </section>
 
-      <section class="screen" id="screen-9" data-title="İhtiyaç kartı" aria-labelledby="title-9">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Final uygulaması · 20 dakika</p>
-            <h2 id="title-9">Eğitim İhtiyacı Kartınızı oluşturun</h2>
-            <p>Kendi branşınızdan gerçek bir ihtiyacı, sınırları ve insan kontrolüyle birlikte tanımlayın.</p>
-          </header>
-          <div class="workspace">
-            <div class="form-page">
-              <div class="form-panel">
-                <div class="form-grid">
-                  <div class="field"><label for="branch">Branş</label><input id="branch" type="text" data-save placeholder="Örn. Fen Bilimleri"></div>
-                  <div class="field"><label for="grade">Sınıf düzeyi</label><input id="grade" type="text" data-save placeholder="Örn. 6. sınıf"></div>
-                  <div class="field span-2"><label for="outcome">Kazanım / konu</label><input id="outcome" type="text" data-save placeholder="Öğretim programıyla ilişkili konu"></div>
-                  <div class="field span-2"><label for="difficulty">Öğrencinin yaşadığı gözlenebilir güçlük</label><textarea id="difficulty" data-save placeholder="‘Anlamıyor’ yerine gördüğünüz davranışı yazın."></textarea></div>
-                  <div class="field"><label for="selectedRole">Yapay zekânın rolü</label><select id="selectedRole" data-save><option value="">Seçin</option><option>Fikir ortağı</option><option>İlk taslakçı</option><option>Dönüştürücü</option><option>Kontrol yardımcısı</option></select></div>
-                  <div class="field"><label for="expectedOutput">Beklenen somut çıktı</label><input id="expectedOutput" type="text" data-save placeholder="Örn. üç etkinlik taslağı"></div>
-                  <div class="field"><label for="verifySource">Kontrol kaynağı / ölçütü</label><input id="verifySource" type="text" data-save placeholder="Ders kitabı, program, rubrik..."></div>
-                  <div class="field"><label for="humanDecision">Öğretmende kalacak karar</label><input id="humanDecision" type="text" data-save placeholder="Seçim, düzeltme, puanlama..."></div>
-                  <div class="field span-2"><label for="success">Başarılı olduğunu nasıl anlayacağım?</label><input id="success" type="text" data-save placeholder="Gözlenebilir bir gösterge yazın"></div>
-                </div>
-              </div>
-              <aside class="form-help">
-                <h3>İyi ihtiyaç tanımı</h3>
-                <p>Genel bir içerik talebi değil, gerçek bir öğretim sorununu açıklar.</p>
-                <ul><li>Kişisel veri içermez.</li><li>AI rolü sınırlıdır.</li><li>Çıktı somuttur.</li><li>Doğrulama yolu bellidir.</li><li>Nihai karar öğretmendedir.</li></ul>
-              </aside>
-            </div>
-          </div>
+      <!-- 9 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Matematik · Problem çözme</p>
+          <div class="icon"><svg><use href="#i-shapes" /></svg></div>
+          <div class="prompt" id="p1">4. sınıf öğrencilerim problemde hangi işlemi seçeceğini bilemiyor. Günlük hayattan 5 problem yaz. Her problemin altına “hangi işlem, neden” ipucunu ekle.</div>
+          <button class="copy" data-copy="p1" type="button">Kopyala</button>
         </div>
       </section>
 
-      <section class="screen" id="screen-10" data-title="Ders özeti" aria-labelledby="title-10">
-        <div class="screen-inner">
-          <header class="screen-head">
-            <p class="screen-kicker">Tamamlama</p>
-            <h2 id="title-10">Adım 1 tamamlandı</h2>
-            <p>İhtiyacınız, yapay zekânın sınırlı rolü ve insan kontrol noktalarınız tek kartta hazır.</p>
-          </header>
-          <div class="workspace">
-            <div class="summary-layout">
-              <article class="summary-card"><pre id="summaryText"></pre></article>
-              <aside class="finish-panel">
-                <div class="finish-check">✓</div>
-                <h3>Adım 2’ye hazırsınız</h3>
-                <p>Bir sonraki adımda bu ihtiyaç ölçülebilir öğrenme hedefleri ve başarı ölçütleriyle eşleştirilecek.</p>
-                <div class="step-password" aria-label="Adım şifresi ihtiyaç">
-                  <span class="password-icon" aria-hidden="true">⌁</span>
-                  <span>Adım şifresi</span>
-                  <strong>ihtiyaç</strong>
-                </div>
-                <div class="stack">
-                  <button class="nav-button primary" id="downloadButton" type="button">Kartı indir</button>
-                  <button class="nav-button" id="summaryPrint" type="button">Yazdır / PDF</button>
-                </div>
-              </aside>
-            </div>
-          </div>
+      <!-- 10 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Türkçe · Okuduğunu anlama</p>
+          <div class="icon"><svg><use href="#i-book" /></svg></div>
+          <div class="prompt" id="p2">2. sınıf öğrencilerim okudukları metinde ana fikri bulamıyor. 100 kelimelik örnek bir metin yaz. Altına kolaydan zora 3 soru ekle.</div>
+          <button class="copy" data-copy="p2" type="button">Kopyala</button>
         </div>
       </section>
+
+      <!-- 11 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Hayat Bilgisi · Kavram karışıklığı</p>
+          <div class="icon"><svg><use href="#i-leaf" /></svg></div>
+          <div class="prompt" id="p3">3. sınıf öğrencilerim canlı ve cansız ayrımını karıştırıyor. Malzeme gerektirmeyen 10 dakikalık bir etkinlik öner ve soracağım 5 soruyu yaz.</div>
+          <button class="copy" data-copy="p3" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 12 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Derse başlangıç · Dikkat</p>
+          <div class="icon"><svg><use href="#i-spark" /></svg></div>
+          <div class="prompt" id="p4">1. sınıf öğrencilerimin derse dikkatini toplamakta zorlanıyorum. 5 dakikalık 5 farklı ısınma etkinliği öner. Her biri tek cümlelik yönerge olsun.</div>
+          <button class="copy" data-copy="p4" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 13 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Metni sadeleştirme</p>
+          <div class="icon"><svg><use href="#i-scissors" /></svg></div>
+          <div class="prompt" id="p5">Aşağıdaki metni 2. sınıf seviyesine göre sadeleştir. Cümleleri kısalt, zor kelimeleri değiştir, anlamı koru. Metin: <em>[metni buraya yapıştırın]</em></div>
+          <button class="copy" data-copy="p5" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 14 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Ölçme · Kısa kontrol</p>
+          <div class="icon"><svg><use href="#i-check" /></svg></div>
+          <div class="prompt" id="p6">4. sınıf “kesirler” konusunda öğrencilerimin ne öğrendiğini 5 dakikada ölçmek istiyorum. Kolaydan zora 5 soru yaz, cevap anahtarını en sona koy.</div>
+          <button class="copy" data-copy="p6" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 15 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Farklılaştırma · 3 seviye</p>
+          <div class="icon"><svg><use href="#i-layers" /></svg></div>
+          <div class="prompt" id="p7">Sınıfımda aynı etkinliği bazı öğrenciler çok hızlı bitiriyor, bazıları yetiştiremiyor. <em>[konu]</em> için kolay, orta ve zor olmak üzere 3 seviyeli görev hazırla.</div>
+          <button class="copy" data-copy="p7" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 16 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Çalışma kâğıdı</p>
+          <div class="icon"><svg><use href="#i-pencil" /></svg></div>
+          <div class="prompt" id="p8">3. sınıf “saat okuma” konusu için basit bir çalışma kâğıdı hazırla. 8 soru olsun, yönergeler tek cümle olsun, cevaplar en sonda olsun.</div>
+          <button class="copy" data-copy="p8" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 17 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Zaman planı</p>
+          <div class="icon"><svg><use href="#i-clock" /></svg></div>
+          <div class="prompt" id="p9">40 dakikalık bir ders için <em>[konu]</em> akışı yaz. Giriş, uygulama ve kapanış olarak üçe böl. Her bölümün süresini dakika olarak belirt.</div>
+          <button class="copy" data-copy="p9" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 18 -->
+      <section class="screen">
+        <div class="card">
+          <p class="chip">Veli bilgilendirme · İsim yok</p>
+          <div class="icon"><svg><use href="#i-message" /></svg></div>
+          <div class="prompt" id="p10">Velilere gönderilecek, isim geçmeyen kısa bir bilgilendirme mesajı yaz. Konu: evde günde 15 dakika sesli okuma. En fazla 5 cümle, sıcak bir dil olsun.</div>
+          <button class="copy" data-copy="p10" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 19 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Kendi cümleniz</p>
+          <div class="prompt" id="p11"><em>[Sınıf]</em> öğrencilerim <em>[zorlandığı nokta]</em> konusunda zorlanıyor. <em>[Süre]</em> içinde yapılabilecek <em>[istediğim çıktı]</em> hazırla. Sade ve uygulanabilir olsun.</div>
+          <button class="copy" data-copy="p11" type="button">Kopyala</button>
+        </div>
+      </section>
+
+      <!-- 20 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Tek uyarı</p>
+          <div class="icon"><svg><use href="#i-shield" /></svg></div>
+          <p class="warn">Yapay zekâya öğrenci adı, notu veya sağlık bilgisi yazmayın.</p>
+        </div>
+      </section>
+
+      <!-- 21 -->
+      <section class="screen">
+        <div class="card">
+          <p class="eyebrow">Ders 1 tamamlandı</p>
+          <div class="icon"><svg><use href="#i-flag" /></svg></div>
+          <p class="line">Bir promptu kopyalayın ve AI-Galaxy editöründe deneyin.</p>
+          <div class="password"><span>Adım şifresi</span><strong>ihtiyaç</strong></div>
+        </div>
+      </section>
+
     </main>
 
-    <footer class="bottombar">
-      <button class="nav-button" id="prevButton" type="button">← Geri</button>
-      <div class="slide-dots" id="slideDots" aria-label="Ders ekranları"></div>
-      <button class="nav-button primary" id="nextButton" type="button">Devam →</button>
+    <footer class="bottom">
+      <button class="nav back" id="prev" type="button">← Geri</button>
+      <span class="counter" id="counter">1 / 21</span>
+      <button class="nav go" id="next" type="button">İleri →</button>
     </footer>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  </div>
-  </div>
 
   <script>
     (() => {
-      const KEY = 'aiGalaxyTeachTechLesson1AppV2';
-      const TOTAL_SCREENS = 10;
-      const decisionTasks = [
-        { text: '4. sınıf fen dersi için üç günlük yaşam örneği bulmak.', answer: 'green', feedback: 'Kişisel veri gerektirmez ve öğretmen çıktıyı kolayca doğrulayabilir.' },
-        { text: 'Bir öğrencinin davranış kaydına bakarak disiplin cezası önermek.', answer: 'red', feedback: 'Yüksek etkili bir mesleki karar ve hassas öğrenci verisi içerir.' },
-        { text: '9. sınıf tarih metnini 150 kelimelik özet hâline getirmek.', answer: 'yellow', feedback: 'Taslak alınabilir; tarihsel doğruluk ve anlam kaybı kontrol edilmelidir.' },
-        { text: 'Öğrenci adları ve notlarını yükleyip karne görüşü yazdırmak.', answer: 'red', feedback: 'Öğrenci adı ve notu kişisel veridir; araca yüklenmemelidir.' },
-        { text: '7. sınıf matematik kazanımı için üç zorluk düzeyinde soru taslağı oluşturmak.', answer: 'yellow', feedback: 'Çözüm, zorluk ve kazanım uyumu öğretmen tarafından denetlenmelidir.' },
-        { text: 'Özel eğitim raporundan hareketle öğrenciye tanı koymak.', answer: 'red', feedback: 'Tanı yapay zekâya bırakılamaz ve hassas kişisel veri içerir.' },
-        { text: 'Öğretmenin yazdığı veli duyurusunu daha açık bir dille düzenlemek.', answer: 'green', feedback: 'Kişisel veri çıkarılır ve son metni öğretmen onaylarsa düşük risklidir.' },
-        { text: 'Açık uçlu bir sınava nihai puan ve dönem notu vermek.', answer: 'red', feedback: 'Nihai not, öğrenci üzerinde yüksek etkisi olan öğretmen kararıdır.' }
-      ];
-      const radarItems = [
-        { id: 'value', name: 'Eğitsel değer', low: 'Katkı yok', high: 'Doğrudan destek' },
-        { id: 'time', name: 'Zaman kazancı', low: 'Kazanç yok', high: 'Belirgin kazanç' },
-        { id: 'verify', name: 'Doğrulanabilirlik', low: 'Kontrol zor', high: 'Kolay kontrol' },
-        { id: 'data', name: 'Veri güvenliği', low: 'Hassas veri', high: 'Veri gerekmez' },
-        { id: 'risk', name: 'Hata riski', low: 'Ciddi sonuç', high: 'Kolay düzelir' },
-        { id: 'control', name: 'Öğretmen kontrolü', low: 'Karar AI’da', high: 'Karar insanda' }
-      ];
-      const cases = [
-        { title: 'Sınıf öğretmeni', text: '3. sınıfta öğrenciler maddenin hâlleriyle ilgili günlük yaşam örneklerini karıştırıyor. Öğretmen sekiz örnek içeren bir sınıflandırma etkinliği hazırlamak istiyor.', answer: 'Fikir ortağı / ilk taslakçı kullanılabilir. Bilimsel doğruluk ve yaş uygunluğu öğretmende kalır; ders kitabı ve kazanımla doğrulanır.' },
-        { title: 'Türkçe / Edebiyat', text: '7. sınıf öğrencileri aynı ana fikri haber, günlük ve diyalog biçiminde ifade etmekte zorlanıyor.', answer: 'Dönüştürücü rolü uygundur. Metin türünün özellikleri ve dil düzeyini öğretmen kontrol eder.' },
-        { title: 'Matematik', text: '6. sınıfta kesir karşılaştırma için kolay, orta ve ileri düzey soru taslaklarına ihtiyaç var.', answer: 'İlk taslakçı kullanılabilir. Öğretmen her soruyu çözerek cevap, zorluk ve kazanım uyumunu denetler.' },
-        { title: 'Fen bilimleri', text: '9. sınıf fizik öğretmeni kuvvet ve hareketi trafik, spor ve ev yaşamıyla ilişkilendirmek istiyor.', answer: 'Fikir ortağı uygundur. Fiziksel modelin doğruluğu ve kavram yanılgıları öğretmen tarafından kaynakla kontrol edilir.' },
-        { title: 'Sosyal bilimler', text: '5. sınıfta bir yerleşim yeri seçiminde su, ulaşım, iklim ve güvenlik etkenlerini karşılaştıran karar tablosu gerekiyor.', answer: 'İlk taslakçı / kontrol yardımcısı kullanılabilir. Yerel bağlam, kaynak doğruluğu ve dengeli temsil öğretmende kalır.' },
-        { title: 'Yabancı dil', text: '8. sınıf İngilizce dersi için A1–A2 düzeyinde üç kısa “ordering food” rol oynama senaryosu gerekiyor.', answer: 'İlk taslakçı / dönüştürücü uygundur. Dil düzeyi, kültürel uygunluk ve hedef kalıp öğretmen tarafından kontrol edilir.' }
-      ];
+      const screens = [...document.querySelectorAll('.screen')];
+      const total = screens.length;
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const fill = document.getElementById('fill');
+      const counter = document.getElementById('counter');
+      const toast = document.getElementById('toast');
+      let index = 0, timer;
 
-      let state = load();
-      const requestedScreen = Number(new URLSearchParams(location.search).get('screen'));
-      let current = Math.min(TOTAL_SCREENS, Math.max(1, Number(requestedScreen || state.current || 1)));
-      let visited = new Set(state.visited || [1]);
-      let decisionIndex = Number(state.decisionIndex || 0);
-      let caseIndex = Number(state.caseIndex || 0);
-      let toastTimer;
+      const say = text => {
+        toast.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(timer);
+        timer = setTimeout(() => toast.classList.remove('show'), 1700);
+      };
 
-      function fitTutorialStage() {
-        const stage = document.getElementById('lesson1TutorialStage');
-        const scale = Math.min(window.innerWidth / 1100, window.innerHeight / 800);
-        stage.style.left = `${Math.max(0, (window.innerWidth - (1100 * scale)) / 2)}px`;
-        stage.style.top = `${Math.max(0, (window.innerHeight - (800 * scale)) / 2)}px`;
-        stage.style.transform = `scale(${scale})`;
-      }
+      const go = target => {
+        index = Math.max(0, Math.min(total - 1, target));
+        screens.forEach((screen, i) => screen.classList.toggle('active', i === index));
+        screens[index].scrollTop = 0;
+        fill.style.width = ((index + 1) / total * 100) + '%';
+        counter.textContent = (index + 1) + ' / ' + total;
+        prev.disabled = index === 0;
+        next.textContent = index === total - 1 ? 'Başa dön ↺' : 'İleri →';
+      };
 
-      function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (_) { return {}; } }
-      function save() {
-        state.current = current;
-        state.visited = [...visited];
-        state.decisionIndex = decisionIndex;
-        state.caseIndex = caseIndex;
-        localStorage.setItem(KEY, JSON.stringify(state));
-      }
-      function toast(text) {
-        const el = document.getElementById('toast');
-        el.textContent = text;
-        el.classList.add('show');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
-      }
+      prev.onclick = () => go(index - 1);
+      next.onclick = () => go(index === total - 1 ? 0 : index + 1);
 
-      function renderDots() {
-        const wrap = document.getElementById('slideDots');
-        wrap.innerHTML = Array.from({ length: TOTAL_SCREENS }, (_, i) => `<button class="slide-dot" type="button" data-screen="${i + 1}" aria-label="${i + 1}. ekrana git"></button>`).join('');
-        wrap.addEventListener('click', event => {
-          const dot = event.target.closest('[data-screen]');
-          if (dot) goTo(Number(dot.dataset.screen));
-        });
-      }
-      function updateShell() {
-        document.querySelectorAll('.screen').forEach((screen, index) => screen.classList.toggle('active', index + 1 === current));
-        document.querySelectorAll('.slide-dot').forEach((dot, index) => {
-          dot.classList.toggle('active', index + 1 === current);
-          dot.classList.toggle('visited', visited.has(index + 1));
-        });
-        const active = document.getElementById(`screen-${current}`);
-        document.getElementById('screenName').textContent = active.dataset.title;
-        document.getElementById('progressText').textContent = `${current} / ${TOTAL_SCREENS}`;
-        document.getElementById('progressFill').style.width = `${current / TOTAL_SCREENS * 100}%`;
-        document.getElementById('prevButton').disabled = current === 1;
-        document.getElementById('nextButton').textContent = current === TOTAL_SCREENS ? 'Tamamlandı ✓' : 'Devam →';
-        active.querySelector('.workspace')?.scrollTo(0, 0);
-        if (current === 6) updateRadarTask();
-        if (current === 10) updateSummary();
-      }
-      function goTo(number) {
-        current = Math.min(TOTAL_SCREENS, Math.max(1, number));
-        visited.add(current);
-        updateShell();
-        save();
-      }
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') go(index + 1);
+        if (event.key === 'ArrowLeft') go(index - 1);
+      });
 
-      function bindNavigation() {
-        document.getElementById('prevButton').addEventListener('click', () => goTo(current - 1));
-        document.getElementById('nextButton').addEventListener('click', () => {
-          if (current === TOTAL_SCREENS) { toast('Ders 1 tamamlandı.'); return; }
-          goTo(current + 1);
-        });
-        document.addEventListener('keydown', event => {
-          if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
-          if (event.key === 'ArrowRight') goTo(current + 1);
-          if (event.key === 'ArrowLeft') goTo(current - 1);
-        });
-      }
+      let startX = null;
+      const main = document.getElementById('main');
+      main.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+      main.addEventListener('touchend', e => {
+        if (startX === null) return;
+        const delta = e.changedTouches[0].clientX - startX;
+        if (Math.abs(delta) > 60) go(index + (delta < 0 ? 1 : -1));
+        startX = null;
+      }, { passive: true });
 
-      function bindRoles() {
-        document.querySelectorAll('.role-card').forEach(card => {
-          card.classList.toggle('selected', state.role === card.dataset.role);
-          card.querySelector('button').addEventListener('click', () => {
-            state.role = card.dataset.role;
-            document.querySelectorAll('.role-card').forEach(item => item.classList.toggle('selected', item === card));
-            document.getElementById('roleOutput').innerHTML = `<strong>${state.role}</strong> seçildi. Bu rolde yapay zekâ sınırlı bir katkı verir; son karar öğretmende kalır.`;
-            save();
-          });
-        });
-        if (state.role) document.getElementById('roleOutput').innerHTML = `<strong>${state.role}</strong> seçildi. Bu rolde yapay zekâ sınırlı bir katkı verir; son karar öğretmende kalır.`;
-      }
+      document.querySelectorAll('[data-copy]').forEach(button => {
+        button.onclick = async () => {
+          const text = document.getElementById(button.dataset.copy).innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (_) {
+            const area = document.createElement('textarea');
+            area.value = text;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand('copy');
+            area.remove();
+          }
+          say('Prompt kopyalandı');
+        };
+      });
 
-      function renderDecision() {
-        decisionIndex = Math.min(decisionTasks.length - 1, Math.max(0, decisionIndex));
-        const item = decisionTasks[decisionIndex];
-        document.getElementById('questionCount').textContent = `Görev ${decisionIndex + 1} / ${decisionTasks.length}`;
-        document.getElementById('decisionTask').textContent = item.text;
-        const answers = state.decisions || {};
-        document.querySelectorAll('.traffic-button').forEach(button => button.classList.toggle('selected', answers[decisionIndex] === button.dataset.choice));
-        const correctCount = Object.entries(answers).filter(([index, answer]) => decisionTasks[Number(index)]?.answer === answer).length;
-        document.getElementById('decisionScore').textContent = `${correctCount} / 8`;
-        document.getElementById('decisionFeedback').textContent = answers[decisionIndex] ? item.feedback : 'Bu görev için ilk kararınızı verin.';
-        document.getElementById('decisionProgress').innerHTML = decisionTasks.map((_, index) => `<span class="${index === decisionIndex ? 'current' : index < decisionIndex || answers[index] ? 'done' : ''}"></span>`).join('');
-      }
-      function bindDecision() {
-        document.querySelectorAll('.traffic-button').forEach(button => button.addEventListener('click', () => {
-          state.decisions = state.decisions || {};
-          state.decisions[decisionIndex] = button.dataset.choice;
-          renderDecision();
-          save();
-          setTimeout(() => {
-            if (decisionIndex < decisionTasks.length - 1) { decisionIndex += 1; renderDecision(); save(); }
-            else toast('Karar testi tamamlandı.');
-          }, 650);
-        }));
-        renderDecision();
-      }
-
-      function renderTasks() {
-        const savedTasks = state.tasks || [{}, {}, {}];
-        document.getElementById('taskList').innerHTML = [0, 1, 2].map(index => `
-          <div class="task-row ${String(state.selectedTask) === String(index) ? 'selected' : ''}" data-task-row="${index}">
-            <span class="task-index">${index + 1}</span>
-            <div class="field"><label for="task-${index}">Günlük görev</label><input id="task-${index}" type="text" value="${escapeHtml(savedTasks[index]?.name || '')}" placeholder="Örn. farklı düzeyde soru hazırlama"></div>
-            <div class="field minutes-field"><label for="minutes-${index}">Dakika</label><input id="minutes-${index}" type="number" min="0" value="${escapeHtml(savedTasks[index]?.minutes || '')}" placeholder="30"></div>
-            <div class="field frequency-field"><label for="frequency-${index}">Sıklık</label><select id="frequency-${index}"><option value="">Seçin</option>${['Her gün', 'Haftada birkaç', 'Haftada bir', 'Ayda birkaç'].map(item => `<option ${savedTasks[index]?.frequency === item ? 'selected' : ''}>${item}</option>`).join('')}</select></div>
-            <label class="choose-task" title="Bu görevi seç"><input type="radio" name="selectedTask" value="${index}" ${String(state.selectedTask) === String(index) ? 'checked' : ''} aria-label="${index + 1}. görevi seç"></label>
-          </div>`).join('');
-        [0, 1, 2].forEach(index => {
-          ['task', 'minutes', 'frequency'].forEach(prefix => document.getElementById(`${prefix}-${index}`).addEventListener('input', collectTasks));
-        });
-        document.querySelectorAll('[name="selectedTask"]').forEach(input => input.addEventListener('change', () => {
-          state.selectedTask = input.value;
-          document.querySelectorAll('[data-task-row]').forEach((row, index) => row.classList.toggle('selected', String(index) === input.value));
-          save();
-        }));
-      }
-      function collectTasks() {
-        state.tasks = [0, 1, 2].map(index => ({ name: document.getElementById(`task-${index}`).value, minutes: document.getElementById(`minutes-${index}`).value, frequency: document.getElementById(`frequency-${index}`).value }));
-        save();
-      }
-
-      function renderRadar() {
-        const saved = state.radar || {};
-        document.getElementById('radarGrid').innerHTML = radarItems.map(item => `
-          <div class="radar-item">
-            <div class="radar-top"><span>${item.name}</span><span class="score" id="score-${item.id}">${saved[item.id] || 0}</span></div>
-            <input type="range" id="radar-${item.id}" min="0" max="2" step="1" value="${saved[item.id] || 0}" aria-label="${item.name}">
-            <div class="range-labels"><span>${item.low}</span><span>${item.high}</span></div>
-          </div>`).join('');
-        radarItems.forEach(item => document.getElementById(`radar-${item.id}`).addEventListener('input', event => {
-          state.radar = state.radar || {};
-          state.radar[item.id] = Number(event.target.value);
-          updateRadar();
-          save();
-        }));
-        document.getElementById('redFlag').checked = Boolean(state.redFlag);
-        document.getElementById('redFlag').addEventListener('change', event => { state.redFlag = event.target.checked; updateRadar(); save(); });
-        updateRadar();
-      }
-      function updateRadar() {
-        let total = 0;
-        radarItems.forEach(item => {
-          const value = Number(document.getElementById(`radar-${item.id}`)?.value || 0);
-          total += value;
-          const badge = document.getElementById(`score-${item.id}`);
-          if (badge) badge.textContent = value;
-        });
-        state.radarTotal = total;
-        const flag = document.getElementById('redFlag')?.checked;
-        const status = document.getElementById('radarStatus');
-        status.className = 'status';
-        if (flag || total <= 6) { status.classList.add('red'); status.textContent = flag ? 'Kırmızı çizgi var' : 'Kırmızı aday'; document.getElementById('radarMessage').textContent = flag ? 'Puan ne olursa olsun görevi yeniden tasarlayın.' : 'Görevi daraltın veya başka görev seçin.'; }
-        else if (total <= 9) { status.classList.add('yellow'); status.textContent = 'Sarı aday'; document.getElementById('radarMessage').textContent = 'Ek doğrulama ve güvenlik önlemi ekleyin.'; }
-        else { status.classList.add('green'); status.textContent = 'Yeşil aday'; document.getElementById('radarMessage').textContent = 'İlk deneme için uygun; insan kontrolünü koruyun.'; }
-        document.getElementById('radarTotal').textContent = total;
-        document.getElementById('scoreRing').style.background = `conic-gradient(var(--brand) ${total / 12 * 360}deg, #e5eaed 0deg)`;
-      }
-      function updateRadarTask() {
-        const task = state.tasks?.[Number(state.selectedTask)]?.name;
-        document.getElementById('radarTaskLabel').textContent = task ? `“${task}” görevini altı ölçütle puanlayın.` : 'İş yükü ekranından bir görev seçin veya bu ölçütleri düşündüğünüz göreve uygulayın.';
-      }
-
-      function renderCases() {
-        document.getElementById('caseList').innerHTML = cases.map((item, index) => `<button class="case-tab ${index === caseIndex ? 'active' : ''}" type="button" data-case="${index}">${item.title}</button>`).join('');
-        document.querySelectorAll('[data-case]').forEach(button => button.addEventListener('click', () => { caseIndex = Number(button.dataset.case); state.caseIndex = caseIndex; renderCases(); save(); }));
-        const item = cases[caseIndex];
-        document.getElementById('caseTitle').textContent = item.title;
-        document.getElementById('caseText').textContent = item.text;
-        document.getElementById('caseAnswer').textContent = item.answer;
-        document.getElementById('caseAnswer').classList.remove('show');
-      }
-      function bindCaseAnswer() { document.getElementById('showCaseAnswer').addEventListener('click', () => document.getElementById('caseAnswer').classList.toggle('show')); }
-
-      function bindFields() {
-        document.querySelectorAll('[data-save]').forEach(field => {
-          if (state.fields?.[field.id] !== undefined) field.value = state.fields[field.id];
-          field.addEventListener('input', () => { state.fields = state.fields || {}; state.fields[field.id] = field.value; save(); });
-        });
-      }
-      function value(id, fallback = '—') { return document.getElementById(id)?.value.trim() || fallback; }
-      function buildSummary() {
-        const selectedTask = state.tasks?.[Number(state.selectedTask)]?.name || '—';
-        return [
-          'EĞİTİM İHTİYACI KARTI',
-          '',
-          `Branş / sınıf: ${value('branch')} / ${value('grade')}`,
-          `Kazanım / konu: ${value('outcome')}`,
-          `Gözlenebilir güçlük: ${value('difficulty')}`,
-          `Günlük iş yükünden seçilen görev: ${selectedTask}`,
-          `Yapay zekânın rolü: ${value('selectedRole', state.role || '—')}`,
-          `Beklenen somut çıktı: ${value('expectedOutput')}`,
-          `Doğrulama kaynağı / ölçütü: ${value('verifySource')}`,
-          `Öğretmende kalacak karar: ${value('humanDecision')}`,
-          `Başarı göstergesi: ${value('success')}`,
-          `AI Görev Radarı: ${state.radarTotal || 0}/12`,
-          '',
-          'Temel ilke: Yapay zekâ taslak üretir; pedagojik karar ve sorumluluk öğretmende kalır.'
-        ].join('\n');
-      }
-      function updateSummary() { document.getElementById('summaryText').textContent = buildSummary(); }
-      function downloadSummary() {
-        const blob = new Blob([buildSummary()], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'egitim-ihtiyaci-kartim.txt';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        URL.revokeObjectURL(url);
-        toast('İhtiyaç kartı indirildi.');
-      }
-
-      function bindUtilities() {
-        document.getElementById('downloadButton').addEventListener('click', downloadSummary);
-        document.getElementById('printButton').addEventListener('click', () => { updateSummary(); window.print(); });
-        document.getElementById('summaryPrint').addEventListener('click', () => { updateSummary(); window.print(); });
-        document.getElementById('resetButton').addEventListener('click', () => {
-          if (!confirm('Bu dersteki ilerleme ve yanıtlar silinsin mi?')) return;
-          localStorage.removeItem(KEY);
-          location.reload();
-        });
-      }
-      function escapeHtml(value) { return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]); }
-
-      function init() {
-        fitTutorialStage();
-        window.addEventListener('resize', fitTutorialStage, { passive: true });
-        window.addEventListener('orientationchange', fitTutorialStage, { passive: true });
-        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitTutorialStage);
-        renderDots();
-        bindNavigation();
-        bindRoles();
-        bindDecision();
-        renderTasks();
-        renderRadar();
-        renderCases();
-        bindCaseAnswer();
-        bindFields();
-        bindUtilities();
-        updateShell();
-      }
-      init();
+      go(0);
     })();
   </script>
 </body>
+
 </html>

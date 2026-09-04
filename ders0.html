@@ -1,273 +1,522 @@
 <!doctype html>
 <html lang="tr">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#173f49">
-  <meta name="description" content="TeachTech - Eğitimde Yapay Zeka Patikası tanıtım ve kullanım rehberi.">
-  <link rel="stylesheet" href="assets/teach-tech-common.css">
-  <title>Ders 0 · Patikaya Başlangıç</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#156c5c">
+  <meta name="description" content="TeachTech başlangıç rehberi: 10 dersin sade tanıtımı, nasıl ilerleneceği ve temel kurallar.">
+  <title>TeachTech &middot; Başlangıç Rehberi</title>
   <style>
-    .intro-mark{font-size:12px!important;letter-spacing:.06em}
-    .guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;min-height:0}
-    .guide-card{display:grid;align-content:center;gap:10px;padding:22px}
-    .guide-card .ico{font-size:36px}
-    .guide-card b{font-size:20px}
-    .guide-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
-    .guide-card:nth-child(1){background:linear-gradient(145deg,#fbfffd,var(--mint))}
-    .guide-card:nth-child(2){background:linear-gradient(145deg,#fbfeff,var(--cyan))}
-    .guide-card:nth-child(3){background:linear-gradient(145deg,#fffefa,var(--amber))}
-    .video-layout{display:grid;grid-template-columns:1.55fr .45fr;gap:16px;min-height:0}
-    .video-frame{display:grid;place-items:center;padding:12px;overflow:hidden;background:#102f36}
-    .video-frame video{width:100%;height:100%;max-height:355px;border-radius:13px;background:#07181d;object-fit:contain}
-    .video-notes{display:grid;align-content:center;gap:12px;padding:20px}
-    .watch-step{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:9px;color:#33464d;font-size:12px;line-height:1.35}
-    .watch-step b{width:29px;height:29px;display:grid;place-items:center;border-radius:9px;color:#fff;background:var(--brand)}
-    .task-layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:0}
-    .task-main{display:grid;align-content:center;gap:12px;padding:24px}
-    .task-main blockquote{margin:0;padding:16px;border-left:4px solid var(--brand);border-radius:0 14px 14px 0;background:#eef6f3;font-size:19px;font-weight:850;line-height:1.35}
-    .task-list{display:grid;gap:9px;padding:20px}
-    .task-item{display:grid;grid-template-columns:38px 1fr;align-items:center;gap:11px;padding:12px;border-radius:13px;background:#f2f6f5}
-    .task-item span:first-child{font-size:23px}
-    .task-item b{display:block;font-size:13px}
-    .task-item small{color:var(--muted)}
-    .nav-demo{display:grid;grid-template-rows:54px 1fr 62px;overflow:hidden}
-    .nav-demo-top,.nav-demo-bottom{display:flex;align-items:center;justify-content:space-between;padding:0 18px}
-    .nav-demo-top{color:#fff;background:linear-gradient(110deg,#173e48,var(--brand))}
-    .nav-demo-top b{font-size:13px}
-    .nav-demo-body{display:grid;place-items:center;padding:20px;background:#f8fbfa;text-align:center}
-    .nav-demo-body strong{display:block;margin:7px 0;font-size:24px}
-    .nav-demo-bottom{border-top:1px solid var(--line);background:#fff}
-    .demo-dots{display:flex;gap:5px}
-    .demo-dots i{width:7px;height:7px;border-radius:99px;background:#cbd6d4}
-    .demo-dots i:nth-child(3){width:20px;background:var(--brand)}
+    :root {
+      --ink: #12262d;
+      --muted: #5d757d;
+      --line: #dbe7e3;
+      --paper: #fff;
+      --canvas: #eef5f3;
+      --brand: #156c5c;
+      --brand-dark: #0f4b40;
+      --mint: #ddf2ea;
+      --amber: #fff2d4;
+      --amber-ink: #6b4f1d;
+      --shadow: 0 14px 44px rgba(16, 52, 47, .12);
+    }
 
-    /* SCREEN 7: RICH PREVIEW CARDS (NO EMPTY WIREFRAMES) */
-    .example-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;min-height:0}
-    .example-card{display:flex;flex-direction:column;justify-content:space-between;padding:18px 16px;background:#fff;border-radius:18px;border:1px solid var(--line);box-shadow:0 4px 16px rgba(18,55,50,0.04)}
-    .example-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-    .example-card h3{margin:4px 0 0;font-size:15px;font-weight:850;color:var(--ink)}
-    .example-snippet-box{background:#f4f9f7;border:1px solid #dbeae5;border-radius:12px;padding:12px 10px;margin:8px 0;display:flex;flex-direction:column;gap:5px;flex:1}
-    .snippet-item{display:flex;align-items:flex-start;gap:6px;font-size:11.5px;color:#28434a;line-height:1.35}
-    .snippet-item span{color:var(--brand);font-weight:850;flex-shrink:0}
-    .card-status-badge{padding:8px 12px;border-radius:10px;background:#e2f4ed;color:#136253;font-size:11.5px;font-weight:850;text-align:center;margin-top:auto}
-    .card-status-badge.blue{background:#e0f2f7;color:#1b586e}
-    .card-status-badge.amber{background:#fff0d2;color:#78501c}
+    * { box-sizing: border-box; margin: 0; padding: 0 }
 
-    /* SCREEN 8: PASSWORD SCREEN LAYOUT */
-    .password-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:16px;min-height:0;align-items:center}
-    .flow-list{display:grid;align-content:center;gap:10px;padding:20px}
-    .flow-step{display:grid;grid-template-columns:39px 1fr;align-items:center;gap:11px;padding:10px;border-radius:14px;background:#f1f6f4}
-    .flow-step b:first-child{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;color:#fff;background:var(--brand)}
-    .flow-step strong{display:block;font-size:14px}
-    .flow-step span{color:var(--muted);font-size:11px}
+    html, body { width: 100%; height: 100dvh; overflow: hidden }
 
-    /* ANIMATED MODAL SHOWCASE (IMMUTABLE, UNCLICKABLE) */
-    .modal-mock-container{background:#fff;border:1.5px solid #dbe6e4;border-radius:20px;box-shadow:0 14px 40px rgba(18,55,57,.12);padding:15px 17px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden;user-select:none;pointer-events:none}
-    .modal-mock-container::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6366f1 0%,#14b8a6 100%)}
-    .modal-mock-header{display:flex;align-items:flex-start;gap:11px}
-    .mock-flag-box{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#fff4d6,#ffe7b3);display:grid;place-items:center;font-size:20px;flex-shrink:0;box-shadow:0 2px 8px rgba(234,179,8,.18)}
-    .mock-head-text{flex:1;min-width:0}
-    .mock-title{color:#132d34;font-size:12.5px;font-weight:900;line-height:1.25}
-    .mock-subtitle{color:#627982;font-size:10.5px;line-height:1.35;margin-top:2px}
-    .mock-close-btn{width:22px;height:22px;border-radius:50%;background:#f1f5f9;color:#94a3b8;font-size:10px;display:grid;place-items:center;flex-shrink:0}
-    .mock-clues-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#1e3d45}
-    .mock-clue-pill{width:24px;height:24px;border-radius:7px;background:#ede9fe;color:#6366f1;font-size:11px;font-weight:900;display:grid;place-items:center}
-    .mock-solved-box{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:9px;background:#fefce8;border:1px solid #fef08a;color:#854d0e;font-size:11.5px;font-weight:750}
-    .mock-input-wrap{background:#f8fafc;border:1px solid #e2e8f0;border-radius:13px;padding:9px 11px;display:flex;flex-direction:column;gap:5px}
-    .mock-input-label{font-size:11.5px;font-weight:850;color:#172e35}
-    .mock-input-bar{background:#fff;border:1.5px solid #cbd5e1;border-radius:9px;padding:6px 11px;display:flex;align-items:center;position:relative;min-height:35px;transition:all .25s ease}
-    .mock-input-bar.active{border-color:#14b8a6;box-shadow:0 0 0 3px rgba(20,184,166,.15)}
-    .mock-input-bar.success{border-color:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,.25)}
-    .mock-input-placeholder{color:#94a3b8;font-size:11.5px;position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none;transition:opacity .15s}
-    .mock-typed{color:#0f2a31;font-size:12.5px;font-weight:800;letter-spacing:.04em;z-index:1;min-height:16px;display:inline-flex;align-items:center}
-    .mock-caret{display:inline-block;width:2px;height:14px;background:#0ea5e9;margin-left:2px;vertical-align:middle;animation:mockBlink .7s infinite}
-    @keyframes mockBlink{0%,100%{opacity:1}50%{opacity:0}}
-    .mock-key{margin-left:auto;font-size:14px;color:#eab308}
-    .mock-btn-wrapper{position:relative;height:38px}
-    .mock-submit{width:100%;height:38px;border-radius:10px;background:#14b8a6;color:#fff;font-size:12.5px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 12px rgba(20,184,166,.28);transition:all .25s ease}
-    .mock-submit.pressed{transform:scale(0.97);filter:brightness(.92)}
-    .mock-submit.checking{background:#0d9488}
-    .mock-submit.success{background:#10b981;box-shadow:0 4px 14px rgba(16,185,129,.35)}
-    .mock-cursor-svg{position:absolute;width:22px;height:22px;pointer-events:none;opacity:0;right:20px;bottom:-20px;transform:translate(0,0);transition:all .45s cubic-bezier(.22,1,.36,1);z-index:15;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.25))}
-    .mock-cursor-svg.show{opacity:1;transform:translate(-140px,-20px)}
-    .mock-cursor-svg.click{transform:translate(-140px,-20px) scale(0.85)}
+    body {
+      display: flex;
+      color: var(--ink);
+      background: radial-gradient(circle at 10% 6%, #d3ede4, transparent 34%),
+                  radial-gradient(circle at 94% 92%, #d9ebf0, transparent 32%), var(--canvas);
+      font: 500 16px/1.5 "Plus Jakarta Sans", "Trebuchet MS", system-ui, sans-serif;
+    }
 
-    .ready-note{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:17px 0}
-    .ready-note div{padding:12px 7px;border-radius:13px;background:#eef4f2;text-align:center}
-    .ready-note b{display:block;color:var(--brand);font-size:17px}
-    .ready-note span{color:var(--muted);font-size:10px}
-    .finish-copy .btn{text-decoration:none}
-    .password-card .password{font-size:34px}
+    button { font: inherit; cursor: pointer }
+
+    /* ---------- cerceve ---------- */
+    .app { flex: 1; min-width: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--paper) }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: clamp(8px, 1.6vmin, 14px) clamp(12px, 2.4vmin, 26px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mark {
+      width: clamp(28px, 4.6vmin, 38px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--brand);
+      font-weight: 800;
+      font-size: clamp(14px, 2.2vmin, 19px);
+    }
+
+    .title { min-width: 0 }
+    .title strong { display: block; font-size: clamp(12px, 1.9vmin, 15px); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+    .title span { display: block; color: var(--muted); font-size: clamp(10px, 1.5vmin, 12px); font-weight: 700 }
+
+    .track { height: 4px; background: #e2ebe8 }
+    .fill { height: 100%; width: 5%; background: var(--brand); transition: width .25s ease }
+
+    /* ---------- sahne ---------- */
+    main { position: relative; min-height: 0; overflow: hidden }
+
+    .screen { position: absolute; inset: 0; display: none; padding: clamp(14px, 3vmin, 34px); overflow: auto }
+    /* uzun icerikte ustten kirpilmasin diye "safe center" */
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      justify-content: safe center;
+      animation: enter .22s ease;
+    }
+    @keyframes enter { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+
+    .card { width: min(900px, 100%); display: grid; justify-items: center; gap: clamp(10px, 2vmin, 20px); text-align: center }
+
+    .eyebrow { color: var(--brand); font-size: clamp(11px, 1.8vmin, 14px); font-weight: 800; letter-spacing: .14em; text-transform: uppercase }
+
+    .chip { padding: 6px 13px; border-radius: 99px; background: var(--mint); color: var(--brand-dark); font-size: clamp(12px, 2vmin, 15px); font-weight: 800 }
+
+    h1 { font-size: clamp(32px, 7.4vmin, 62px); line-height: 1.05; letter-spacing: -.03em; font-weight: 800 }
+
+    /* ekranin tek cumlesi */
+    .line { font-size: clamp(22px, 4.6vmin, 42px); line-height: 1.26; letter-spacing: -.02em; font-weight: 800 }
+    .line.calm { font-weight: 700; font-size: clamp(20px, 4vmin, 35px) }
+    .line.small { font-size: clamp(18px, 3.5vmin, 30px) }
+
+    .note {
+      padding: clamp(14px, 2.6vmin, 26px) clamp(16px, 3vmin, 30px);
+      border-radius: 18px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(22px, 4.6vmin, 40px);
+      line-height: 1.28;
+      font-weight: 800;
+    }
+
+    .sub { max-width: 660px; color: var(--muted); font-size: clamp(14px, 2.3vmin, 19px); font-weight: 600 }
+
+    /* ---------- gorseller ---------- */
+    .photo { display: grid; width: min(100%, 420px) }
+    .photo img {
+      display: block;
+      width: 100%;
+      max-height: min(30vh, 280px);
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(20, 58, 52, .16);
+    }
+
+    .icon {
+      width: clamp(56px, 10vmin, 96px);
+      aspect-ratio: 1;
+      padding: clamp(9px, 1.6vmin, 15px);
+      border-radius: 20px;
+      background: var(--mint);
+      color: var(--brand-dark);
+    }
+    .icon.big { width: clamp(90px, 18vmin, 160px); border-radius: 28px }
+    .icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round }
+
+    /* ---------- sema ---------- */
+    .flow { width: 100%; display: flex; flex-wrap: nowrap; align-items: stretch; justify-content: center; gap: clamp(6px, 1.3vmin, 14px) }
+    .node {
+      flex: 1 1 0;
+      min-width: 0;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+      gap: 6px;
+      padding: clamp(11px, 2vmin, 20px) clamp(8px, 1.4vmin, 14px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .node .nico {
+      width: clamp(34px, 5.4vmin, 54px);
+      aspect-ratio: 1;
+      padding: clamp(6px, 1.1vmin, 11px);
+      border-radius: 14px;
+      background: var(--mint);
+      color: var(--brand-dark);
+    }
+    .node .nico svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+    .node strong { font-size: clamp(15px, 2.7vmin, 24px); color: var(--brand-dark); line-height: 1.15 }
+    .node span { color: var(--muted); font-size: clamp(11px, 1.85vmin, 15px); font-weight: 700; line-height: 1.25 }
+    .arrow { align-self: center; color: var(--brand); font-size: clamp(20px, 3.2vmin, 30px); font-weight: 800; line-height: 1 }
+
+    /* ---------- formul ---------- */
+    .formula { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: clamp(8px, 1.6vmin, 16px) }
+    .term {
+      display: grid;
+      gap: 4px;
+      padding: clamp(11px, 2vmin, 20px) clamp(14px, 2.4vmin, 26px);
+      border-radius: 16px;
+      background: var(--mint);
+      color: var(--brand-dark);
+      font-size: clamp(18px, 3.3vmin, 30px);
+      font-weight: 800;
+    }
+    .term span { color: var(--brand); font-size: clamp(10px, 1.6vmin, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .plus { color: var(--muted); font-size: clamp(20px, 3.2vmin, 30px); font-weight: 800 }
+
+    /* ---------- karsilastirma ---------- */
+    .compare { width: 100%; display: grid; justify-items: center; gap: clamp(8px, 1.6vmin, 14px) }
+    .box { width: 100%; padding: clamp(13px, 2.4vmin, 24px) clamp(15px, 2.8vmin, 28px); border-radius: 18px; font-size: clamp(18px, 3.5vmin, 31px); font-weight: 800; line-height: 1.3 }
+    .box small { display: block; margin-bottom: 6px; font-size: clamp(10px, 1.7vmin, 13px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .8 }
+    .box.bad { border: 1px solid #e6d5b6; background: #fffaf0; color: var(--amber-ink) }
+    .box.good { border: 1px solid #b8dbd0; background: #f2fbf7; color: var(--brand-dark) }
+
+    /* ---------- secenek kartlari ---------- */
+    .options { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: clamp(8px, 1.6vmin, 14px) }
+    .opt { display: grid; justify-items: center; align-content: start; gap: 6px; padding: clamp(12px, 2.2vmin, 20px) clamp(10px, 1.8vmin, 16px); border: 1px solid var(--line); border-radius: 16px; background: #fff }
+    .opt b { width: clamp(28px, 4.4vmin, 36px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 11px; background: #eef4f2; color: var(--muted); font-size: clamp(14px, 2.3vmin, 18px) }
+    .opt strong { font-size: clamp(15px, 2.6vmin, 21px) }
+    .opt span { color: var(--muted); font-size: clamp(12px, 2vmin, 16px); font-weight: 600 }
+    .opt.pick { border-color: var(--brand); background: #f2fbf7; box-shadow: var(--shadow) }
+    .opt.pick b { background: var(--brand); color: #fff }
+    .opt.pick strong { color: var(--brand-dark) }
+
+    /* ---------- ogrenci karti ---------- */
+    .sheet {
+      width: min(100%, 640px);
+      display: grid;
+      gap: clamp(8px, 1.5vmin, 14px);
+      padding: clamp(15px, 2.6vmin, 26px);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+    .sheet h3 { color: var(--brand-dark); font-size: clamp(15px, 2.6vmin, 21px); font-weight: 800 }
+    .sheet li { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 12px; list-style: none; font-size: clamp(15px, 2.8vmin, 23px); font-weight: 700 }
+    .sheet li + li { margin-top: clamp(6px, 1.2vmin, 12px) }
+    .tick { width: clamp(24px, 3.8vmin, 32px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 9px; background: var(--mint); color: var(--brand-dark); font-size: clamp(13px, 2.1vmin, 17px); font-weight: 900 }
+
+    /* ---------- kontrol kutulari ---------- */
+    .quad { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: clamp(8px, 1.6vmin, 14px) }
+    .q { display: grid; justify-items: center; align-content: start; gap: 5px; padding: clamp(12px, 2.2vmin, 20px) clamp(10px, 1.8vmin, 16px); border: 1px solid var(--line); border-radius: 16px; background: #f8fbfa }
+    .q .tick { background: var(--brand); color: #fff }
+    .q strong { font-size: clamp(15px, 2.6vmin, 21px); color: var(--brand-dark); line-height: 1.2 }
+    .q span { color: var(--muted); font-size: clamp(12px, 2vmin, 15px); font-weight: 600; line-height: 1.25 }
+
+    /* ---------- prompt kutusu ---------- */
+    .prompt {
+      width: 100%;
+      padding: clamp(15px, 2.8vmin, 28px) clamp(16px, 3vmin, 30px);
+      border: 1px solid #b8dbd0;
+      border-radius: 18px;
+      background: #f8fdfb;
+      box-shadow: var(--shadow);
+      color: var(--ink);
+      font-size: clamp(18px, 3.3vmin, 28px);
+      line-height: 1.42;
+      font-weight: 700;
+      text-align: left;
+    }
+    .prompt em { color: var(--brand); font-style: normal; font-weight: 800 }
+
+    .copy { min-height: 46px; padding: 10px 26px; border: 0; border-radius: 11px; color: #fff; background: var(--brand); font-size: clamp(14px, 2.3vmin, 17px); font-weight: 800 }
+    .copy:hover { background: var(--brand-dark) }
+
+    .warn { padding: clamp(14px, 2.6vmin, 26px); border-radius: 18px; background: var(--amber); color: var(--amber-ink); font-size: clamp(21px, 4.3vmin, 37px); line-height: 1.28; font-weight: 800 }
+
+    .password { padding: clamp(12px, 2.2vmin, 20px) clamp(20px, 3.4vmin, 34px); border-radius: 16px; background: var(--brand-dark); color: #fff }
+    .password span { display: block; color: #a9e0d1; font-size: clamp(10px, 1.6vmin, 12px); font-weight: 800; letter-spacing: .12em; text-transform: uppercase }
+    .password strong { display: block; margin-top: 4px; font-size: clamp(26px, 5.2vmin, 44px); font-weight: 800; letter-spacing: .02em }
+
+    /* ---------- alt gezinme ---------- */
+    .bottom {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: clamp(9px, 1.7vmin, 16px) clamp(12px, 2.4vmin, 26px);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .nav { min-height: 44px; padding: 9px clamp(12px, 2.4vmin, 22px); border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: clamp(13px, 2vmin, 16px); font-weight: 800; color: var(--ink) }
+    .nav:hover:not(:disabled) { background: #f2f8f6 }
+    .nav.go { justify-self: end; color: #fff; border-color: var(--brand); background: var(--brand) }
+    .nav.go:hover { background: var(--brand-dark) }
+    .nav.back { justify-self: start }
+    .nav:disabled { opacity: .3; cursor: default }
+
+    .counter { color: var(--muted); font-size: clamp(11px, 1.8vmin, 14px); font-weight: 800; white-space: nowrap }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 84px;
+      z-index: 5;
+      padding: 11px 18px;
+      border-radius: 11px;
+      color: #fff;
+      background: #14424a;
+      font-size: 14px;
+      font-weight: 800;
+      opacity: 0;
+      transform: translate(-50%, 12px);
+      transition: .2s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0) }
+
+    @media (max-width: 520px) {
+      .flow { flex-direction: column }
+      .flow .arrow { transform: rotate(90deg); font-size: 18px }
+      .node { grid-template-columns: auto 1fr; justify-items: start; align-items: center; text-align: left; gap: 2px 12px; padding: 10px 14px }
+      .node .nico { grid-row: span 2 }
+    }
+
+    @media (max-height: 400px) {
+      .photo, .icon { display: none }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important }
+    }
   </style>
 </head>
-<body data-lesson="0">
-  <div class="viewport"><div class="tutorial-stage" data-width="1100" data-height="650">
-    <main class="app" aria-label="TeachTech - Eğitimde Yapay Zeka Patikası kullanım rehberi">
-      <header class="appbar"><div class="brand"><span class="brand-mark">✦</span> AI-GALAXY</div><div class="lesson-meta"><strong>TeachTech</strong> · Eğitimde Yapay Zeka Patikası · Ders 0</div><div class="progress"><span id="count">1 / 9</span><div class="track"><div class="fill" id="fill"></div></div></div></header>
-      <section class="stage">
-        <!-- 1. SCREEN -->
-        <article class="screen active hero-screen" data-title="Patikaya hoş geldiniz"><div class="hero"><section class="hero-copy"><p class="eyebrow">Tanıtım · yöntem · kullanım</p><h1>TeachTech - Eğitimde Yapay Zeka Patikası</h1><p>İhtiyaçtan sınıfa, taslaktan güvenilir içeriğe. Yapay zekâyı öğretmenin yerine değil, öğretmenin tasarım gücünü artırmak için kullanın.</p><div class="hero-pills"><span>Gerçek öğretmen işi</span><span>Uygulamalı istemler</span><span>İnsan denetimi</span></div></section><section class="panel hero-visual"><img src="assets/teacher-ai-planning.png" alt="Yapay zekâ ile eğitim içeriği tasarlayan öğretmen"><div class="visual-row"><div class="visual-cell"><b>İhtiyaç</b><span>neyi çözmeliyim?</span></div><div class="visual-cell"><b>Tasarım</b><span>nasıl üretmeliyim?</span></div><div class="visual-cell"><b>Kontrol</b><span>sınıfa hazır mı?</span></div></div></section></div></article>
 
-        <!-- 2. SCREEN -->
-        <article class="screen" data-title="Neden önemli?"><header class="head"><div><p class="eyebrow">Önce yaklaşım</p><h2>Hızlı içerik değil, iyi öğretmen kararı</h2><p class="lede">Patika; yapay zekâ çıktısını doğrudan kullanmak yerine hedefe göre üretme, deneme ve doğrulama alışkanlığı kazandırır.</p></div><span class="chip">Öğretmen merkezde</span></header><div class="guide-grid"><section class="panel guide-card"><span class="ico">🎯</span><b>İhtiyacı seç</b><p>Gerçek bir ders işini ve beklediğiniz öğrenme kanıtını netleştirin.</p></section><section class="panel guide-card"><span class="ico">🛠️</span><b>Bir taslak üret</b><p>İstemi kendi sınıfınızla doldurun; çıktıyı başlangıç sürümü kabul edin.</p></section><section class="panel guide-card"><span class="ico">✓</span><b>Öğretmen olarak denetle</b><p>Doğruluk, düzey, güvenlik ve uygulanabilirlik kontrolünü siz yapın.</p></section></div></article>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.8" /><circle cx="12" cy="12" r="1.4" /></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12S6.5 5.8 12 5.8 21.2 12 21.2 12 17.5 18.2 12 18.2 2.8 12 2.8 12z" /><circle cx="12" cy="12" r="2.9" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 6.5h9" /><path d="M4.5 12h9" /><path d="M4.5 17.5h6" /><path d="m16 15.5 2.2 2.2 4-4.4" /></symbol>
+      <symbol id="i-question" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9.2 9.4a2.8 2.8 0 0 1 5.5.7c0 1.9-2.7 2.2-2.7 4" /><path d="M12 17.4h.01" /></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z" /><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z" /></symbol>
+      <symbol id="i-shapes" viewBox="0 0 24 24"><rect x="3" y="13" width="8" height="8" rx="1.5" /><circle cx="17" cy="17" r="4" /><path d="M11 3.5 15.5 11h-9z" /></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c-1.5-6 2.5-12 14-13 1 9-3.5 14-9.5 14-1.9 0-3.4-.4-4.5-1z" /><path d="M6.5 17.5C9 14 12 11.6 16 10" /></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.1 5.2L19.5 10l-5.4 1.8L12 17l-2.1-5.2L4.5 10l5.4-1.8z" /><path d="M18.5 16.5 19.3 18.6 21.5 19.4 19.3 20.2 18.5 22.3 17.7 20.2 15.5 19.4 17.7 18.6z" /></symbol>
+      <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6.5" r="2.5" /><circle cx="6" cy="17.5" r="2.5" /><path d="M8.2 7.8 20 18" /><path d="M8.2 16.2 20 6" /></symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4 20h4l10-10a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5z" /><path d="M14 7.5 16.5 10" /></symbol>
+      <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 15.5a2.5 2.5 0 0 1-2.5 2.5H9l-4 3v-3H6.5A2.5 2.5 0 0 1 4 15.5v-8A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5z" /><path d="M8.5 9.5h7" /><path d="M8.5 13h4" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5.2l3.2 2" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 19 6v6c0 4.2-3 7.3-7 8.5-4-1.2-7-4.3-7-8.5V6z" /><path d="M12 9v4" /><path d="M12 16h.01" /></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4" /><path d="M6 4.5h11l-2 3.5 2 3.5H6z" /></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 8.5 4.5L12 12 3.5 7.5z" /><path d="m4 12 8 4.3 8-4.3" /><path d="m4 16.5 8 4.3 8-4.3" /></symbol>
+      <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8.5h14" /><path d="m15 5.5 3 3-3 3" /><path d="M20 15.5H6" /><path d="m9 12.5-3 3 3 3" /></symbol>
+      <symbol id="i-wand" viewBox="0 0 24 24"><path d="m4 20 10-10" /><path d="m13.5 5.5 1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z" /><path d="M19 13.5l.7 1.5 1.5.7-1.5.7-.7 1.5-.7-1.5-1.5-.7 1.5-.7z" /></symbol>
+      <symbol id="i-ruler" viewBox="0 0 24 24"><path d="M3.5 15.5 15.5 3.5l5 5-12 12z" /><path d="m7.5 11.5 2 2" /><path d="m10.5 8.5 2 2" /><path d="m13.5 5.5 2 2" /></symbol>
+      <symbol id="i-exit" viewBox="0 0 24 24"><rect x="3.5" y="5" width="13" height="14" rx="2" /><path d="M20.5 12h-6" /><path d="m17.5 9 3 3-3 3" /></symbol>
+      <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 4h4v2.2a1.8 1.8 0 1 0 3.6 0V4H20v4h-2.2a1.8 1.8 0 1 0 0 3.6H20V20h-4.4v-2.2a1.8 1.8 0 1 0-3.6 0V20H4v-4.4h2.2a1.8 1.8 0 1 0 0-3.6H4V8h6z" /></symbol>
+      <symbol id="i-table" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2" /><path d="M3.5 9.5h17" /><path d="M9.5 9.5v10" /><path d="M15 9.5v10" /></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3.2" /><path d="M3.5 19.5c.6-3 2.8-4.6 5.5-4.6s4.9 1.6 5.5 4.6" /><path d="M16.2 6.2a3 3 0 0 1 0 5.6" /><path d="M17.5 15.2c2 .5 3.3 2 3.7 4.3" /></symbol>
+      <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 3.5h4" /><path d="M11 3.5v6L5.8 18a2 2 0 0 0 1.7 3h9a2 2 0 0 0 1.7-3L13 9.5v-6" /><path d="M8 15h8" /></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="6" r="2.6" /><circle cx="6" cy="12" r="2.6" /><circle cx="18" cy="18" r="2.6" /><path d="m8.4 10.8 7.2-3.6" /><path d="m8.4 13.2 7.2 3.6" /></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.4-7.5-9.3A4.2 4.2 0 0 1 12 8.2a4.2 4.2 0 0 1 7.5 2.5C19.5 15.6 12 20 12 20z" /></symbol>
+      <symbol id="i-hand" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11" /><path d="M12 10.5V4.8a1.5 1.5 0 0 1 3 0V11" /><path d="M15 11V7.5a1.5 1.5 0 0 1 3 0V14c0 3.6-2.4 6.5-6 6.5s-6-2.6-6-6V13a1.5 1.5 0 0 1 3 0" /></symbol>
+      <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9.5 17.5h5" /><path d="M10 20.5h4" /><path d="M12 3.5a5.5 5.5 0 0 1 3.2 10c-.5.4-.7.9-.7 1.5h-5c0-.6-.2-1.1-.7-1.5A5.5 5.5 0 0 1 12 3.5z" /></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3.5H7a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8z" /><path d="M14 3.5V8h4.5" /><path d="M8.5 13h7" /><path d="M8.5 16.5h5" /></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10.5" rx="2" /><path d="M8 10V7.5a4 4 0 0 1 8 0V10" /><path d="M12 14v3" /></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16" /><path d="M6 20h12" /><path d="M4 8h16" /><path d="M4 8 1.8 13a2.6 2.6 0 0 0 4.4 0z" /><path d="M20 8l-2.2 5a2.6 2.6 0 0 0 4.4 0z" /></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6" /><rect x="13.5" y="3.5" width="7" height="7" rx="1.6" /><rect x="3.5" y="13.5" width="7" height="7" rx="1.6" /><rect x="13.5" y="13.5" width="7" height="7" rx="1.6" /></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12" height="12" rx="2" /><path d="M15.5 5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2" /></symbol>
+      <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M13.5 4.5c3.5 2 5.5 5.5 5.5 9.5l-4 3h-6l-4-3c0-4 2-7.5 5.5-9.5a3 3 0 0 1 3 0z" /><circle cx="12" cy="10.5" r="2" /><path d="M9 17c-1 1.5-1 3.5 0 4 1-.5 1.7-1.4 2-2.5" /><path d="M15 17c1 1.5 1 3.5 0 4-1-.5-1.7-1.4-2-2.5" /></symbol>
+    </defs>
+  </svg>
 
-        <!-- 3. SCREEN -->
-        <article class="screen" data-title="AI-GALAXY kullanım videosu"><header class="head"><div><p class="eyebrow">AI-GALAXY kullanma rehberi</p><h2>Bir dakikada çalışma biçimini görün</h2><p class="lede">Videoyu izleyin; sonra örnek bir istemi düzenleyip AI-GALAXY editöründe deneyin.</p></div><span class="chip blue">▶ 59 saniye</span></header><div class="video-layout"><section class="panel video-frame"><video id="guideVideo" controls preload="metadata" playsinline poster="assets/teacher-ai-planning.png"><source src="assets/video1.mp4" type="video/mp4">Tarayıcınız video oynatmayı desteklemiyor.</video></section><aside class="card video-notes soft-cyan"><div class="watch-step"><b>1</b><span>İstem alanını bulun.</span></div><div class="watch-step"><b>2</b><span>Köşeli alanları kendi dersinizle değiştirin.</span></div><div class="watch-step"><b>3</b><span>Çıktıyı kontrol edip iyileştirin.</span></div><p class="micro">Sesli izleyemiyorsanız görüntüdeki işlem sırasını takip edin.</p></aside></div></article>
+  <div class="app">
+    <header>
+      <div class="topbar">
+        <div class="mark">0</div>
+        <div class="title">
+          <strong>Başlangıç Rehberi</strong>
+          <span>TeachTech &middot; Giriş</span>
+        </div>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </header>
 
-        <!-- 4. SCREEN -->
-        <article class="screen" data-title="Gerçek bir işle başlayın"><header class="head"><div><p class="eyebrow">Verimli kullanım 1</p><h2>Yapay zekâyı açmadan önce işi seçin</h2><p class="lede">“Ne yapabilir?” yerine “Benim hangi öğretmen işimi iyileştirebilir?” diye sorun.</p></div><span class="chip amber">Tek ihtiyaç</span></header><div class="task-layout"><section class="panel task-main"><span class="chip">Örnek ihtiyaç</span><blockquote>“Çıkış biletlerindeki ortak yanılgıları yarınki ısınmaya dönüştürmeliyim.”</blockquote><p class="micro">Amaç, bağlam ve öğretmen kontrolü görünür olduğunda istem daha kullanışlı olur.</p></section><aside class="card task-list"><div class="task-item"><span>📄</span><span><b>Materyal hazırlama</b><small>Çalışma kâğıdı, kart, yönerge</small></span></div><div class="task-item"><span>🧩</span><span><b>Etkinlik uyarlama</b><small>Süre, sınıf büyüklüğü, düzey</small></span></div><div class="task-item"><span>🔎</span><span><b>Öğrenme kanıtı</b><small>Soru, rubrik, geri bildirim</small></span></div></aside></div></article>
-
-        <!-- 5. SCREEN -->
-        <article class="screen" data-title="Ekranlarda ilerleme"><header class="head"><div><p class="eyebrow">Verimli kullanım 2</p><h2>Her ekranda tek işi tamamlayın</h2><p class="lede">Okuyun, küçük kararı verin veya istemi deneyin; sonra ilerleyin.</p></div><span class="chip">Kaydırma gerekmez</span></header><div class="task-layout"><section class="panel nav-demo"><div class="nav-demo-top"><b>AI-GALAXY · Ders ekranı</b><span>3 / …</span></div><div class="nav-demo-body"><span class="chip">Tek ekran · tek amaç</span><strong>Örneği incele, sonra uygula</strong><p class="micro">Düğmeler veya klavyedeki ← → tuşlarıyla ilerleyin.</p></div><div class="nav-demo-bottom"><span class="micro">Ekran başlığı</span><span class="demo-dots"><i></i><i></i><i></i><i></i><i></i></span><span class="btn primary">İleri →</span></div></section><aside class="card video-notes soft-mint"><div class="watch-step"><b>←</b><span>Önceki ekrana dönün.</span></div><div class="watch-step"><b>•</b><span>Noktalarla istediğiniz ekrana geçin.</span></div><div class="watch-step"><b>→</b><span>Hazır olduğunuzda ilerleyin.</span></div><p class="micro">Yarım pencerede de bütün tutorial görünür kalır.</p></aside></div></article>
-
-        <!-- 6. SCREEN -->
-        <article class="screen" data-title="İstemi uygulama"><header class="head"><div><p class="eyebrow">Verimli kullanım 3</p><h2>İstemi kopyalamadan önce kişiselleştirin</h2><p class="lede">Köşeli alanları değiştirin; AI-GALAXY’ye yapıştırın; ilk çıktıyı öğretmen gözüyle düzeltin.</p></div><span class="chip blue">Düzenle → kopyala → dene</span></header><div class="practice-layout"><aside class="card insight soft-cyan"><div class="practice-no">✎</div><div class="insight-visual"><span>🎯</span><span>🏫</span><span>✓</span></div><blockquote>“İstemi kendi sınıfımın gerçeğine göre doldururum.”</blockquote><p class="micro">Öğrenci adı veya kişisel veri kullanmayın.</p></aside><section class="panel prompt-panel"><div class="prompt-head"><div><span class="chip">Deneme istemi</span><h3 style="margin:7px 0 0">Günlük yaşam bağlantılı ısınma</h3></div><button class="btn small" data-copy-target="guidePrompt">Kopyala</button></div><textarea class="prompt-editor" id="guidePrompt" aria-label="Düzenlenebilir örnek istem">[Sınıf/branş] için “[hedef]” konusunda 5 dakikalık bir ısınma etkinliği tasarla. Günlük yaşamdan tek durum kullan. Öğrenci önce tahmin etsin, sonra gerekçesini bir arkadaşıyla paylaşsın. Gerekli malzemeyi ve öğretmenin izleyeceği iki öğrenme işaretini yaz.</textarea><div class="prompt-foot"><div class="prompt-tags"><span>sınıf</span><span>hedef</span><span>süre</span><span>kanıt</span></div><span class="micro">Taslağı sınıfta kullanmadan önce doğrulayın.</span></div></section></div></article>
-
-        <!-- 7. SCREEN (RICH PREVIEW CONTENT WITHOUT BROKEN WIREFRAMES) -->
-        <article class="screen" data-title="Derslerden örnekler"><header class="head"><div><p class="eyebrow">Örnek çıktılar</p><h2>Patikada üreteceğiniz temel çıktılar</h2><p class="lede">Her ders, sınıfınızda hemen kullanabileceğiniz farklı bir öğretmen aracına odaklanır.</p></div><span class="chip">Uygulama odaklı</span></header><div class="example-grid">
-          <!-- Card 1 -->
-          <section class="example-card">
-            <div>
-              <div class="example-card-head"><span class="chip">Planlama</span><span style="font-size:18px">📋</span></div>
-              <h3>Ders Planı İskeleti</h3>
-            </div>
-            <div class="example-snippet-box">
-              <div class="snippet-item"><span>•</span><div><strong>Isınma (5 dk):</strong> Merak uyandıran soru</div></div>
-              <div class="snippet-item"><span>•</span><div><strong>Keşif (20 dk):</strong> Kavram inşa süreci</div></div>
-              <div class="snippet-item"><span>•</span><div><strong>Kanıt (15 dk):</strong> Uygulama ve dönüt</div></div>
-            </div>
-            <div class="card-status-badge">✦ Ders 4 Kapsamı</div>
-          </section>
-
-          <!-- Card 2 -->
-          <section class="example-card">
-            <div>
-              <div class="example-card-head"><span class="chip blue">Etkinlik</span><span style="font-size:18px">💡</span></div>
-              <h3>Günlük Yaşam Kancası</h3>
-            </div>
-            <div class="example-snippet-box">
-              <div class="snippet-item"><span>•</span><div><strong>Gerçek Yaşam:</strong> Somut günlük senaryo</div></div>
-              <div class="snippet-item"><span>•</span><div><strong>İkili Paylaşım:</strong> Tahmin ve gerekçe</div></div>
-              <div class="snippet-item"><span>•</span><div><strong>Öğretmen Gözlemi:</strong> 2 öğrenme işareti</div></div>
-            </div>
-            <div class="card-status-badge blue">✦ Ders 7 Kapsamı</div>
-          </section>
-
-          <!-- Card 3 -->
-          <section class="example-card">
-            <div>
-              <div class="example-card-head"><span class="chip amber">Ölçme</span><span style="font-size:18px">🎫</span></div>
-              <h3>Çıkış Bileti</h3>
-            </div>
-            <div class="example-snippet-box">
-              <div class="snippet-item"><span>•</span><div><strong>Kritik Soru:</strong> 1 temel anlama sorusu</div></div>
-              <div class="snippet-item"><span>•</span><div><strong>Yanılgı Teşhisi:</strong> Hızlı tarama</div></div>
-              <div class="snippet-item"><span>•</span><div><strong>Sonraki Adım:</strong> Yarınki ders için veri</div></div>
-            </div>
-            <div class="card-status-badge amber">✦ Ders 8 Kapsamı</div>
-          </section>
-        </div></article>
-
-        <!-- 8. SCREEN (SEAMLESS PASSWORD ANIMATION) -->
-        <article class="screen" data-title="Şifreyi kullanma" id="screenPassword"><header class="head"><div><p class="eyebrow">Ders tamamlama</p><h2>Şifre son ekranda görünür</h2><p class="lede">Dersi tamamladığınızda kısa, küçük harfli anahtar kelimeyi ana sistemdeki şifre alanına girin.</p></div><span class="chip amber">Küçük harf</span></header><div class="password-layout"><section class="panel flow-list"><div class="flow-step"><b>1</b><span><strong>Dersin son ekranına ilerleyin</strong><span>Şifre yalnız final bölümünde görünür.</span></span></div><div class="flow-step"><b>2</b><span><strong>Şifreyi kopyalayın</strong><span>Türkçe karakterleri değiştirmeyin.</span></span></div><div class="flow-step"><b>3</b><span><strong>Ana sistemdeki alana girin</strong><span>Onaydan sonra sıradaki adıma geçin.</span></span></div></section><aside class="modal-mock-container" aria-label="Şifre Giriş Alanı Örnek Görseli"><div class="modal-mock-header"><div class="mock-flag-box">🚩</div><div class="mock-head-text"><div class="mock-title">AI-Galaxy Teach Tech Ders 1: Eğitim İhtiyacını Belirleme – Görsel Rehber</div><div class="mock-subtitle">İpuçlarını dikkatlice incele, doğru şifreyi (FLAG'i) bul ve görevi tamamla.</div></div><div class="mock-close-btn">✕</div></div><div class="mock-clues-row"><span>💡 <b>İpuçları</b></span><div style="display:flex;gap:5px"><span class="mock-clue-pill">1</span><span class="mock-clue-pill">2</span></div></div><div class="mock-solved-box"><span>🏆</span><span><b>1 öğretmen</b> tarafından çözüldü</span></div><div class="mock-input-wrap"><div class="mock-input-label">Bulduğun şifreyi (FLAG'i) buraya yaz</div><div class="mock-input-bar active" id="mockInputBar"><span class="mock-input-placeholder" id="mockPlaceholder">Şifre (FLAG) değerini yaz...</span><span class="mock-typed" id="mockTypedText"></span><span class="mock-caret" id="mockCaret"></span><span class="mock-key">🔑</span></div></div><div class="mock-btn-wrapper"><div class="mock-submit" id="mockSubmitBtn"><span id="mockBtnText">Şifreyi (FLAG'i) Kontrol Et 🚀</span></div><svg class="mock-cursor-svg" id="mockCursor" viewBox="0 0 24 24" fill="none"><path d="M4 2L20 10L12 12L10 20L4 2Z" fill="#1e293b" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/></svg></div></aside></div></article>
-
-        <!-- 9. SCREEN -->
-        <article class="screen hero-screen" data-title="Başlamaya hazırsınız"><div class="finish"><section class="card finish-copy"><p class="eyebrow">Patikaya hazırsınız</p><h2>Küçük bir öğretmen işi seçin ve deneyerek ilerleyin.</h2><p class="lede" style="margin-top:8px">İhtiyacı tanımlayın, istemi uyarlayın, çıktıyı doğrulayın ve işe yarayan sürümü saklayın.</p><div class="ready-note"><div><b>1</b><span>gerçek iş</span></div><div><b>✎</b><span>düzenlenmiş istem</span></div><div><b>✓</b><span>öğretmen kontrolü</span></div><div><b>↻</b><span>iyileştirme</span></div></div><div class="finish-actions"><button class="btn primary" data-copy-target="password-0">Şifreyi kopyala</button></div></section><section class="panel password-card"><div class="password-inner"><div class="lock">🔓</div><div style="color:rgba(255,255,255,.7);font-size:11px;font-weight:900;letter-spacing:.12em">TANITIM ŞİFRESİ</div><div class="password" id="password-0">başla</div><p style="margin:0;color:rgba(255,255,255,.72);font-size:12px">Küçük harflerle yazın.</p></div></section></div></article>
+    <main id="main">
+      <!-- 1 -->
+      <section class="screen active">
+        <div class="card"><p class="eyebrow">TeachTech</p><h1>Başlangıç Rehberi</h1><div class="icon big"><svg><use href="#i-spark" /></svg></div><p class="line calm">Bu patika, yapay zekâyı eğitimde etkin kullanmak için hazırlandı.</p><p class="sub">Her ekranda tek bir bilgi var. İlerlemek için “İleri” düğmesine basın.</p></div>
       </section>
-      <footer class="bottombar"><div class="nav-note"><strong id="navTitle">Patikaya hoş geldiniz</strong><br>← → tuşlarıyla ilerleyebilirsiniz.</div><div class="dots" id="dots"></div><div class="nav-actions"><button class="btn" id="prev" disabled>← Geri</button><button class="btn primary" id="next">İleri →</button></div></footer>
-    </main><div class="toast" id="toast"></div>
-  </div></div>
-  <script src="assets/teach-tech-common.js"></script>
+
+      <!-- 2 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Bu rehber ne yapar?</p><p class="note">10 küçük ders; her ekranda tek bilgi, bol örnek prompt.</p></div>
+      </section>
+
+      <!-- 3 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Her ders böyle işler</p><div class="flow"><div class="node"><div class="nico"><svg><use href="#i-book" /></svg></div><strong>Oku</strong><span>Ekranda tek cümle</span></div><div class="arrow">&#8594;</div><div class="node"><div class="nico"><svg><use href="#i-copy" /></svg></div><strong>Kopyala</strong><span>Hazır örnek prompt</span></div><div class="arrow">&#8594;</div><div class="node"><div class="nico"><svg><use href="#i-spark" /></svg></div><strong>Dene</strong><span>AI-Galaxy editöründe</span></div></div><p class="sub">Üç adım; başka bir şey öğrenmenize gerek yok.</p></div>
+      </section>
+
+      <!-- 4 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Düğmeler</p><div class="icon"><svg><use href="#i-swap" /></svg></div><p class="line">Sadece “Geri” ve “İleri” düğmelerini kullanırsınız.</p></div>
+      </section>
+
+      <!-- 5 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Kopyalama</p><div class="icon"><svg><use href="#i-copy" /></svg></div><p class="line">“Kopyala”ya basın, promptu editöre yapıştırın.</p></div>
+      </section>
+
+      <!-- 6 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Bir dersin içinde ne var?</p><div class="sheet"><h3>Her derste sırasıyla</h3><ul><li><span class="tick">&#10003;</span>Günün tek bilgisi</li><li><span class="tick">&#10003;</span>Görselli kısa şema</li><li><span class="tick">&#10003;</span>10 kopyalanabilir örnek prompt</li><li><span class="tick">&#10003;</span>Dört soruluk kontrol listesi</li><li><span class="tick">&#10003;</span>Adım şifresi</li></ul></div><p class="line small">Bir ders ortalama 10 dakika sürer.</p></div>
+      </section>
+
+      <!-- 7 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 1 · İhtiyaçtan Başla</p><div class="icon"><svg><use href="#i-target" /></svg></div><p class="line small">Yapay zekâya konuyu değil, öğrencinizin zorlandığı yeri anlatırsınız.</p></div>
+      </section>
+
+      <!-- 8 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 2 · Kazanımı Görünür Yap</p><div class="icon"><svg><use href="#i-eye" /></svg></div><p class="line small">Kazanımı gözlenebilir bir hedefe, kanıta ve üç ölçüte çevirirsiniz.</p></div>
+      </section>
+
+      <!-- 9 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 3 · Etkili İstem Yazma</p><div class="icon"><svg><use href="#i-wand" /></svg></div><p class="line small">Görev, bağlam ve çıktı biçimini söyleyerek net istem yazarsınız.</p></div>
+      </section>
+
+      <!-- 10 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 4 · Ders Planı Geliştirme</p><div class="icon"><svg><use href="#i-clock" /></svg></div><p class="line small">40 dakikayı öğrencinin düşünmesine göre bölersiniz.</p></div>
+      </section>
+
+      <!-- 11 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 5 · Öğrenci Düzeyine Uyarlama</p><div class="icon"><svg><use href="#i-hand" /></svg></div><p class="line small">Hedefi düşürmeden öğrencinin önündeki engeli kaldırırsınız.</p></div>
+      </section>
+
+      <!-- 12 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 6 · Öğretim Materyali</p><div class="icon"><svg><use href="#i-doc" /></svg></div><p class="line small">Tek amaçlı, sade ve gerçekten kullanılabilir materyal hazırlarsınız.</p></div>
+      </section>
+
+      <!-- 13 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 7 · Etkinlik Geliştirme</p><div class="icon"><svg><use href="#i-bulb" /></svg></div><p class="line small">Hareketi değil düşünmeyi görünür kılan etkinlikler kurarsınız.</p></div>
+      </section>
+
+      <!-- 14 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 8 · Ölçme ve Geri Bildirim</p><div class="icon"><svg><use href="#i-ruler" /></svg></div><p class="line small">Ölçme sonucunu yarınki dersin kararına çevirirsiniz.</p></div>
+      </section>
+
+      <!-- 15 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 9 · Doğruluk ve Etik</p><div class="icon"><svg><use href="#i-shield" /></svg></div><p class="line small">Sınıfa girmeden önce doğruluk, veri ve güvenlik kontrolü yaparsınız.</p></div>
+      </section>
+
+      <!-- 16 -->
+      <section class="screen">
+        <div class="card"><p class="chip">Ders 10 · İyileştirme ve Paylaşma</p><div class="icon"><svg><use href="#i-rocket" /></svg></div><p class="line small">Taslağı denersiniz, tek sorunu düzeltirsiniz ve kaynağıyla paylaşırsınız.</p></div>
+      </section>
+
+      <!-- 17 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Her dersin sonunda</p><div class="icon"><svg><use href="#i-lock" /></svg></div><p class="line">Bir adım şifresi verilir; onu patikaya girersiniz.</p></div>
+      </section>
+
+      <!-- 18 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Tüm derslerde geçerli</p><div class="icon"><svg><use href="#i-shield" /></svg></div><p class="warn">Yapay zekâya öğrenci adı, notu veya sağlık bilgisi yazmayın.</p></div>
+      </section>
+
+      <!-- 19 -->
+      <section class="screen">
+        <div class="card"><p class="eyebrow">Hazırsınız</p><div class="icon"><svg><use href="#i-flag" /></svg></div><p class="line">Ders 1 ile başlayın: “İhtiyaçtan Başla”.</p><div class="password"><span>Adım şifresi</span><strong>başla</strong></div></div>
+      </section>
+
+    </main>
+
+    <footer class="bottom">
+      <button class="nav back" id="prev" type="button">&#8592; Geri</button>
+      <span class="counter" id="counter">1 / 19</span>
+      <button class="nav go" id="next" type="button">İleri &#8594;</button>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>
-    const guideVideo = document.getElementById('guideVideo'), videoScreen = guideVideo.closest('.screen');
-    new MutationObserver(() => { if (!videoScreen.classList.contains('active')) guideVideo.pause(); }).observe(videoScreen, { attributes: true, attributeFilter: ['class'] });
-
-    // Smooth Password Input Animated Showcase
     (() => {
-      const typedEl = document.getElementById('mockTypedText'),
-            phEl = document.getElementById('mockPlaceholder'),
-            caretEl = document.getElementById('mockCaret'),
-            inputBar = document.getElementById('mockInputBar'),
-            btn = document.getElementById('mockSubmitBtn'),
-            btnText = document.getElementById('mockBtnText'),
-            cursor = document.getElementById('mockCursor'),
-            screenPassword = document.getElementById('screenPassword');
-      if (!typedEl || !btn) return;
+      const screens = [...document.querySelectorAll('.screen')];
+      const total = screens.length;
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      const fill = document.getElementById('fill');
+      const counter = document.getElementById('counter');
+      const toast = document.getElementById('toast');
+      let index = 0, timer;
 
-      const targetWord = 'ihtiyaç';
-      const timeouts = [];
-      let charInterval = null;
+      const say = text => {
+        toast.textContent = text;
+        toast.classList.add('show');
+        clearTimeout(timer);
+        timer = setTimeout(() => toast.classList.remove('show'), 1700);
+      };
 
-      function addTimeout(fn, ms) {
-        const id = setTimeout(fn, ms);
-        timeouts.push(id);
-        return id;
-      }
+      const go = target => {
+        index = Math.max(0, Math.min(total - 1, target));
+        screens.forEach((screen, i) => screen.classList.toggle('active', i === index));
+        screens[index].scrollTop = 0;
+        fill.style.width = ((index + 1) / total * 100) + '%';
+        counter.textContent = (index + 1) + ' / ' + total;
+        prev.disabled = index === 0;
+        next.textContent = index === total - 1 ? 'Başa dön \u21ba' : 'İleri \u2192';
+      };
 
-      function clearAll() {
-        if (charInterval) clearInterval(charInterval);
-        while (timeouts.length) clearTimeout(timeouts.pop());
-      }
+      prev.onclick = () => go(index - 1);
+      next.onclick = () => go(index === total - 1 ? 0 : index + 1);
 
-      function startCycle() {
-        clearAll();
-        typedEl.textContent = '';
-        phEl.style.opacity = '1';
-        phEl.style.display = 'block';
-        caretEl.style.display = 'inline-block';
-        inputBar.className = 'mock-input-bar active';
-        btn.className = 'mock-submit';
-        btnText.innerHTML = 'Şifreyi (FLAG\'i) Kontrol Et 🚀';
-        cursor.className = 'mock-cursor-svg';
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowRight') go(index + 1);
+        if (event.key === 'ArrowLeft') go(index - 1);
+      });
 
-        addTimeout(() => {
-          phEl.style.opacity = '0';
-          phEl.style.display = 'none';
-          let i = 0;
-          charInterval = setInterval(() => {
-            if (i < targetWord.length) {
-              typedEl.textContent += targetWord[i];
-              i++;
-            } else {
-              clearInterval(charInterval);
-              addTimeout(() => {
-                cursor.className = 'mock-cursor-svg show';
-                addTimeout(() => {
-                  cursor.className = 'mock-cursor-svg show click';
-                  btn.classList.add('pressed');
-                  addTimeout(() => {
-                    btn.classList.remove('pressed');
-                    btn.className = 'mock-submit checking';
-                    btnText.innerHTML = '⏳ Kontrol Ediliyor...';
-                    cursor.className = 'mock-cursor-svg';
-                    addTimeout(() => {
-                      btn.className = 'mock-submit success';
-                      btnText.innerHTML = '🎉 Şifre Doğru! Tebrikler ✨';
-                      inputBar.className = 'mock-input-bar success';
-                      addTimeout(startCycle, 2800);
-                    }, 700);
-                  }, 250);
-                }, 450);
-              }, 300);
-            }
-          }, 140);
-        }, 600);
-      }
+      let startX = null;
+      const main = document.getElementById('main');
+      main.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; }, { passive: true });
+      main.addEventListener('touchend', e => {
+        if (startX === null) return;
+        const delta = e.changedTouches[0].clientX - startX;
+        if (Math.abs(delta) > 60) go(index + (delta < 0 ? 1 : -1));
+        startX = null;
+      }, { passive: true });
 
-      // Start on active
-      if (screenPassword) {
-        new MutationObserver(() => {
-          if (screenPassword.classList.contains('active')) {
-            startCycle();
-          } else {
-            clearAll();
+      document.querySelectorAll('[data-copy]').forEach(button => {
+        button.onclick = async () => {
+          const text = document.getElementById(button.dataset.copy).innerText.trim();
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (_) {
+            const area = document.createElement('textarea');
+            area.value = text;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand('copy');
+            area.remove();
           }
-        }).observe(screenPassword, { attributes: true, attributeFilter: ['class'] });
-      }
+          say('Prompt kopyalandı');
+        };
+      });
 
-      startCycle();
+      go(0);
     })();
   </script>
 </body>
+
 </html>
